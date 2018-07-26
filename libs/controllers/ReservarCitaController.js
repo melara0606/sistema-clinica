@@ -51,9 +51,6 @@ module.exports = function($scope, $uibModal, object, Restangular, toastr) {
             $scope.categorias = categorias.data
             $scope.isViewFalseAndTrue = isViewFalseAndTrue
 
-            console.log(sucursales)
-
-
             $scope.itemExamens = { show: false, item: [], ids: [], pagar: 0.00 }
             $scope.cerrar = () => $uibModalInstance.close({ result: false })
 
