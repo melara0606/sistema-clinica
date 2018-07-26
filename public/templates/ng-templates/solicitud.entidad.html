@@ -4,22 +4,23 @@
     <div class="panel-body">
       <form ng-submit="addExamen(frm.$valid, this);"
         class="bs-example form-horizontal ng-pristine ng-valid" name="frm">
-        <div class="form-group" ng-show='entidad.examenes.length > 0'>
-          <label class="col-lg-2 control-label">Examenes: </label>
-          <div class="col-lg-10">
-            <select required class="form-control" ng-model='examen'>
-              <option></option>
-              <option ng-repeat='examen in entidad.examenes' value="{{examen}}">
-                {{examen.nombre_examen}} - {{examen.nombre_categoria}}
-              </option>
-            </select>
-          </div>
-        </div>
 
-        <div class="form-group">
-          <div class="col-lg-offset-2 col-lg-10">
-            <button type="submit" ng-disabled='frm.$invalid'
-              class="btn btn-info">Agregar</button>
+        <div class="form-group" ng-show='entidad.examenes.length > 0'>
+         <h3 class='text-left' style='margin-left: 15px'>Examenes</h3>          
+        </div>
+        <div class='form-group'>
+          <div class='col-xs-12'>
+            <div class="form-group">
+              <div class="checkbox pull-left col-xs-4" ng-repeat='elemento in entidad.examenes'>
+                <label class="i-checks">
+                  <input type="checkbox" ng-checked='elemento.value'
+                    ng-model='elemento.value' ng-change='onValueEntidadData(elemento, this)' ng-true-value='{{ elemento }}' 
+                    ng-false-value ='false' />
+                  <i></i>
+                  {{ elemento.nombre_examen }}
+                </label>
+              </div>
+            </div>          
           </div>
         </div>
       </form>
@@ -58,8 +59,8 @@
           <td class="text-right">{{ item.nombre_categoria }}</td>
           <td class="text-right">{{ item.precio | currency }}</td>
           <td>
-            <button ng-click="onDeleteItem($index);"
-              class="btn btn-danger fa fa-trash-o" tooltip-placement="top" uib-tooltip="Eliminar"></button>
+            <!-- <button ng-click="onDeleteItem($index);"
+              class="btn btn-danger fa fa-trash-o" tooltip-placement="top" uib-tooltip="Eliminar"></button> -->
           </td>
         </tr>
       </tbody>

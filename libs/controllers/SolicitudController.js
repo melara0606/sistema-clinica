@@ -58,28 +58,6 @@ module.exports.paciente = function($scope, $rootScope, paciente, type, toastr, R
     }
   }
 
-  $scope.addExamen = function(valid, $this) {
-    if(valid){
-      let catalogo = JSON.parse($this.catalogo),
-          examen   = JSON.parse($this.examen);
-
-      let isExist = filter($scope.listExamen, function(item){
-        return item.examen.id == examen.id
-      });
-
-      if(isExist.length == 0){
-        $scope.listExamen.unshift({
-          examen : examen, catalogo: catalogo
-        });
-        $scope.sumExamTotal += examen.precio;
-        $scope.examenesObject = {};
-        $this.catalogo = $this.examen = null;
-      }else{
-        toastr.error("No puedes tener dos veces el mismo examen", "Error!");
-      }
-    }
-  }
-
   // variables y funciones para las promociones
   $scope.promocionObject = {};
   $scope.onChange = function() {
@@ -225,29 +203,28 @@ module.exports.paciente = function($scope, $rootScope, paciente, type, toastr, R
 module.exports.entidad = function($scope, $rootScope, paciente, Restangular,  entidad, toastr, $state, $uibModal){
   $scope.paciente = paciente;
   $scope.listExamen = [];
+  $scope.listExamenIds = []
   $scope.sumExamTotal = 0.00;
   $scope.entidad = entidad.data;
-  
-  $scope.addExamen = (valid, $this) =>{
-    if(valid){
-      let examen = JSON.parse($this.examen);
-      let isExist = filter($scope.listExamen, function(item){
-        return item.id == examen.id
+
+  $scope.onValueEntidadData = (element, $this) => {
+    if(element){
+      let isExist = findLastIndex($scope.listExamen, function(item){
+        return item.id == element.id
       });
 
-      if(isExist.length == 0){
-        $scope.listExamen.unshift(examen);
-        $scope.sumExamTotal += examen.precio;
-        $this.examen = null;
+      if(isExist === -1){
+        element.show = false
+        $scope.listExamen.unshift(element);
+        $scope.sumExamTotal += element.precio;
+        $scope.listExamenIds.unshift(element.id)
       }else{
-        toastr.error("No puedes tener dos veces el mismo examen", "Error!");
-      }
-    }
-  }
+        $scope.listExamenIds.splice(isExist, 1)
 
-  $scope.onDeleteItem = ($index) => {
-    let examen = $scope.listExamen.splice($index, 1)[0];
-    $scope.sumExamTotal -= examen.precio
+        let examen = $scope.listExamen.splice(isExist, 1)[0];
+        $scope.sumExamTotal -= examen.precio
+      }
+    }    
   }
 
   $scope.create_solicitud = ($this) => {
