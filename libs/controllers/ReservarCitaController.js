@@ -2,7 +2,6 @@ import { filter, groupBy, map, remove, includes } from 'lodash'
 
 module.exports = function($scope, $uibModal, object, Restangular, toastr) {
   $scope.arrayListOf = object.data
-  console.log("message");
   $scope.openModal = () => {
     Restangular.all('user').customGET().then(json => {
       var entidad = json.entidad_id
@@ -38,21 +37,27 @@ module.exports = function($scope, $uibModal, object, Restangular, toastr) {
                 return Restangular.all('categoria_examenes').customGET()
               }
             }],
+            sucursales: ['Restangular', (Restangular) =>{
+              return Restangular.all('sucursales').customGET()
+            }],
             isViewFalseAndTrue: isViewFalseAndTrue
           },
           templateUrl: "public/templates/modals/agregar.citas.paciente.html",
-          controller: ($scope, $uibModalInstance, Restangular, horarios, categorias, toastr, isViewFalseAndTrue) => {
+          controller: ($scope, $uibModalInstance, Restangular, horarios, categorias, toastr, sucursales, isViewFalseAndTrue) => {
             $scope.dineroEntidad = true;
             $scope.itemsListExamen = [];
+            $scope.sucursales = sucursales
             $scope.horarios = horarios.data
             $scope.categorias = categorias.data
             $scope.isViewFalseAndTrue = isViewFalseAndTrue
+
+            console.log(sucursales)
+
 
             $scope.itemExamens = { show: false, item: [], ids: [], pagar: 0.00 }
             $scope.cerrar = () => $uibModalInstance.close({ result: false })
 
             if($scope.isViewFalseAndTrue){
-              console.log($scope.categorias)
               $scope.categorias.forEach( i =>{
                 i.value = $scope.itemExamens.ids.includes(i.id)
                 $scope.itemsListExamen = $scope.categorias
@@ -69,6 +74,7 @@ module.exports = function($scope, $uibModal, object, Restangular, toastr) {
               Restangular.all('citas/add').customPOST({
                 fecha: $scope.fecha,
                 horario: $scope.horario,
+                sucursal: $scope.sucursal,
                 itemsListExamen: $scope.itemExamens,
                 tipoCita: $scope.isViewFalseAndTrue ? 2 : 1
               }, '').then((json) => {
