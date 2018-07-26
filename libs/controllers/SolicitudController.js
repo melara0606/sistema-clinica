@@ -1,4 +1,4 @@
-import { filter } from 'lodash'
+import { filter, findLastIndex, includes } from 'lodash'
 
 module.exports.paciente = function($scope, $rootScope, paciente, type, toastr, Restangular, $stateParams, $state, $uibModal) {
   $scope.type = type;
@@ -13,17 +13,49 @@ module.exports.paciente = function($scope, $rootScope, paciente, type, toastr, R
   $scope.catalogo = null;
   $scope.listExamen = [];
   $scope.examenesObject = {};
+  $scope.listExamenIds = [];
+
+  function onCheckoutMasterExamenes(arrayOfList){
+    arrayOfList.examenes.map(i => {
+      i.show = !includes($scope.listExamenIds, i.id)
+      return i
+    })
+    return arrayOfList
+  }
 
   $scope.onChangeExamenes = function() {
     $scope.catalogo = JSON.parse(this.catalogo);
     Restangular.all('categoria_examenes').customGET($scope.catalogo.id + '/examenes').then(function(response) {
-      $scope.examenesObject = response.data;
+      $scope.examenesObject = onCheckoutMasterExamenes(response.data);
     });
   }
 
   $scope.onDeleteItem = ($index) => {
     let {examen} = $scope.listExamen.splice($index, 1)[0];
-    $scope.sumExamTotal -= examen.precio;
+    $scope.sumExamTotal -= examen.precio
+    
+    $scope.listExamenIds.splice($index, 1)
+    $scope.examenesObject = onCheckoutMasterExamenes($scope.examenesObject)
+  }
+
+  $scope.onValueData = (element, $this) => {
+    if(element){
+      let isExist = findLastIndex($scope.listExamen, function(item){
+        return item.examen.id == element.id
+      });
+
+      if(isExist === -1){
+        $scope.listExamen.unshift({
+          examen : element, catalogo: JSON.parse($this.catalogo)
+        });
+        element.show = false
+        $scope.sumExamTotal += element.precio;
+        $scope.listExamenIds.unshift(element.id)
+      }else{
+        $scope.listExamen.splice(isExist, 1);
+        $scope.listExamenIds.splice(isExist, 1)
+      }
+    }
   }
 
   $scope.addExamen = function(valid, $this) {
@@ -215,7 +247,7 @@ module.exports.entidad = function($scope, $rootScope, paciente, Restangular,  en
 
   $scope.onDeleteItem = ($index) => {
     let examen = $scope.listExamen.splice($index, 1)[0];
-    $scope.sumExamTotal -= examen.precio;
+    $scope.sumExamTotal -= examen.precio
   }
 
   $scope.create_solicitud = ($this) => {

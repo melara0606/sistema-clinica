@@ -17,6 +17,17 @@
         </div>
 
         <div class="form-group" ng-show='examenesObject.examenes.length > 0'>
+          <div class="checkbox pull-left col-xs-6" ng-if='i.show' ng-repeat='(key, i) in examenesObject.examenes'>
+            <label class="i-checks">
+              <input type="checkbox" ng-checked='i.value'
+                ng-model='i.value' ng-change='onValueData(i, this)' ng-true-value='{{ i }}' ng-false-value ='false' />
+              <i></i>
+              {{ i.nombre_examen }}
+            </label>
+          </div>
+        </div>
+
+        <!-- <div class="form-group" ng-show='examenesObject.examenes.length > 0'>
           <label class="col-lg-2 control-label">Examen: </label>
           <div class="col-lg-10">
             <select required class="form-control" ng-model='examen'>
@@ -33,7 +44,7 @@
             <button type="submit" ng-disabled='frm.$invalid'
               class="btn btn-info">Agregar</button>
           </div>
-        </div>
+        </div> -->
       </form>
     </div>
   </div>
