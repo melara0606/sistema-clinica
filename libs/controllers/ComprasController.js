@@ -86,10 +86,11 @@ module.exports.controllers = function($scope, $rootScope, Restangular, $uibModal
 }
 
 module.exports.compraNueva = function($scope, $rootScope, $state, productosItems, proveedor, Restangular, toastr) {
-	$scope.isCollapsed = true;
-	$scope.listProducts = [];
-	$scope.listSelect = [];
 	$scope.subTotal = 0;
+	$scope.listSelect = [];
+	$scope.listProducts = [];
+	$scope.isCollapsed = true;
+	$scope.proveedor = proveedor;
 
 	$scope.permisos = filter($rootScope.recursos, { url: 'compras' })[0];
 
@@ -138,7 +139,7 @@ module.exports.compraNueva = function($scope, $rootScope, $state, productosItems
 	$scope.generarCompra = () => {
 		Restangular.all('compras').post({
 			list: $scope.listProducts,
-			proveedor : proveedor
+			proveedor : proveedor.id
 		}).then((response) => {
 			toastr.success('Exito!', 'Compra generada con exito');
 			$state.go("app.compras");

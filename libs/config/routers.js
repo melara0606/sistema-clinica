@@ -117,8 +117,8 @@ app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterP
         productosItems: ['Restangular', '$stateParams' ,function(Restangular, $stateParams) {
           return Restangular.all('proveedores/' + $stateParams.proveedor_id).customGET('materiales')
         }],
-        proveedor: ['$stateParams' ,function($stateParams) {
-          return $stateParams.proveedor_id;
+        proveedor: ['$stateParams', 'Restangular' ,function($stateParams, Restangular) {
+          return Restangular.all('proveedores').customGET($stateParams.proveedor_id)
         }],
       }
     })

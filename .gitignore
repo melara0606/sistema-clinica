@@ -5,7 +5,7 @@
 /public/templates/app_dashboard_v1.html
 yarn.lock
 key.google.maps
-gulfile.js
+gulpfile.js
 composer.lock
 clinica-db.sql
 /logs

@@ -9,10 +9,6 @@
         <div class="col-xs-12">
           <div class=" pull-right">
             <a ng-if="listProducts.length == 0" ui-sref="app.compras" class="btn btn-info ">Regresar </a>
-          <!--  <button style="overflow: auto;" type="button" class="btn btn-success" 
-              ng-click="isCollapsed = !isCollapsed" tooltip-placement="top" uib-tooltip="Agregar">
-              <i class="fa fa-plus"></i> 
-            </button> -->
             <button ng-if="listProducts.length > 0" type="button" class="btn btn-info" 
               ng-click="generarCompra();">Generar Compra</button>
           </div>
