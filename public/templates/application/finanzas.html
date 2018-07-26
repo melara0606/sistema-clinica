@@ -1,0 +1,68 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" 
+  style="background:url(public/img/rayas.jpg) center center; background-size:cover">
+	<div class="col">
+    <div class="bg-light lter b-b wrapper-md" 
+      style="background-color: #008080">
+			<div class="row">
+        <div class="col-sm-6 col-xs-12" >
+          <h1 class="m-n font-bold h3 text-black" 
+            style="color: #ffffff">Reportes Finacieros</h1>
+        </div>
+      </div>
+		</div>
+		<div class="wrapper-md">
+			<div class="row">
+        <div class="col-sm-6 col-xs-offset-2">
+          <div class="panel panel-default">
+            <div class="panel-heading font-bold" style="background-color: #008080"><b style="color: #ffffff"> Parametros a Utilizar</b></div>
+            <div class="panel-body">
+              <form role="form" name="frm" class="form-validation" ng-submit='onValidateRango()'>
+                <div class="form-group">
+                  <label>Tipo de Reporte: </label>
+                  <select ng-change='onChangeTipo();' required ng-model='type_reporte' name="type_reporte" id="type_reporte" class="form-control">
+                    <option value="{{ $index }}" ng-repeat="m in menus">{{ m.name }}</option>
+                  </select>
+                </div>
+                <div class="form-group" ng-show='isShowEntidad'>
+                  <label>Entidad: </label>
+                  <select ng-model='entidad' class="form-control">
+                    <option value="{{ e.id }}" ng-repeat="e in entidades">{{ e.name_ext }}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Fecha Inicio: </label>
+                  <p class="input-group">
+                    <input type="text" readonly class="form-control" 
+                      uib-datepicker-popup="{{format}}" ng-model="datebegin" 
+                      is-open="popup1.opened" datepicker-options="dateOptions" 
+                      ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-info" ng-click="open1()">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                      </button>
+                    </span>
+                  </p>
+                </div>
+                <div class="form-group">
+                  <label>Fecha Final: </label>
+                  <p class="input-group">
+                    <input type="text" readonly class="form-control" 
+                      uib-datepicker-popup="{{format}}" ng-model="dateend" 
+                      is-open="popup2.opened" datepicker-options="dateOptions" 
+                      ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-info" ng-click="open2()">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                      </button>
+                    </span>
+                  </p>
+                </div>
+                <button type="submit" ng-disabled='frm.$invalid' class="btn btn-sm btn-info">Generar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+			</div>
+		</div>
+	</div>
+</div>

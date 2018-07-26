@@ -1,0 +1,38 @@
+<div class="bg-light lter b-b wrapper-md ng-scope" style="background-color: transparent">
+  <h1 class="m-n font-bold h3">Detalle del perfil</h1>
+  
+<div class="row " style="margin-top:20px;">
+    <div class="col-lg-8">
+      <div class="panel panel-default">
+        <div class="panel-heading font-bold" style="background-color: #6490dd"><strong style="color: #ffffff">Editar <em class="text-muted" style="color: #ffffff">(Click sobre el nombre para editar)</em></strong></div>
+        <div class="panel-body">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <label class="col-sm-3 control-label" style="font-size: 20px">Nombre del perfil:</label>
+              <div class="col-sm-9">
+                <div class="form-group m-b-sm">
+                  <p ng-show='!editing'  class="form-control-static" style="font-size: 20px">
+                    <a ng-click='onDoubleClick(true)'>{{perfil.nombre}}</a>
+                  </p>
+                  <div ng-show='editing' class="form-click col-xs-12">
+                    <form class="form-validation" name="frm" ng-submit='onEditPerfil()'>
+                      <div class="col-xs-6">
+                        <input required type="text" ng-model='perfil.nombre'
+                          class="form-control">
+                      </div>
+                      <div class="col-xs-6">
+                        <button ng-disabled='frm.$invalid'  type="submit" class="btn btn-info">Editar</button>
+                        <button ng-click='onDoubleClick(false)' type="button" class="btn btn-danger">Cancelar</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

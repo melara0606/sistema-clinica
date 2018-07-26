@@ -1,0 +1,55 @@
+<div class="panel" style="margin-bottom: 0px; background-color: #fafafa; font-size: 16px">
+	<div class="panel-heading b-b b-light" style="overflow: auto; background-color: #008080">
+    <STRONG style="color: #ffffff">Detalles de Cita</STRONG>
+    <button type="button" ng-click="cerrar();" class="pull-right btn btn-danger" tooltip-placement="top" uib-tooltip="Cerrar"><i class="fa fa-times"></i> </button>
+  </div>
+	<div class="panel-body">
+		<div class="panel panel-default">
+    	<div class="panel-body">
+				<table class="table">
+					<tr>
+						<td><h4>Fecha: </h4></td>
+						<td><h4>{{ object.data.fecha | date: 'fullDate' }}</h4></td>
+						<td colspan="2"><h3 class="text-right">Total: </h3></td>
+						<td colspan="2"><h3>{{ object.data.pagar | currency: "$" }}</h3></td>
+					</tr>
+					<tr>
+						<td>Tipo: </td>
+						<td>
+              <span class="label bg-primary">
+                {{ object.data.tipo_cita == 1 ? 'Particular' : 'Entidad' }}
+              </span>
+            </td>
+						<td class="text-right">Horario</td>
+						<td>{{ object.data.horario }}</td>
+            <td class="text-right">Estado</td>
+            <td>
+              <span class="label bg-primary">
+                {{ object.data.estado == 1 ? 'En proceso ...' : object.data.estado == 0 ? 'Atendida' : 'Cancelada' }}
+              </span>
+            </td>
+					</tr>
+				</table>
+				<div class="panel panel-default">
+		      <div class="panel-heading" style="background-color: dodgerblue; color: #ffffff">Exámenes</div>
+		      <table class="table table-striped m-b-none">
+		        <thead>
+		          <tr>
+		            <th class="text-center">ID</th>
+		            <th class="text-center">Nombre del examen</th>
+								<th class="text-center">Precio</th>
+		          </tr>
+		        </thead>
+		        <tbody>
+							<tr ng-repeat='item in object.item'>
+								<td class="text-center">{{ $index + 1 }}</td>
+								<td class="text-center">{{ item.nombre_examen }}</td>
+								<td class="text-center">{{ item.precio | currency }}</td>
+							</tr>
+		        </tbody>
+			    </table>
+			  </div>
+    	</div>
+  	</div>
+	</div>
+</div>

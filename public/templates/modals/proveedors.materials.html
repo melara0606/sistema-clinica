@@ -1,0 +1,72 @@
+<div class="panel" style="margin-bottom: 0px; background-color: #fafafa">
+    <div class="panel-heading b-b b-light" style="overflow: auto; background-color: #008080">
+        <strong style="color: #ffffff"> ASIGNACIÓN DE MATERIALES POR PROVEEDOR </strong>
+        <div class="pull-right">
+            <button class="btn btn-danger " ng-click="cerrar();">Cerrar</button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-xs-8">
+                <div class="panel panel-default" style="background-color: #e1f5fe">
+                    <div class="panel-heading" style="background-color: dodgerblue"><strong style="color: #ffffff"> Materiales por proveedor</strong></div>
+                      <h4 ng-show='lists.length == 0'
+                        class="text-center">Por el momento no hay materiales asignados al proveedor</h4>
+
+                      <table st-table="rowCollection" class="table table-striped b-t b-light">
+                          <thead>
+                              <tr>
+                                  <th>Nombre material</th>
+                                  <th>Tipo del material</th>
+                                  <th style="width:30px;"></th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr ng-repeat="row in rowCollection">
+                                  <td>{{ row.nombre_material }}</td>
+                                  <td>{{ row.nombre_catalogo }}</td>
+                                  <td>
+                                      <button type="button" ng-click="onDelete($index, row);"
+                                        class="btn btn-danger btn-sm fa fa-trash" tooltip-placement="top" uib-tooltip="Eliminar"></button>
+                                  </td>
+                              </tr>
+                          </tbody>
+                          <tfoot>
+                      			<tr>
+                      				<td colspan="4" class="text-center">
+                      					<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+                      				</td>
+                      			</tr>
+                      		</tfoot>
+                      </table>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <form role="form" class="form-validation" ng-submit="onSearchEmployeers()">
+                    <div class="input-group">
+                        <input type="text" required="" class="form-control " ng-model="searchEmployeer">
+                        <span class="input-group-btn">
+                        <button class="btn btn-info " type="submit">Buscar</button>
+                        </span>
+                    </div>
+                </form>
+                <ul class="list-group list-group-lg no-bg auto" style="margin-top: 20px;">
+                    <li ng-repeat="material in materials" class="list-group-item clearfix">
+                        <span class="clear">
+                            <button type="button" ng-click="onSelectEmployer(material);" class="btn btn-info pull-right fa fa-check" tooltip-placement="top" uib-tooltip="Seleccionar"></button>
+                            <span>
+                                {{material.nombre_material}} - {{material.nombre_catalogo}}
+                            </span>
+                        </span>
+                    </li>
+                    <li class="list-group-item clearfix" ng-show="!server">
+                        <span class="clear text-center">Debes agregar un criterio de busqueda</span>
+                    </li>
+                    <li class="list-group-item clearfix" ng-show="server && materials.length == 0">
+                        <span class="clear text-center">Material no encontrado</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

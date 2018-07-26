@@ -1,0 +1,53 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" style="background:url(public/img/rayas.jpg) center center; background-size:cover">
+	<div class="col">
+		<div class="bg-light lter b-b wrapper-md" style="background-color: #008080">
+			<div class="row">
+        <div class="col-sm-6 col-xs-12" >
+          <h1 class="m-n font-bold h3 text-black" style="color: #ffffff">Planillas</h1>
+        </div>
+				<div class="col-sm-6 text-right hidden-xs">
+					<button ng-if='permisos.agregar' ng-click="onCreatePlanilla();" class="btn btn-info" type="button">Generar Planilla</button>
+				</div>
+      </div>
+		</div>
+		<div class="wrapper-md">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default" style="background-color: #e1f5fe">
+						<div class="panel-heading"  style="background-color: dodgerblue; overflow:auto;">
+							<span class="pull-left">Planillas por mes</span>
+							<div style="width:100px" class="pull-right">
+								<select ng-change='onChangeYear();' class="form-control" ng-model='isSelectionYear'>
+									<option ng-repeat='year in yearsPlanilla' value="{{year.yearPlanilla}}">{{year.yearPlanilla}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="panel-body" ng-if="planillas.length == 0">
+							<h2 class="text-center">Selecciona un año para poder ver las planillas</h2>
+						</div>
+						<table class="table table-striped m-b-none" ng-if="planillas.length > 0">
+							<thead>
+								<tr>
+									<th class="text-center" width='120px'>#</th>
+									<th>Planilla Mes</th>
+									<th class="text-center" width='150px'>Operaciones</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="p in planillas | orderBy:'mes_ayor'">
+									<td class="text-center">{{ $index + 1 }}</td>
+									<td>Planilla de {{ p.mes_ayor | fromMesString }}</td>
+									<td>
+										<a target="__black" href='planilla/{{ p.id }}' class="btn btn-info btn-addon">
+											<i class="icon-eye"></i> Ver reporte
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

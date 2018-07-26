@@ -1,0 +1,28 @@
+<div class="hbox hbox-auto-xs bg-light">
+  <div class="col w-lg lt b-r">
+    <div class="vbox">
+      <div class="wrapper b-b m-t-xxs" >
+        <div class="h4 font-bold"> Catalogo campos</div>
+      </div>
+      <div class="row-row">
+        <div class="cell scrollable hover">
+          <div class="cell-inner">
+            <div class="wrapper">
+              <div class="list-group">
+                <a ui-sref-active="active" 
+                    ui-sref="app.catalogocampos.item({ typecampo: item.id })" 
+                    class="list-group-item b-l-success b-l-3x hover-anchor" 
+                    ng-repeat="item in catalogo.data">
+                  <span class="block text-ellipsis ng-binding">{{item.nombre_tipo_campo}}</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col" style="background:url(public/img/rayas.jpg) center center; background-size:cover">
+    <div class="vbox" ui-view="item"></div>
+  </div>
+</div>

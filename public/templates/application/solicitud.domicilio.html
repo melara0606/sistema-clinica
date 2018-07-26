@@ -1,0 +1,38 @@
+<div class="hbox hbox-auto-xs bg-light">
+  <div class="col w-xl lt b-r">
+    <div class="vbox">
+      <div class="wrapper b-b m-t-xxs" style="height:65px;">
+        <div class="h4 font-bold pull-left">SOLICITUDES A DOMICILIO</div>
+        <!--   -->
+      </div>
+      <!--     -->
+      <div class="row-row">
+        <div class="cell scrollable hover">
+          <div class="cell-inner">
+            <div class="m-t-n-xxs">
+              <div class="list-group list-group-lg no-radius no-border no-bg m-b-none">
+                <a ui-sref-active="active" ng-dblclick='open(true, categoria, $index);'
+                  ng-repeat="item in arrayListOf"
+                  ui-sref="app.solicitudDomicilio.item({ id: item.id  })"
+                  class="list-group-item m-l ng-scope m-l-none">
+                  <h4 class="text-center">{{ item.codigo }}</h4>
+                  <h4 class="text-center">{{ item.lastname_pac }} {{ item.name_pac }} </h4>
+                </a>
+                <h4
+                  class="list-group-item m-l text-center m-l-none"
+                  ng-show="arrayListOf.length == 0" href="">
+                  No hay solicitudes por el momento
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col" style="background:url(public/img/rayas.jpg) center center; background-size:cover">
+    <div class="vbox" ui-view="item">
+      <div class="text-center m-b"></div>
+    </div>
+  </div>
+</div>

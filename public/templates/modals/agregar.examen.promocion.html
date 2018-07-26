@@ -1,0 +1,38 @@
+<div class="panel" style="margin-bottom: 0px; background-color: #fafafa">
+    <div class="panel-heading b-b b-light" style="overflow: auto; background-color: #008080">
+        <strong style="color: #ffffff"> ASIGNACIÓN DE EXAMEN A PROMOCION </strong>
+        <div class="pull-right">
+            <button class="btn btn-danger" ng-click="onClose();">Cerrar</button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-xs-12">
+                <form role="form" class="form-validation" ng-submit="onSearchExamen()">
+                    <div class="input-group">
+                        <input type="text" required="" class="form-control" ng-model="searchExamen">
+                        <span class="input-group-btn">
+                        <button class="btn btn-info " type="submit">Buscar</button>
+                        </span>
+                    </div>
+                </form>
+                <ul class="list-group list-group-lg no-bg auto" style="margin-top: 20px;">
+                    <li ng-repeat="item in list" class="list-group-item clearfix">
+                        <span class="clear">
+                            <button type="button" ng-click="onSelectExamen(item);" class="btn btn-info pull-right fa fa-check" tooltip-placement="top" uib-tooltip="Seleccionar"></button>
+                            <span>
+                                {{item.nombre_examen}} - {{item.nombre_categoria}}
+                            </span>
+                        </span>
+                    </li>
+                    <li class="list-group-item clearfix" ng-show="!server">
+                        <span class="clear text-center">Debes agregar un criterio de busqueda</span>
+                    </li>
+                    <li class="list-group-item clearfix" ng-show="server && list.length == 0">
+                        <span class="clear text-center">Examen no encontrado</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

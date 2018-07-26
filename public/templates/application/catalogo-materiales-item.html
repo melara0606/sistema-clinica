@@ -1,0 +1,55 @@
+<div class="vbox">
+  <div class="bg-light lter b-b wrapper-md" style="background-color:#008080">
+    <div class="row">
+      <div class="col-sm-6 col-xs-12">
+        <h1 class="m-n font-bold h3" style="color: #ffffff" ui-sref="app.insumos_reactivos.item({ id: material.id })">Listado de {{material.nombre_catalogo}}.</h1>
+        <small class="text-muted font-bold color-white" style="color: #ffffff">{{material.nombre_catalogo}} registrados actualmente.</small>
+      </div>
+      
+      <div class="col-sm-6 text-right hidden-xs">
+        <!-- <button ng-if='permisos.agregar' ng-click="onCreate();" class="btn btn-info btn-addon"  type="button"><i class="fa fa-plus"></i> Agregar</button>  -->
+      </div>
+    </div>
+  </div>
+
+  <div class="row-row" style="background:url(public/img/rayas.jpg) center center; background-size:cover"> <!-- FONDO -->
+    <div class="cell">
+      <div class="cell-inner">
+        <div class="col-lg-8 m-t" ng-show="!isEditing">
+          <div class="panel b-a">
+            <div  class="panel-heading b-b b-light" style="overflow:auto; background-color: #6490DD; font-size: 16px"><strong style="color: #ffffff"> Materiales </strong>
+            <button ng-if='permisos.agregar' ng-click="onCreate();" class="btn btn-info pull-right fa fa-plus" tooltip-placement="top" uib-tooltip="Agregar"></button>
+            </div>
+            <div class="panel-body" ng-show="items.length == 0">
+              <h3 class="text-center">No existen materiales registrados.</h3>
+            </div>
+
+            <table id='dataTables' ui-jq='dataTable' ui-options='{{options}}' class="table table-striped b-t b-b">
+              <thead style="background-color: #e1f5fe">
+                <tr>
+                  <th>No.</th>
+                  <th class="text-center" style="width:25%">Nombre del material</th>
+                  <th class="text-center" >Presentación</th>
+                  <th style="width:15%" class="text-center">Operaciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in items">
+                  <td>{{ $index + 1 }}</td>
+                  <td class="text-center">{{ item.nombre_material }}</td>
+                  <td class="text-center">
+                    {{ item.presentancion == 1 ? 'Caja' : 'Frasco' }}
+                  </td>
+                  <td class="text-center">
+                    <button data-key='{{ $index }}' ng-if='permisos.editar' type='button' class='btn btn-info btn-sm' tooltip-placement="top" uib-tooltip="Editar"><i class="fa fa-pencil"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div ng-show="isEditing" ng-include="'public/templates/formularios/material.forms.html'"></div>
+      </div>
+    </div>
+  </div>
+</div>

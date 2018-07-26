@@ -1,0 +1,76 @@
+<div class="panel" style="margin-bottom: 0px; background-color: #fafafa">
+    <div class="panel-heading b-b b-light" style="overflow: auto; background-color: #008080">
+        <strong style="color: #ffffff"> ASIGNACION DE MATERIAL AL EXAMEN </strong>
+        <div class="pull-right">
+            <button class="btn btn-danger" ng-click="onClose();">Cerrar</button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">            
+            <div class="col-xs-12" ng-show="!itemElement">
+                <form name="form" class="form-validation" ng-submit="onSearchMaterial()">
+                    <div class="input-group">
+                        <input type="text" required class="form-control" ng-model="searchMaterial">
+                        <span class="input-group-btn">
+                            <button ng-disabled="form.$invalid"
+                            class="btn btn-info" type="submit">Buscar</button>
+                        </span>
+                    </div>
+                </form>
+                <ul class="list-group list-group-lg no-bg auto" style="margin-top: 20px;">
+                    <li ng-repeat="item in list" class="list-group-item clearfix">
+                        <span class="clear">
+                            <button type="button" ng-click="onSelectMaterial(item);" class="btn btn-info pull-right fa fa-check" tooltip-placement="top" uib-tooltip="Seleccionar"></button>
+                            <span>
+                                {{item.nombre_material}} - {{item.nombre_catalogo}}
+                            </span>
+                        </span>
+                    </li>
+                    <li class="list-group-item clearfix" ng-show="!server">
+                        <span class="clear text-center">Debes agregar un criterio de busqueda</span>
+                    </li>
+                    <li class="list-group-item clearfix" ng-show="server && list.length == 0">
+                        <span class="clear text-center">Exámen no encontrado</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-xs-12">
+                <div class="panel panel-default" ng-show="itemElement">
+                    <div class="panel-heading font-bold" style="background-color: #008080"><b style="color: #ffffff"> Material</b></div>
+                        <div class="panel-body">
+                            <form name="formMaterial" class="form-horizontal form-validation" ng-submit="onCreateMaterial();">
+                                <div class="form-group">
+                                    <label class="col-lg-5 control-label">Nombre del material:</label>
+                                    <div class="col-lg-7">
+                                        <span class="help-block m-b-none">{{itemElement.nombre_material}}</span>
+                                    </div>                             
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-5 control-label">Catalogo del material:</label>
+                                    <div class="col-lg-7">
+                                        <span class="help-block m-b-none">{{itemElement.nombre_catalogo}}</span>
+                                    </div>                             
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-5 control-label">Uso:</label>
+                                    <div class="col-lg-7">
+                                        <input type="text" ng-pattern="/^([0-9])*$/"
+                                            ng-model="itemElement.cantidad" required
+                                            class="form-control" placeholder="Cantidad del material necesario para el examen." />                                        
+                                    </div>                             
+                                </div>
+                                <div class="col-lg-offset-5 col-lg-7">
+                                    <button ng-disabled="formMaterial.$invalid"
+                                        type="submit" class="btn btn-sm btn-info">Agregar</button>                                    
+                                    <button ng-click="btnCancelar();"
+                                        type="button" class="btn btn-sm btn-danger">Cancelar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

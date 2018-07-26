@@ -1,0 +1,38 @@
+<html>
+ <head>
+  <title>Recuperar contraseña</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />	
+  <link rel="stylesheet" href="{{ base }}public/css/index.css" type="text/css">
+ </head>
+ <body>
+  <div class="app app-header-fixed" style="background:url({{ base }}public/img/minimal.jpg)">
+    <center>
+      <img src="{{ base }}public/img/logoprincipal.png" alt="imagen for users" />
+    </center>
+    <hr>
+    <div class="container w-xxl w-auto-xs">
+      <a href="" class="navbar-brand block m-t">Recuperar contraseña</a>
+      <div class="m-b-lg">
+        <form name="form" class="form-validation" action='forgotpwd' method='POST'>
+          {% if flash %}
+            <div class="alert alert-danger alert-dismissable">
+              <div>{{flash['message']}}</div>
+            </div>
+          {% endif %}
+          <div class="list-group list-group-sm">
+            <div class="list-group-item">
+              <input type="email" value="{{flash['usuario']}}"
+                placeholder="Email del usuario a recuperar" class="form-control no-border" required="" name='email' />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-lg btn-info btn-block"><b>Recuperar</b></button>
+        </form>
+        <div collapse="isCollapsed" class="m-t">
+          <div class="alert alert-success">
+            <p>Se enviara un correo electronico con la informacion necesaria para el acesso.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+ </body>
+</html>

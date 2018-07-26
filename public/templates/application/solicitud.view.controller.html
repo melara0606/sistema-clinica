@@ -1,0 +1,149 @@
+<div class="hbox hbox-auto-xs bg-light">
+  <div class="col w-xxl lt b-r">
+    <div class="vbox">
+      <div class="wrapper b-b m-t-xxs" style="height:65px;">
+        <div class="h4 font-bold pull-left">
+          LISTA DE SOLICITUDES
+        </div>
+        <div class="btn-group pull-right" uib-dropdown is-open="status.isopen">
+          <button id="single-button" type="button" 
+            class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+            <i class="icon-magnifier"></i><span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+            <li role="menuitem"><a ng-click='onSearchFilter("tipo")' >Tipo</a></li>
+            <li role="menuitem"><a ng-click='onSearchFilter("status")' >Estado</a></li>
+            <li role="menuitem"><a ng-click='onSearchFilter("criterio")' >Criterio</a></li>
+            <li role="menuitem"><a ng-click='onSearchFilter("informe");' >Informe</a></li>
+          </ul>
+        </div>
+      </div>
+      <div ng-show='filters.type' class="panel panel-default" style="margin-bottom:0px" ng-show="!filter">
+        <div class="panel-body">
+          <div class="form-group" style="margin-bottom:0px">
+            <select name="orderBy" id="orderBy" class="form-control"
+              ng-change="onChangeStatus();" ng-model="orderBy" required>
+              <option value>[Selecciona una opción]</option>
+              <option value="1">Promoción</option>
+              <option value="2">Particular</option>
+              <option value="3">Entidad</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default" ng-show='filters.criterio'>
+        <div class="panel-body">
+          <form role="form" name="frm" ng-submit="onFilterSolicitud()">
+            <div class="form-group">
+              <select name="type_codigo" id="type_codigo" class="form-control" ng-model="queryOption" required>
+                <option value>[Selecciona una opción]</option>
+                <option value="1">Código</option>
+                <option value="2">Cliente</option>
+              </select>
+            </div>
+            <div ng-show="queryOption">
+              <div class="form-group">
+                <input type="text" name="q" id="q" ng-model="q" class="form-control" required placeholder="Criterio de busquedad" />
+              </div>
+              <div ng-if="queryOption == 2">
+                <div class="form-group">
+                  <input type="date" name="fechaBusquedad" id="fechaBusquedad" class="form-control" required ng-model="fechaBusquedad" />
+                </div>
+              </div>
+              <button type="submit" ng-disabled="frm.$invalid"
+                class="btn btn-sm btn-info">Buscar</button>
+              <button type="button" ng-click="cancelarSearch();"
+                class="btn btn-sm btn-danger">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="panel panel-default" ng-show='filters.status'>
+        <div class="panel-body">
+          <div class="form-group">
+            <select name="type_status" ng-change="onChageStatus();"
+                id="type_status" class="form-control" 
+                ng-model="queryOptionStatus" required>
+                <option value>[Selecciona un estado]</option>
+                <option value="1">Procesada</option>
+                <option value="2">Pendiente</option>
+                <option value="0">Finalizada</option>
+                <option value="4">Pagada</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default" ng-show='filters.informe'>
+        <div class="panel-body">
+          <div class="form-group">
+            <form role="form" class="form-validation" ng-submit='onViewReporte($this);'
+               name="frmInforme">
+              <div class="form-group">
+                <label>Tipo: </label>
+                <select name="typeSolicitud" ng-model='typeSolicitud' required class="form-control">
+                  <option value></option>
+                  <option value='1'>Promoción</option>
+                  <option value='2'>Particular</option>
+                  <option value='3'>Entidad</option>
+                  opción
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Fecha de Inicio</label>
+                <input type="date" required class="form-control" ng-model='datebegind' placeholder="Fecha Inicio">
+              </div>
+              <div class="form-group">
+                <label>Fecha Final</label>
+                <input type="date" required class="form-control" ng-model='dateEnd' placeholder="Fecha Final">
+              </div>
+              <button type="submit" ng-disabled='frmInforme.$invalid'
+                class="btn btn-sm btn-primary">Ver</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="row-row">
+        <div class="cell scrollable hover" ng-hide='filters.informe'>
+          <div class="cell-inner">
+            <div class="m-t-n-xxs">
+              <div class="list-group list-group-lg no-radius no-border no-bg m-b-none">
+                <a ui-sref-active="active" ng-dblclick='open(true, categoria, $index);'
+                  ng-repeat="item in solicitudes"
+                  ui-sref="app.catalogosolicitud.item({ id: item.id  })"
+                  class="list-group-item m-l ng-scope m-l-none">
+                  <h4 class="text-center">{{ item.id }}</h4>
+                  <h4 class="text-center">{{ item.lastname_pac }} {{ item.name_pac }} </h4>
+                  <span class="label bg-primary inline m-t">
+                    {{item.tipo_solicitud | fromSolicitudType}}
+                  </span>
+                  <span
+                    class="label pull-right inline m-t"
+                    ng-class="{
+                      'bg-info' : item.estado == 1,
+                      'bg-danger'  : item.estado == 2,
+                      'bg-warning' : item.estado == 3,
+                      'bg-success' : item.estado == 0,
+                      'bg-warning' : item.estado == 4
+                    }"
+                  >{{item.estado | fromSolicitudEstado}}</span>
+                </a>
+                <h4
+                  class="list-group-item m-l text-center m-l-none"
+                  ng-show="solicitudes.length == 0" href="">
+                  No hay datos por el momento
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col" style="background:url(public/img/rayas.jpg) center center; background-size:cover">
+    <div class="vbox" ui-view="item">
+      <div class="text-center m-b"></div>
+    </div>
+  </div>
+</div>

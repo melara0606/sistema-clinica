@@ -1,0 +1,36 @@
+<div class="hbox hbox-auto-xs bg-light">
+  <div class="col w-lg lt b-r">
+    <div class="vbox">
+      <div class="wrapper b-b m-t-xxs" >
+        <div class="h4 font-bold" style="overflow:auto">
+          Catálogo
+          <button ng-if="permisos.agregar"
+            ng-click='open(false);' type="button" class="pull-right btn btn-info btn-addon"><i class="fa fa-plus fa-fw m-r-xs"></i>Nueva Categoría</button>
+        </div>
+      </div> 
+      <div class="row-row">
+        <div class="cell scrollable hover">
+          <div class="cell-inner"> 
+            <div class="m-t-n-xxs">
+              <div class="list-group list-group-lg no-radius no-border no-bg m-b-none">
+                <a ui-sref-active="active" ng-dblclick='open(true, categoria, $index);'
+                  ui-sref="app.examenes.item({ idcategoria: categoria.id  })"
+                   class="list-group-item m-l ng-scope m-l-none"
+                   ng-repeat="categoria in categorias">
+                  <span class="block text-ellipsis m-l-n text-md ng-binding m-l-none">{{categoria.nombre_categoria}}</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col" style="background:url(public/img/rayas.jpg) center center; background-size:cover">
+    <div class="vbox" ui-view="item">
+      <div class="text-center m-b">
+        
+      </div>
+    </div>
+  </div>
+</div>

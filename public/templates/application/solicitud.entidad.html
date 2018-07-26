@@ -1,0 +1,31 @@
+<div class="hbox" style="background:url(public/img/rayas.jpg) center center; background-size:cover">
+  <div class="col">
+    <div class="bg-light lter b-b wrapper-md" style="background-color:#008080">
+      <div class="hbox">
+        <div class="col-xs-1">
+          <button style="margin-top:23px;" ng-click="goBack()"
+            class="btn btn-info fa fa-reply" tooltip-placement="top" uib-tooltip="Regresar"></button>
+        </div>
+        <div class="col-xs-10">
+          <div class="v-middle h1 font-thin">
+            <div style="font-size:20px; color: #ffffff"><b>{{ paciente.codigo_paciente }}</b></div>
+            <div>
+              <p style="color:#ffffff">
+                {{  paciente.name_pac }}
+                <b class="ng-binding">{{ paciente.lastname_pac }}</b>
+              </p>
+              <p class="h3" style="color: #ffffff">
+                {{ entidad.name_ext }}
+                <span class="pull-right h3" style="color: #ffffff">Monto: {{ entidad.monto.monto | currency }}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrapper-md" >
+      <div ng-include="'public/templates/ng-templates/solicitud.entidad.html'"></div>
+    </div>
+  </div>
+</div>

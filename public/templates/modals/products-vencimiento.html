@@ -1,0 +1,39 @@
+<div class="panel" style="margin-bottom: 0px; background-color: #fafafa; font-size: 16px">
+  <div class="panel-heading b-b b-light" style="overflow: auto; background-color: #9fdba6">
+    <STRONG style="display: inline-block; margin-top: 9px;">Listado de producto(s) que estan pronto a vencer</STRONG>
+    <button type="button" ng-click="cerrar();" class="pull-right btn btn-rounded btn-danger">Cerrar</button>
+  </div>
+   <div class="panel-body">
+    <div class="row">
+     <div class="wrapper-md">
+      <div class="col-xs-12">
+       <form class="form-validation" ng-submit="onSaveResponse();" name="frmExamen">
+        <div class="panel b-a">
+         <div class="panel-heading b-b b-light"><strong>Listado</strong></div>
+          <table class="table table-striped m-b-none">
+           <thead>
+            <tr>
+             <th class="text-center">No</th>
+             <th>Nombre del material</th>
+             <th class="text-center">Fecha de vecimiento</th>
+             <th class="text-center">Cantidad</th>
+             <th class="text-center">Precio</th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr ng-repeat="i in productsVecimiento">
+             <td class="text-center">{{ $index +1 }}</td>
+             <td>{{ i.nombre_material }}</td>
+             <td class="text-center">{{ getDate(i.fecha_vencimiento) | date:'fullDate' }}</td>
+             <td class="text-center">{{ i.cantidad }}</td>
+             <td class="text-center">{{ i.precio | currency: '$' }}</td>
+            </tr>
+           </tbody>
+          </table>
+        </div>
+       </form>
+      </div>
+     </div>
+    </div>
+   </div>
+</div>

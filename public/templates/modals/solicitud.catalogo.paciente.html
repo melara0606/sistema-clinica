@@ -1,0 +1,29 @@
+<div class="panel panel-default" style="margin:0px; background-color: #fafafa">
+    <div class="panel-heading font-bold" style="overflow:auto; background-color: #008080">
+     <strong style="color: #ffffff"> NUEVA SOLICITUD</strong>
+      <button ng-click='close();'
+        type="button"class="btn btn-danger pull-right" tooltip-placement="top" uib-tooltip="Cerrar"><i class="fa fa-times"></i> </button>
+    </div>
+    <div class="panel-body">
+      <form ng-submit='crearSolicitud(frm.$valid)'
+        class="form-horizontal form-validation" name="frm">
+        <div class="form-group">
+          <label class="col-lg-4 control-label">Tipo de solicitud: </label>
+          <div class="col-lg-8">
+            <select class="form-control" required ng-model='type_solicitud' name="nameSolicitud">
+              <option value></option>
+              <option value="1">Promoción</option>
+              <option value="2">Particular</option>
+              <option ng-if='entidad.view' value="3">Institución</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-offset-2 col-lg-10">
+            <button type="submit" ng-disabled='frm.$invalid'
+              class="btn btn-info">Crear</button>
+          </div>
+        </div>
+      </form>
+    </div>
+</div>

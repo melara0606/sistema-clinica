@@ -1,0 +1,136 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm bg-light">
+  <div class="col w-lg lter b-r">
+    <div class="vbox">
+      <div class="wrapper-xs b-b">
+        <div class="input-group m-b-xxs">
+          <span class="input-group-addon input-sm no-border no-bg"><i class="icon-magnifier text-md m-t-xxs"></i></span>
+          <input type="text" class="form-control input-sm no-border no-bg text-md" placeholder="Buscar doctor" ng-model="query">
+        </div>
+      </div>
+
+ <div class="wrapper b-t text-center">
+        <div class="btn-group">
+          <a ng-if='permisos.agregar' href class="btn btn-info btn-addon" ng-click="createItem()"><i class="fa fa-plus fa-fw m-r-xs"></i>
+            Nuevo Doctor
+          </a>
+          <a href="doctores/reporte" target="black" class="btn btn-info" tooltip-placement="top" uib-tooltip="Reporte"><i class="fa fa-file-pdf-o"></i></a>
+        </div>
+      </div>
+
+      <div class="row-row">
+        <div class="cell scrollable hover">
+          <div class="cell-inner">
+            <div class="m-t-n-xxs">
+              <div class="list-group list-group-lg no-radius no-border no-bg m-b-none">
+                <a ng-repeat="item in items | filter:query | orderBy:'nombreCompleto'" class="list-group-item m-l" ng-class="{'select m-l-none': item.selected }" ng-click="selectItem(item)">
+                  <span class="block text-ellipsis m-l-n text-md" ng-class="{'m-l-none': item.selected }" style="font-size:14px">
+                    {{ item.name_doc }} {{ item.lastname_doc }}
+                    <span ng-hide="item.name_doc || item.lastname_doc">Nuevo Doctor</span>
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div class="text-center pos-abt w-full" style="top:10%;"
+                  ng-hide="(items | filter:query).length">Registro No Encontrado</div>
+          </div>
+        </div>
+      </div>
+     
+
+
+    </div>
+  </div>
+
+<div class="wrapper-lg hbox" style="background:url(public/img/rayas.jpg) center center; background-size:cover"> <!-- Para la caja de contenido de formulario -->
+  <div class="col bg-white-only" style="background-color: #fafafa">
+    <div class="vbox">
+      <form action="" class="hbox form-validation" name="form">
+        <div class="wrapper-sm b-b" style="background-color: #008080">
+          <div class="m-t-n-xxs m-b-n-xxs m-l-xs">
+
+            <a ng-if='permisos.eliminar' class="btn btn-danger btn-addon pull-right" ng-hide="!item" ng-click="deleteItem(item)"><i class="fa fa-times"></i>Deshabilitar</a>
+
+            <a ng-if='permisos.editar' class="btn btn-info btn-addon" ng-hide="item.editing" ng-click="editItem(item)"><i class="fa fa-edit fa-fw m-r-xs"></i>Editar</a>
+
+            <a ng-if='permisos.editar' class="btn btn-info btn-addon" ng-show="item.editing" ng-click="doneEditing(item)" ng-disabled="form.$invalid"><i class="fa fa-edit fa-fw m-r-xs"></i>Aceptar</a>
+
+           </div>
+        </div>
+
+        <div class="row-row">
+          <div class="cell">
+            <div class="cell-inner">
+              <div class="wrapper-lg">
+                <div class="hbox h-auto m-b-lg">
+                  <div class="col text-center w-sm">
+                    <div class="thumb-lg avatar inline">
+                      <img src="public/img/doctor.png" class="b b-3x b-primary"
+                        ng-class="{'b-danger' : !item.status}" />
+                    </div>
+                  </div>
+                  <div class="col v-middle h1 font-thin">
+                    <div ng-hide="item.editing"><p style="color:navy">
+                    {{item.name_doc}} <b>{{item.lastname_doc}}</b></p>
+                    </div>
+
+                    <div ng-show="item.editing">
+                      <input type="text" placeholder="Nombres del doctor" class="form-control rounded w-auto input-lg m-b-n-xxs font-bold" ng-model="item.name_doc" required />
+
+                      <input type="text" placeholder="Apellidos del doctor" class="form-control rounded w-auto input-lg font-bold" ng-model="item.lastname_doc" required />
+                    </div>
+                  </div>
+                </div>
+                <!-- fields -->
+                <hr>
+                <div class="form-horizontal" style="font-size:16px">
+                  <div class="form-group m-b-sm">
+                    <label class="col-sm-3 control-label"><b>Código de JVPM:</b> </label>
+                    <div class="col-sm-9">
+                      <p class="form-control-static" ng-hide="item.editing">{{item.jvpm_doc}}</p>
+                      <input type="text" class="form-control rounded" required ng-show="item.editing" ng-model="item.jvpm_doc" >
+                    </div>
+                  </div>
+                  <div class="form-group m-b-sm">
+                    <label class="col-sm-3 control-label"><b>Correo Electrónico: </b></label>
+                    <div class="col-sm-9">
+                      <p class="form-control-static" ng-hide="item.editing">{{item.email}}</p>
+                      <input type="email" class="form-control rounded" required ng-show="item.editing" ng-model="item.email" >
+                    </div>
+                  </div>
+                  <div class="form-group m-b-sm">
+                    <label class="col-sm-3 control-label"><b>NIT</b></label>
+                    <div class="col-sm-9">
+                      <p class="form-control-static" ng-hide="item.editing">{{item.nit}}</p>
+                      <input type="text" class="form-control rounded" required ng-show="item.editing" ng-model="item.nit" ui-mask="9999-999999-999-9" />
+                    </div>
+                  </div>
+                  <div class="form-group m-b-sm">
+                    <label class="col-sm-3 control-label"><b>NRC</b></label>
+                    <div class="col-sm-9">
+                      <p class="form-control-static" ng-hide="item.editing">{{item.nrc}}</p>
+                      <input type="text" class="form-control rounded" required ng-show="item.editing" ng-model="item.nrc" ui-mask="999999-9"/>
+                    </div>
+                  </div>
+                  <div class="form-group m-b-sm">
+                    <label class="col-sm-3 control-label"><b>Celular: </b></label>
+                    <div class="col-sm-9">
+                      <p class="form-control-static" ng-hide="item.editing"> (503) {{item.phone_doc}}</p>
+                      <input type="text" class="form-control rounded" ng-show="item.editing"  ui-mask="(503) 9999-9999" ng-model="item.phone_doc" >
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <div class="container-maps">
+                  <div map-lazy-load="https://maps.google.com/maps/api/js" 
+                    map-lazy-load-params="{{googleMapsUrl}}">
+                    <ng-map class="center-maps" zoom="17" on-click="addMarker()"></ng-map>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="panel panel-default" style="margin: 0">
+  <div class="panel-heading font-bold" style="overflow: hidden;  background-color: #008080; color: #ffffff">
+    Crear un grupo
+    <button ng-click="close()" class="btn btn-danger pull-right">Cerrar</button>
+  </div>
+  <div class="panel-body">
+    <form class="form-horizontal" ng-submit="addGrup();" name="frm">
+      <div class="form-group">
+        <label class="col-lg-4 control-label">Nombre del Grupo</label>
+        <div class="col-lg-8">
+          <input type="text" class="form-control" required placeholder="Nombre del grupo" ng-model="name"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-10">
+          <div class="checkbox">
+            <label class="i-checks">
+              <input type="checkbox" ng-model="is_multiple" /><i></i> Es para casos multiples
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-10">
+          <button type="submit" ng-disabled="frm.$invalid" class="btn btn-info">Crear</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

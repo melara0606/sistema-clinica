@@ -1,0 +1,87 @@
+<div class="panel" style="margin-bottom: 0px; background-color: #fafafa; font-size: 16px">
+  <div class="panel-heading b-b b-light" style="overflow: auto; background-color: #008080">
+    <STRONG style="color: #ffffff">Listado de Campos del Examen</STRONG>
+    <button type="button" ng-click="cerrar();" class="pull-right btn btn-danger">Cerrar</button>
+  </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="bg-light lter b-b wrapper-md">
+                <h1 class="m-n font-thin h3">Examen: {{ examen.nombre_examen }} </h1>
+            </div>
+            <div class="wrapper-md">
+                <div class="col-xs-12">
+                    <form class="form-validation" ng-submit="onSaveResponse();" name="frmExamen">
+                        <div class="panel b-a">
+                            <div class="panel-heading b-b b-light">
+                                <span class="pull-right">
+                                    <button type="submit" ng-if='estado != 3' ng-disabled="frmExamen.$invalid"
+                                        class="btn btn-info btn-sm">Guardar</button>
+                                </span>
+                                <a href="" class="font-bold">Campos</a>
+                            </div>
+                            <div class="clearfix panel-footer">
+                                <div class="input-group">
+                                    <input type="text" class="form-control input-sm btn-rounded" placeholder="Buscar campos" ng-model="query" />
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-info btn-sm btn-rounded"><i class="fa fa-search"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <table class="table table-striped m-b-none">
+                                <thead>
+                                    <tr>
+                                        <th style="width:60px;" class="text-center">No.</th>
+                                        <th class="text-center">Nombre del campo</th>
+                                        <th class="text-center"></th>
+                                        <th class="text-center" style="width:150px">Valor</th>
+                                        <th style="width: 50px"></th>
+                                        <th class="text-center" style="width:100px;">Unidades</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in campos | filter:query"
+                                        class="text-center">
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ item.nombre_campo }}  </td>
+                                        <td>
+                                            <div ng-if='item.id_tipo_catalogo == 1'>
+                                              <select ng-if='estado == 1 || estado == 2'   ng-model="item.value_seleccion" name="grupo" class="form-control">
+                                                <option value></option>
+                                                <option
+                                                ng-repeat="grupo in gruposSeleccion[ item.grupo_seleccion]"
+                                                value="{{ grupo.nombre_seleccion }}">
+                                                    {{ grupo.nombre_seleccion }}
+                                                </option>
+                                              </select>
+                                              <span ng-if="estado == 3">
+                                                {{ item.value_seleccion  || "NO SELECCIONADO" }}
+                                              </span>
+                                            </div>
+                                            <div ng-if='item.id_tipo_catalogo == 2'>
+                                                {{ item.rango_valor }}
+                                            </div>
+                                            <div ng-if='item.id_tipo_catalogo == 3'>
+                                                <textarea ng-if='estado != 3' ng-model="item.digitable_value" class="form-control" cols="10" rows="5"></textarea>
+                                                <span ng-if="estado == 3">{{ item.digitable_value || "" }}</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input ng-model="item.value_campos" required ng-if="item.valor_opcional && (item.value_seleccion || item.id_tipo_catalogo == 2) && estado != 3"  type="text" ng-pattern="/^[0-9]+([,.][0-9]{1,2})?$/" class="form-control text-center" />
+                                            <span ng-if="estado == 3">{{ item.result.resultado }}</span>
+                                        </td>
+                                        <td>
+                                          <span class="label bg-primary" ng-if="item.id_tipo_catalogo == 2 && estado != 3">
+                                            {{ item.value_campos | fromRango: item.rango_valor }}
+                                          </span>
+                                        </td>
+                                        <td>{{ item.unidades }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

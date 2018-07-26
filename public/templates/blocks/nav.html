@@ -1,0 +1,23 @@
+<form class="navbar-form navbar-form-sm" ng-hide='app.settings.asideFolded'>
+  <div class="form-group">
+    <div class="input-group">
+      <input type="text" ng-model="selected" 
+        class="form-control input-sm bg-light no-border rounded padder" 
+          placeholder="opciones ....."  />
+      <span class="input-group-btn">
+        <button type="submit" class="btn btn-sm bg-light rounded"><i class="fa fa-search"></i></button>
+      </span>
+    </div>
+  </div>
+</form>
+<ul class="nav">
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+    <span>. : Módulos : . </span>
+  </li>
+  <li ui-sref-active="active" ng-repeat='rec in recursos | filter:selected ' >
+    <a ui-sref="app.{{rec.url}}">
+      <i class="{{rec.icons}}"></i>
+      <span style="color: #ffffff">{{rec.nombre}}</span>
+    </a>
+  </li>
+</ul> 

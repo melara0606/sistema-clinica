@@ -1,0 +1,45 @@
+<div class="hbox hbox-auto-xs bg-light" >
+  <div class="col w-lg lt b-r">
+    <div class="vbox">
+      <div class="wrapper b-b m-t-xxs" >
+        <div class="h4 font-bold" style="overflow:auto">
+          
+      <div class="wrapper b-t text-center">
+        <div class="btn-group">
+            <button ng-if="permisos.agregar" 
+            ng-click='open(false);' type="button" class="btn btn-addon btn-info"><i class="fa fa-plus"></i>Nueva Promoción</button>    
+        </div>
+      </div>
+
+
+          
+        </div>
+      </div>
+      <div class="row-row">
+        <div class="cell scrollable hover">
+          <div class="cell-inner"> 
+            <div class="m-t-n-xxs">
+              <div class="list-group list-group-lg no-radius no-border no-bg m-b-none">
+                <a ui-sref-active="active" ng-dblclick='open(true, item, $index);'
+                  ui-sref="app.promociones.item({ id: item.id  })"
+                   class="list-group-item m-l ng-scope m-l-none"
+                   ng-repeat="item in list">
+                  <span 
+                    class="block text-ellipsis m-l-n text-md ng-binding m-l-none">{{item.nombre_promocion}}</span>
+                </a>
+                <h4 ng-if='list.length == 0' style="text-align: center;padding: 10px;">Por el momento no hay promociones Registradas</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col" style="background:url(public/img/rayas.jpg) center center; background-size:cover">
+    <div class="vbox" ui-view="item">
+      <div class="text-center m-b">
+      
+      </div>
+    </div>
+  </div>
+</div>

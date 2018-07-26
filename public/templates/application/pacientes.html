@@ -1,0 +1,199 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm bg-light">
+  <div class="col w-lg lter b-r">
+    <div class="vbox">
+      <div class="wrapper-xs b-b">
+        <div class="input-group m-b-xxs">
+          <span class="input-group-addon input-sm no-border no-bg"><i class="icon-magnifier text-md m-t-xxs"></i></span>
+          <input type="text" class="form-control input-sm no-border no-bg text-md" placeholder="Buscar paciente" ng-model="query" ng-keypress='onKeypress($event);'/>
+        </div>
+
+      <div class="wrapper b-t text-center" ng-if='permisos.agregar === 1'>
+        <a href class="btn btn-info btn-addon" ng-click="createItem()"><i class="fa fa-plus fa-fw m-r-xs"></i>
+          Nuevo paciente
+        </a>
+      </div>
+
+      </div>
+      <div class="row-row">
+        <div class="cell scrollable hover">
+          <div class="cell-inner">
+            <div class="m-t-n-xxs">
+              <div class="list-group list-group-lg no-radius no-border no-bg m-b-none">
+                <a ng-repeat="item in items | filter:querySuc" class="list-group-item m-l" ng-class="{'select m-l-none': item.selected }" ng-click="selectItem(item)">
+                  <span class="block text-ellipsis m-l-n text-md" ng-class="{'m-l-none': item.selected }" style="font-size:14px">
+                    {{ item.name_pac }} <strong> {{ item.lastname_pac }} </strong>
+                    <span ng-hide="item.name_pac || item.lastname_pac">Nuevo paciente</span>
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div class="text-center pos-abt w-full" style="top:50%;" 
+              ng-hide="items.length > 0">Registro no encontrado</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group b-t" style="overflow:auto">
+        <div class="col-sm-12">
+          <select ng-model='querySuc' name="account" class="form-control m-t">
+            <option value="-1">Todos</option>
+            <option value="{{ ent.id }}" ng-repeat='ent in entidades' >{{ ent.name_ext }}</option>
+          </select>
+        </div>
+      </div>
+     
+    </div>
+  </div>
+
+  <div class="wrapper-lg hbox" style="background:url(public/img/rayas.jpg) center center; background-size:cover">
+    <!-- Para la caja de contenido de formulario -->
+    <div class="col bg-white-only" style="background-color: #fafafa">
+      <div class="vbox">
+        <form action="" class="hbox form-validation" name="form">
+          <div class="wrapper-sm b-b" style="background-color: #008080; overflow: auto">
+            <div class="m-t-n-xxs m-b-n-xxs m-l-xs">
+              <div class="btn-group pull-left"></div>
+                <a ng-if='permisos.editar === 1' class="btn btn-info btn-addon" ng-show="item.editing"
+                  ng-click="doneEditing(item)" ng-disabled="form.$invalid"><i class="fa fa-check"></i>Aceptar</a>
+
+                <a ng-if='permisos.agregar === 1' class="btn btn-info btn-addon" ng-hide="item.editing"
+                    ng-click="openPaciente(item)"><i class="fa fa-plus"></i>Solicitud</a>
+
+                <a ng-if='permisos.agregar === 1' class="btn btn-info btn-addon" ng-hide="item.editing"
+                    ng-click="openCitaRapida(item)"><i class="fa fa-bolt"></i>Cita rapida</a>
+
+                <a ng-if='permisos.editar === 1' class="btn btn-info btn-addon" ng-hide="item.editing"
+                  ng-click="editItem(item)"><i class="fa fa-pencil"></i>Editar</a>
+
+                <button type="button" ng-if='permisos.editar === 1' class="btn btn-info btn-addon" ng-hide="item.editing"
+                  ng-click="changePassword(item)"><i class="fa fa-lock"></i>Restaurar Contraseña</button>
+              
+
+              <div class="btn-group pull-right">
+                <a class="btn btn-info btn-addon" ng-hide="item.editing"
+                  ng-click="openModalDateBeginAndEnd(item)"><i class="fa fa-print"></i>Reporte</a>
+
+                <a ng-if='permisos.eliminar === 1'
+                  class="btn btn-danger btn-addon" ng-hide="!item"
+                  ng-click="deleteItem(item)"><i class="fa fa-times"></i>Activar</a>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row-row">
+            <div class="cell">
+              <div class="cell-inner">
+                <div class="wrapper-lg">
+                  <div class="hbox h-auto m-b-lg">
+                    <div class="col text-center w-sm">
+                      <div class="thumb-lg avatar inline">
+                        <img src="public/img/user.png" class="b b-3x b-primary"
+                          ng-class="{'b-danger' : !item.status}" />
+                      </div>
+                    </div>
+                    <div class="col v-middle h1 font-thin">
+                      <div style="font-size:20px"><b>{{item.codigo_paciente}}</b></div>
+                      <div ng-hide="item.editing"><p style="color:navy">
+                        {{item.name_pac}} <b>{{item.lastname_pac}}</b></p>
+                      </div>
+
+                      <div ng-show="item.editing">
+                        <input type="text" placeholder="Nombres del paciente" class="form-control rounded input-lg m-b-n-xxs font-bold" ng-model="item.name_pac" required />
+
+                        <input type="text" placeholder="apellidos del paciente" class="form-control rounded input-lg font-bold" ng-model="item.lastname_pac" required />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-horizontal" style="font-size:16px">
+                    <div class="form-group m-b-sm">
+                      <label class="col-sm-3 control-label"><b>Fecha de Nacimiento: </b></label>
+                      <div class="col-sm-9">
+                        <p class="form-control-static" ng-hide="item.editing"> {{item.date_pac | date:'fullDate' }}</p>
+                        <div class="input-group w-md">
+                          <input type="text" class="form-control rounded" uib-datepicker-popup="{{format}}" ng-model="item.date_pac" is-open="popup1.opened" readonly datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-show="item.editing" />
+                          <span class="input-group-btn" ng-show="item.editing">
+                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group m-b-sm">
+                      <label class="col-sm-3 control-label"><b>Género: </b></label>
+                      <div class="col-sm-9">
+                        <p class="form-control-static" ng-hide="item.editing">{{item.genero_paciente | fromGenero}}</p>
+                        <select ng-show="item.editing" class="form-control rounded" ng-model="item.genero_paciente" required>
+                          <option value='1'>Masculino</option>
+                          <option value='2'>Femenino</option>
+                        </select>
+                      </div>
+                    </div>
+
+                      <div class="form-group m-b-sm">
+                      <label class="col-sm-3 control-label"><b>Institucion: </b></label>
+                      <div class="col-sm-9">
+                        <p class="form-control-static" ng-hide="item.editing">{{ getEntidad(item.entidad_id) }}</p>
+                        <select ng-model="item.entidad_id" name="entidad_id" ng-show="item.editing" class="form-control rounded">
+                          <option value='{{ entidad.id }}' ng-repeat='entidad in entidades'>{{ entidad.name_ext }}</option>
+                        </select>
+                      </div>
+                    </div>
+
+                  <hr />
+                  <div class="panel b-a"  style="font-size:16px">
+                    <div class="panel-heading no-border bg-primary" style="background-color:dodgerblue"><b>DATOS ADICIONALES</b></div>
+                    <div class="form-horizontal">
+
+
+                    <div class="form-group m-b-sm">
+                      <label class="col-sm-3 control-label"><b>Número de teléfono: </b></label>
+                      <div class="col-sm-9">
+                        <p class="form-control-static" ng-hide="item.editing"> {{item.telefono}}</p>
+                        <input type="text" ui-mask="(503) 9999-9999" class="form-control rounded" ng-show="item.editing" ng-model="item.telefono" />
+                      </div>
+                    </div>
+
+                    <div class="form-group m-b-sm">
+                      <label class="col-sm-3 control-label"><b>Carnet: </b></label>
+                      <div class="col-sm-9">
+                        <p class="form-control-static" ng-hide="item.editing"> {{item.carnet}}</p>
+                        <input type="text" class="form-control rounded" ng-show="item.editing" ng-model="item.carnet" />
+                      </div>
+                    </div>
+
+                    <div class="form-group m-b-sm">
+                      <label class="col-sm-3 control-label"><b>DUI: </b></label>
+                      <div class="col-sm-9">
+                        <p class="form-control-static" ng-hide="item.editing"> {{item.dui}}</p>
+                        <input type="text" ui-mask="99999999-9" class="form-control rounded" ng-show="item.editing" ng-model="item.dui" />
+                      </div>
+                    </div>
+
+                    <div class="form-group m-b-sm">
+                      <label class="col-sm-3 control-label"><b>Responsable del paciente: </b></label>
+                      <div class="col-sm-9">
+                        <p class="form-control-static" ng-hide="item.editing"> {{item.responsable_paciente}}</p>
+                        <input type="text" class="form-control rounded" ng-show="item.editing" ng-model="item.responsable_paciente" />
+                      </div>
+                    </div>
+
+                    <div class="form-group m-b-sm">
+                      <label class="col-sm-3 control-label"><b>Dirección:</b></label>
+                      <div class="col-sm-9">
+                        <p class="form-control-static" ng-hide="item.editing"> {{item.address_pac}}</p>
+                        <textarea class="form-control rounded" ng-show="item.editing" ng-model="item.address_pac" ></textarea>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

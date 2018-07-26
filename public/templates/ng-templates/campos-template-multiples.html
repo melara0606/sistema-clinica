@@ -1,0 +1,60 @@
+<div class="panel" style="margin-bottom: 0px; background-color: #fafafa; font-size: 16px">
+  <div class="panel-heading b-b b-light" style="overflow: auto; background-color: #008080">
+    <STRONG style="color: #ffffff">Listado de Campos del Examen</STRONG>
+    <div class="btn-group pull-right">
+     
+      <button type="button" ng-click="cerrar();" class="btn btn-danger">Cerrar</button>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="wrapper-md">
+        <div class="col-xs-12">
+           <button ng-if='itemParent.estado != 3' type="button" ng-click="onSave();" class="btn btn-primary pull-right">Guardar</button>
+          <form class="form-validation" ng-submit="onSaveResponse();" name="frmExamen">
+            <div class="panel b-a" ng-repeat="(key, value) in campos">
+              
+              <div class="panel-heading b-b b-light">
+                <h5 class="font-bold">{{ categoria[key][0].nombre_categoria_grupo }}</h5>
+              </div>
+              <table class="table table-striped m-b-none">
+                <thead>
+                  <tr>
+                    <th style="width:60px;" class="text-center">No.</th>
+                    <th class="text-center">Nombre del campo</th>
+                    <th class="text-center" style="width:150px">{{ categoriaValue[key][0].nombre }}</th>
+                    <th class="text-center" style="width:150px">{{ categoriaValue[key][1].nombre }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="item in value">
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ item.nombre_campo }}</td>
+                    <td class="text-center">
+                      <select class="form-control" ng-hide="itemParent.estado == 3"
+                        ng-model="item.resultado[categoriaValue[key][0].nombre]"
+                        name="grupoSeleccion{{ key }}categoriaValue[key][0].nombre" 
+                        id="grupoSeleccion{{ key }}categoriaValue[key][0].nombre ">
+                        <option value="{{ item }}" ng-repeat="item in categoriaValue[key][0].items">{{ item }}</option>
+                      </select>
+                      <span ng-show='itemParent.estado == 3'>{{ item.resultado[categoriaValue[key][0].nombre] }}</span>
+                    </td>
+                    <td class="text-center">
+                      <select class="form-control" ng-hide="itemParent.estado == 3"
+                        ng-model="item.resultado[categoriaValue[key][1].nombre]"
+                        name="grupoSeleccion{{ key }}categoriaValue[key][1].nombre" 
+                        id="grupoSeleccion{{ key }}categoriaValue[key][1].nombre">
+                        <option value="{{ item }}" ng-repeat="item in categoriaValue[key][1].items">{{ item }}</option>
+                      </select>
+                      <span ng-show='itemParent.estado == 3'>{{ item.resultado[categoriaValue[key][1].nombre] }}</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

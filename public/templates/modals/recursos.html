@@ -1,0 +1,46 @@
+<div class="panel" style="margin-bottom: 0px; background-color: #fafafa">
+    <div class="panel-heading b-b b-light" style="overflow: auto; background-color: #008080">
+        <strong style="color: #ffffff">Modificar elemento</strong>
+        <div class="pull-right">
+            <button class="btn btn-danger " ng-click="cerrar();">Cerrar</button>
+        </div>
+    </div>
+    <div class="panel-body">
+      <form class="form-validation" name="frm" ng-submit='onUpdateRecurso(this);'>
+        <table class="table table-striped m-b-none">
+          <tbody>
+            <tr>
+              <td colspan="4">
+                <button type="button" class="btn btn-default pull-left"> <i class="{{recurso.icons}}"></i> </button>
+                <h2 style="margin:0px;" class="pull-left">{{recurso.nombre}}</h2>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="checkbox-inline i-checks">
+                  <input required type="checkbox" ng-model='recurso.consultar'><i></i> Consultar
+                </label>
+              </td>
+              <td>
+                <label class="checkbox-inline i-checks">
+                  <input type="checkbox" ng-model='recurso.agregar'><i></i> Agregar
+                </label>
+              </td>
+              <td>
+                <label class="checkbox-inline i-checks">
+                  <input type="checkbox" ng-model='recurso.editar'><i></i> Editar
+                </label>
+              </td>
+              <td>
+                <label class="checkbox-inline i-checks">
+                  <input type="checkbox" ng-model='recurso.eliminar'><i></i> Eliminar
+                </label>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button ng-disabled="frm.$invalid" type="submit"
+          class="btn btn-info pull-right" style="margin-top:10px">Actualizar</button>
+      </form>
+    </div>
+</div>

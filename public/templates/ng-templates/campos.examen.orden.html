@@ -1,0 +1,22 @@
+<div class="bg-light lter b-b wrapper-md ng-scope" style="background-color: transparent">
+  <h1 class="m-n font-bold h3">Campos del examen {{item.nombre_examen}}</h1>
+  <div class="row" style="margin-top:20px;"> 
+    <div class="col-xs-10">
+      <div class="panel panel-default">
+        <div class="panel-heading font-bold" style="overflow:auto; background-color: #008080">
+         <a style="color: #ffffff"> Listados </a>
+          <button ng-click="saveOrdenCampos($event);"
+            class="btn btn-info pull-right">Guardar Orden</button>
+        </div>
+        <div class="panel-body">
+          <ul ui-sortable='sortableOptions' class="list-group gutter list-group-lg list-group-sp" ng-model='campos'>
+            <li ng-repeat="item in campos" class="list-group-item bg-info">
+             <span class="pull-left"><i class="fa fa-sort text-muted fa m-r-sm"></i> </span>
+             <div class="clear" style="color: #ffffff; font-size: 16px">{{ item.nombre_campo }}</div>
+            </li>
+          </ul>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,154 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm bg-light">
+  <div class="col w-lg lter b-r">
+    <div class="vbox">
+      <div class="wrapper-xs b-b">
+        <div class="input-group m-b-xxs">
+          <span class="input-group-addon input-sm no-border no-bg"><i class="icon-magnifier text-md m-t-xxs"></i></span>
+          <input type="text" class="form-control input-sm no-border no-bg text-md" placeholder="Buscar entidad" ng-model="query">
+        </div>
+      </div>
+
+ <div class="wrapper b-t text-center">
+        <div class="btn-group">
+          <a ng-if='permisos.agregar' href class="btn btn-info btn-addon" ng-click="createItem()"><i class="fa fa-plus fa-fw m-r-xs"></i>
+            Nueva Entidad
+          </a>
+          <a href="entidads/reporte" target="black" class="btn btn-info" tooltip-placement="top" uib-tooltip="Reporte"><i class="fa fa-file-pdf-o"></i></a>
+        </div>
+      </div>
+
+
+
+      <div class="row-row">
+        <div class="cell scrollable hover">
+          <div class="cell-inner">
+            <div class="m-t-n-xxs">
+              <div class="list-group list-group-lg no-radius no-border no-bg m-b-none">
+                <a ng-repeat="item in items | filter:query " class="list-group-item m-l" ng-class="{'select m-l-none': item.selected }" ng-click="selectItem(item)">
+                  <span class="block text-ellipsis m-l-n text-md" ng-class="{'m-l-none': item.selected }" style="font-size:14px">
+                    <strong>{{ item.name_ext }}</strong>
+                    <span ng-hide="item.name_ext">Nueva Entidad</span>
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div class="text-center pos-abt w-full" style="top:50%;" ng-hide="(items | filter:query).length">Registro No Encontrado</div>
+          </div>
+        </div>
+      </div>
+     
+
+    </div>
+  </div>
+
+<div class="wrapper-lg hbox" style="background:url(public/img/rayas.jpg) center center; background-size:cover"> <!-- Para la caja de contenido de formulario -->
+  <div class="col bg-white-only" style="background-color: #fafafa">
+    <div class="vbox">
+      <form action="" class="hbox form-validation" name="form">
+        <div class="wrapper-sm b-b" style="background-color: #008080">
+          <div class="m-t-n-xxs m-b-n-xxs m-l-xs">
+            <a ng-if='permisos.agregar' class="btn btn-info btn-addon"
+              ng-hide="item.editing" ng-click="addExamen(item);"><i class="fa fa-plus fa-fw m-r-xs"></i>Agregar Exámen</a>
+
+              <a ng-if='permisos.agregar' class="btn btn-info btn-addon"
+                ng-hide="item.editing" ng-click="addMonto(item);"><i class="fa fa-plus fa-fw m-r-xs"></i>Agregar Monto</a>
+
+            <a ng-if='permisos.eliminar' class="btn btn-danger pull-right"
+              ng-hide="!item" ng-click="deleteItem(item)"><i class="fa fa-times"></i></a>
+            <a ng-if='permisos.editar' class="btn btn-info btn-addon"
+              ng-hide="item.editing" ng-click="editItem(item)"><i class="fa fa-edit fa-fw m-r-xs"></i>Editar</a>
+            <a ng-if='permisos.editar' class="btn btn-info btn-addon"
+              ng-show="item.editing" ng-click="doneEditing(item)" ng-disabled="form.$invalid">Aceptar</a>
+          </div>
+        </div>
+
+        <div class="row-row">
+          <div class="cell">
+            <div class="cell-inner">
+              <div class="wrapper-lg">
+                <div class="hbox h-auto m-b-lg">
+                  <div class="col text-center w-sm">
+                    <div class="thumb-lg avatar inline">
+                      <img src="public/img/edif.png" class="b b-3x b-primary"
+                        ng-class="{'b-danger' : !item.status}" />
+                    </div>
+                  </div>
+                  <div class="col v-middle h1 font-thin">
+                    <div ng-hide="item.editing">
+                      <p style="color:navy"><b>{{item.name_ext}} </b></p><br />
+                    </div>
+
+                    <div ng-show="item.editing">
+                      <input type="text" placeholder="Nombres de la entidad" class="form-control input-lg m-b-n-xxs font-bold rounded" ng-model="item.name_ext" required />
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <div class="form-horizontal" style="font-size:16px">
+                  <div class="form-group m-b-sm">
+                    <label class="col-sm-3 control-label"><b>Número de teléfono: </b></label>
+                    <div class="col-sm-9">
+                      <p class="form-control-static" ng-hide="item.editing"> +(503) {{item.phone_ext}}</p>
+                      <input type="tel" class="form-control rounded" required ng-show="item.editing" ng-model="item.phone_ext" ui-mask="(503) 9999-9999" />
+                    </div>
+                  </div>
+                  <div class="form-group m-b-sm">
+                    <label class="col-sm-3 control-label"><b>NIT: </b></label>
+                    <div class="col-sm-9">
+                      <p class="form-control-static" ng-hide="item.editing">{{item.nit_entidad}}</p>
+                      <input type="tel" class="form-control rounded" required ng-show="item.editing" ng-model="item.nit_entidad" ui-mask="9999-999999-999-9" />
+                    </div>
+                  </div>
+                  <div class="form-group m-b-sm">
+                    <label class="col-sm-3 control-label"><b>NRC: </b></label>
+                    <div class="col-sm-9">
+                      <p class="form-control-static" ng-hide="item.editing">{{item.nrc_entidad}}</p>
+                      <input type="tel" class="form-control rounded" required ng-show="item.editing" ng-model="item.nrc_entidad" ui-mask="999999-9" />
+                    </div>
+                  </div>
+                  <div class="form-group m-b-sm">
+                    <label class="col-sm-3 control-label"><b>Dirección: </b></label>
+                    <div class="col-sm-9">
+                      <p class="form-control-static" ng-hide="item.editing"> {{item.address_ext}}</p>
+                      <textarea class="form-control rounded" ng-show="item.editing" ng-model="item.address_ext" required></textarea>
+                    </div>
+                  </div>
+                </div>
+                <hr />
+                <div class="panel b-a" style="font-size:16px">
+                  <div class="panel-body no-border bg-primary" style="background-color:dodgerblue"><b> DATOS DEL REPRESENTANTE </b></div>
+                  <div class="form-horizontal">
+                    <div class="form-group m-b-sm has" style="padding-top: 10px">
+                      <label class="col-sm-3 control-label"><b>Nombre Completo: </b></label>
+                      <div class="col-sm-9">
+                        <p class="form-control-static span-hide" ng-hide="item.editing">{{item.represent_ext}}</p>
+                        <input type="text" class="form-control rounded" ng-show="item.editing" ng-model="item.represent_ext" required />
+                      </div>
+                    </div>
+
+                    <div class="form-group m-b-sm has">
+                      <label class="col-sm-3 control-label"><b>Número de teléfono: </b></label>
+                      <div class="col-sm-9">
+                        <p class="form-control-static span-hide" ng-hide="item.editing"> +(503) {{item.phone_represent_ext}}</p>
+                        <input type="text" class="form-control rounded" ng-show="item.editing" ui-mask="(503) 9999-9999" ng-model="item.phone_represent_ext" required />
+                      </div>
+                    </div>
+
+                    <div class="form-group m-b-sm has">
+                      <label class="col-sm-3 control-label"><b>Correo electrónico: </b></label>
+                      <div class="col-sm-9">
+                        <p class="form-control-static span-hide" ng-hide="item.editing">{{item.mail_represent_ext}}</p>
+                        <input type="email" class="form-control rounded" ng-show="item.editing" ng-model="item.mail_represent_ext" required />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  </div>
+</div>

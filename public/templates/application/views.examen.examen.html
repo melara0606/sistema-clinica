@@ -1,0 +1,31 @@
+<div class="bg-light lter b-b wrapper-md" style="background-color: #008080">
+    <div class="row">
+        <div class="col-xs-8 col-xs-12">
+            <h1 class="m-n font-thin h3 text-black ng-binding" 
+                style="color: #ffffff">Exámen: {{ data.nombre_examen }} </h1>
+        </div>
+        <div class="col-xs-4">
+            <button type="button" ng-click="goBack();" class="btn btn-info pull-right">Atras</button>
+        </div>
+    </div>
+</div>
+<uib-tabset active="active">
+    <uib-tab index="0">
+        <uib-tab-heading>
+            <i class="icon-film"></i> Materiales
+        </uib-tab-heading>
+        <div ng-include='"public/templates/ng-templates/materiales.examen.html"'></div>
+    </uib-tab>
+    <uib-tab index="1">
+        <uib-tab-heading>
+            <i class="icon-film"></i> Campos
+        </uib-tab-heading>
+        <div ng-include='"public/templates/ng-templates/campos.examen.html"'></div>
+    </uib-tab>
+    <uib-tab index="2">
+        <uib-tab-heading>
+            <i class="icon-film"></i> Orden
+        </uib-tab-heading>
+        <div ng-include='"public/templates/ng-templates/campos.examen.orden.html"'></div>
+    </uib-tab>
+</uib-tabset>

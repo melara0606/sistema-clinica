@@ -1,0 +1,196 @@
+{% extends 'web/layout.twig' %}
+
+{% block menu %}  
+  {% include 'web/block/menu.twig' with { 'option': 'servicios' } %}
+{% endblock %}
+
+{% block content %}
+<div class="main-container">
+  <main>
+    <div class="page-banner container-fluid no-left-padding no-right-padding">
+      <div class="container">
+        <div class="page-banner-content">
+          <h3 style="color: black">NUESTROS SERVICIOS</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="other-services container-fluid no-left-padding no-right-padding">
+      <div class="container">
+        <div class="section-header">
+          <h3>Exámenes</h3>
+        </div>
+        <div class="row srv-box">
+          <div class="col-md-4 col-sm-6 col-xs-6">
+            <div class="other-services-block" style="background-color: #1a237e">
+              <div class="services-block-icon">
+                <i class="fa fa-pencil-square-o"></i>
+              </div>
+              <div class="other-services-content">
+                <h5 style="color: #ffbb33">Rutinarios</h5>
+                <p style="color: #ffffff">Exámen General de Heces,<br> Exámen General de Orina,<br> entre otros</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-6">
+            <div class="other-services-block" style="background-color: #1a237e">
+              <div class="services-block-icon">
+                <i class="fa fa-tint"></i>
+              </div>
+              <div class="other-services-content">
+                <h5 style="color: #ffbb33">Hematología</h5>
+                <p style="color: #ffffff">Hemograma, <br>Conteo de Plaquetas,<br> entre otros  </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-6">
+            <div class="other-services-block" style="background-color: #1a237e">
+              <div class="services-block-icon">
+                <i class="fa fa-flask"></i>
+              </div>
+              <div class="other-services-content">
+                <h5 style="color: #ffbb33">Químicos</h5>
+                <p style="color: #ffffff">Glucosa,<br>Trigliseridos,<br>Ácido Urico y más</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-6">
+            <div class="other-services-block" style="background-color: #1a237e">
+              <div class="services-block-icon">
+                <i class="fa fa-shield"></i>
+              </div>
+              <div class="other-services-content">
+                <h5 style="color: #ffbb33">Bactereológicos</h5>
+                <p style="color: #ffffff">Cultivo de Secreción, <br> Hemocultivo, <br> entre otros</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-6">
+            <div class="other-services-block" style="background-color: #1a237e">
+              <div class="services-block-icon">
+                <i class="fa fa-file-excel-o"></i>
+              </div>
+              <div class="other-services-content">
+                <h5 style="color: #ffbb33">Varios</h5>
+                <p style="color: #ffffff">Prueba de VIH, <br> Prueba de Paternidad, <br> entre otros</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-6">
+            <div class="other-services-block" style="background-color: #1a237e">
+              <div class="services-block-icon">
+                <i class="fa fa-folder open"></i>
+              </div>
+              <div class="other-services-content">
+                <h5 style="color: #ffbb33">Consulte Nuestro Catálogo</h5>
+                <p> <br></p>
+                <button class="btn btn-info btn-block" data-toggle="modal" data-target="#myModal"
+                  type="button">Ver</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="extra-services container-fluid no-left-padding no-right-padding">
+      <div class="container">
+        <div class="section-header">
+          <h3>OTROS SERVICIOS</h3>
+        </div>
+        <div class="row">
+          <div class="col-md-4 col-sm-6 col-xs-6">
+            <div class="extra-box">
+              <i class="fa fa-hospital-o"></i>
+              <h5 style="font-size: 30px">Convenios Institucionales</h5>
+              <p><h4 style="color: #ffffff">Brindamos servicios a pacientes referidos del ISBM y de otras instituciones afiliadas</h4></p>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-6">
+            <div class="extra-box">
+              <i class="fa fa-wheelchair-alt"></i>
+              <h5 style="font-size: 30px">Servicio a Domicilio</h5>
+              <p><h4 style="color: #ffffff">Para la toma de muestra a pacientes solicitantes</h4></p>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-6">
+            <div class="extra-box">
+              <i class="fa fa-laptop"></i>
+              <h5 style="font-size: 30px">Citas Online</h5>
+              <p><h4 style="color: #ffffff">Mediante la app del laboratorio, se puede reservar citas con solo un par de clicks</h4></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="promociones" class="other-services container-fluid no-left-padding no-right-padding">
+      <div class="container">
+        <div class="section-header">
+          <h3>PROMOCIONES</h3>
+          <div class="row srv-box" style="padding-top: 30px">
+            {% for promocion in promociones %}
+              <div class="col-md-4 col-sm-6 col-xs-6">
+                <div class="other-services-block" style="background-color: #1a237e">
+                  <div class="services-block-icon" style="left:40px;">
+                    <i class="fa fa-medkit"></i>
+                  </div>
+                  <div class="other-services-content" style="color: #ffffff">
+                    <h4>{{ promocion.nombre }}</h4>
+                    <h5 style="color: #ffbb33">Precio: $ {{ promocion.precio }}</h5>
+                    <p>
+                      <ul class="text-left">
+                        {% for item in promocion.items %}
+                          <li>{{ item }}</li>
+                        {% endfor %}
+                      </ul>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content container">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Catalogo de Examenes</h4>
+      </div>
+      <div class="modal-body">
+        <div class="other-services container-fluid no-left-padding no-right-padding">
+          <div>
+            <div class="row srv-box">
+              {% for examen in examenes %}
+                <div class="col-md-4 col-sm-6 col-xs-6 column size-1of3" >
+                  <div class="other-services-block">
+                    <div class="services-block-icon">
+                      <i class="fa fa-pencil-square-o"></i>
+                    </div>
+                    <div class="other-services-content">                    
+                      <h5>{{ examen.nombre }}</h5>
+                      <p>
+                        {% for item in examen.items %}
+                          {{ item }} <br />
+                        {% endfor %}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

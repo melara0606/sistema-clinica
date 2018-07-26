@@ -1,0 +1,80 @@
+<div class="wrapper bg-light lt b-b" style="overflow:auto; background-color: transparent">
+  <div class="col-sm-12">
+    <div class="panel panel-default" style="font-size: 16px; background-color: #fafafa">
+      <div class="panel-heading font-bold" style="background-color: #008080"><a style="color: #ffffff">Agregar Nuevo Campo</a></div>
+      <div class="panel-body">
+        <form ng-submit="onValidateForm(materialForm.$valid)" class="form-horizontal form-validation" name="materialForm">
+          <div class="form-group">
+            <label for='nombre' class="col-lg-2 control-label">Nombre del campo: </label>
+            <div class="col-lg-10">
+              <input ng-model='item.nombre_campo' required name="nombre" id="nombre" type="text" class="form-control" placeholder="Nombre del campo" />
+            </div>
+          </div>
+
+          <div class="form-group" ng-if="object.id == 4">
+            <label for='nameGrupo' class="col-lg-2 control-label">Categoría de selección: </label>
+            <div class="col-lg-10">
+              <select ng-model="item.categoria_seleccion" name="categoria_seleccion"
+                class="form-control" required>
+                <option ng-repeat="o in objectCategoria" ng-value="o.id">{{ o.nombre_categoria_grupo }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for='unidades' class="col-lg-2 control-label">Unidades: </label>
+            <div class="col-lg-10">
+              <input ng-model="item.unidades" name="unidades"
+                id="unidades" type="text" class="form-control"
+                placeholder="Unidades para la presetación" />
+             </div>
+          </div>
+
+          <div class="form-group" ng-if="object.id == 2">
+            <label for='unidades' class="col-lg-2 control-label">Rango: </label>
+            <div class="col-lg-10">
+                <input type="text" ng-model="item.rango_valor"
+                    placeholder="Rango Inicial" required
+                    class="form-control" />
+            </div>
+          </div>
+
+          <div class="form-group" ng-if="object.id == 1">
+            <label for='nameGrupo' class="col-lg-2 control-label">Grupo selección: </label>
+            <div class="col-lg-10">
+                <select name="nameGrupo" class="form-control" ng-change="changeSelection();"
+                  ng-model="item.grupo_seleccion" required id="nameGrupo">
+                  <option ng-repeat="o in object.grupos"
+                    ng-value="o.grupo_seleccion">Grupo #{{ o.grupo_seleccion }}</option>
+                </select>
+                <label class="checkbox i-checks">
+                  <input type="checkbox"
+                    ng-model="item.valor_opcional"><i></i>Campo con valor adicional
+                </label>
+                <div ng-if='objectItem.length > 0'>
+                  <span ng-repeat="i in objectItem" style="margin-right:9px;"
+                    class="label bg-primary inline m-t-sm h4">
+                    {{i.nombre_seleccion}}
+                  </span>
+                </div>
+             </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+              <button
+                ng-disabled="materialForm.$invalid" type="submit"
+                class="btn btn-info">
+                  <span ng-if='!item.id'>Guardar</span> <span ng-if='item.id'>Editar</span>
+                </button>
+
+              <button type="button"
+                ng-click="onCancelar();"
+                class="btn btn-danger">Cancelar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

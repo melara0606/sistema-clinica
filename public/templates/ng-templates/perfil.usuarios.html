@@ -1,0 +1,41 @@
+<div class="bg-light lter b-b wrapper-md ng-scope" style="background-color: transparent">
+  <h1 class="m-n font-bold h3">Usuarios</h1>
+  <div class="panel panel-default" style="margin-top:25px;">
+    <div class="panel-heading" style="background-color: #6490dd"><strong style="color: #ffffff"> Listados de usuarios</strong></div>
+    <div class="clearfix panel-footer">
+      <div class="input-group">
+        <input ng-model="query" type="text" class="form-control input-sm ng-pristine ng-untouched ng-valid ng-empty" placeholder="Buscar usuarios">
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-info btn-sm"><i class="fa fa-search"></i></button>
+        </span>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped b-t b-light">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre del empleado</th>
+            <th>Usuario</th>
+            <th>Estado</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody style="background-color: #e1f5fe">
+          <tr ng-repeat='u in usuarios'>
+            <td>{{$index + 1}}</td>
+            <td>{{u.name_emp}} {{u.lastname_emp}}</td>
+            <td>{{u.email}}</td>
+            <td>
+              <span ng-class="{ 'bg-danger' : !u.estado  }"
+                class="pull label bg-primary inline m-t-sm">{{ u.estado | fromEstado }}</span>
+            </td>
+            <td>
+              <button ng-click="onChangeStatus(u);"
+                class="btn btn-sm btn-danger" tooltip-placement="top" uib-tooltip="Activar / Desactivar"><i class="icon-close"></i></button>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+  </div>
+</div>

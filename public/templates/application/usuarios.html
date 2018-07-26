@@ -1,0 +1,159 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm bg-light " ng-init="
+  app.settings.asideFixed = true;
+  app.settings.asideDock = false;
+  app.settings.container = false;
+  app.hideAside = false;
+  app.hideFooter = true;
+  ">
+  <div class="col w-lg lter b-r">
+    <div class="vbox">
+      <div class="wrapper-xs b-b">
+        <div class="input-group m-b-xxs">
+          <span class="input-group-addon input-sm no-border no-bg"><i class="icon-magnifier text-md m-t-xxs"></i></span>
+          <input type="text" class="form-control input-sm no-border no-bg text-md" placeholder="Buscar empleado" ng-model="query">
+        </div>
+      </div>
+      <div class="row-row">
+        <div class="cell scrollable hover">
+          <div class="cell-inner">
+            <div class="m-t-n-xxs">
+              <div class="list-group list-group-lg no-radius no-border no-bg m-b-none">
+                <a ng-repeat="item in items | filter:query " class="list-group-item m-l" ng-class="{'select m-l-none': item.selected }" ng-click="selectItem(item)">
+                  <span class="block text-ellipsis m-l-n text-md" ng-class="{'m-l-none': item.selected }" style="font-size:14px">
+                    {{ item.name_emp }} <strong>{{ item.lastname_emp }}</strong>
+                    <span ng-hide="item.name_ext || item.lastname_emp">Nuevo empleado</span>
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div class="text-center pos-abt w-full" style="top:10%;" ng-hide="(items | filter:query).length">Registro no encontrado</div>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper b-t text-center">
+        <a href class="btn btn-info btn-addon" ng-click="createItem()" data-toggle="tooltip" title="Crear nuevo registro"><i class="fa fa-plus fa-fw m-r-xs"></i> 
+          Nuevo empleado
+        </a>
+      </div>
+    </div>
+  </div>
+
+<div class="wrapper-sm hbox" style="background-color: transparent"> <!-- Para la caja de contenido de formulario -->
+  <div class="col bg-white-only" style="background-color: #fe456a">    
+    <div class="vbox">
+      <form action="" class="hbox form-validation" name="form">
+        <div class="wrapper-sm b-b" style="background-color: #9FDBA6">
+          <div class="m-t-n-xxs m-b-n-xxs m-l-xs">
+           
+            <a class="btn btn-danger pull-right" ng-hide="!item" ng-click="deleteItem(item)"><i class="fa fa-times"></i></a>
+
+            <a class="btn btn-info" ng-hide="item.editing" ng-click="editItem(item)">Editar</a>
+
+            <a class="btn btn-info" ng-show="item.editing" ng-click="doneEditing(item)" ng-disabled="form.$invalid">Aceptar</a>
+        
+           </div>
+        </div>
+        <div class="row-row">
+          <div class="cell">
+            <div class="cell-inner">
+              <div class="wrapper-lg">
+                <div class="hbox h-auto m-b-lg">
+                  <div class="col text-center w-sm">
+                    <div class="thumb-lg avatar inline">
+                      <img src="public/img/user.png" class="b b-3x b-primary"
+                        ng-class="{'b-danger' : !item.status}" />
+                    </div>
+                  </div>
+                  <div class="col v-middle h1 font-thin">
+                    <div style="margin-bottom: 15px"><p style="color:darkslategray; font-size:22px"><b>{{ item.code_emp }}</b></p></div>
+                    
+                    <div ng-hide="item.editing">
+                      <p style="color:navy">{{ item.name_emp }} <b>{{ item.lastname_emp }}</b></p>
+                    </div>
+
+                    <div ng-show="item.editing">
+                      <input type="text" placeholder="Nombres del personal" class="form-control input-lg m-b-n-xxs font-bold rounded" ng-model="item.name_emp" required  />
+                      
+                      <input type="text" placeholder="Apellidos del personal" class="form-control input-lg font-bold rounded" ng-model="item.lastname_emp" required />
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <div class="form-horizontal" style="font-size:16px">
+                  <div class="form-group m-b-sm">
+                    <label class="col-sm-3 control-label"><b>Sucursal: </b></label>
+                    <div class="col-sm-9">
+                      <p class="form-control-static" ng-hide="item.editing">{{item.nombre_sucursal}}</p>
+                      <select ng-model="item.sucursal_id" class="form-control rounded" required ng-show="item.editing">
+                        <option ng-repeat="option in sucursales" value="{{option.id}}" >{{option.nombre_sucursal}}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group m-b-sm">
+                    <label class="col-sm-3 control-label"><b>Tipo de contratación: </b></label>
+                    <div class="col-sm-9">
+                      <p class="form-control-static" ng-hide="item.editing">{{item.tipo_contratacion | fromContracto}}</p>
+                      <select ng-model="item.tipo_contratacion" class="form-control rounded" required ng-show="item.editing" value="item.tipo_contratacion">
+                        <option value="1">Servicios profesionales</option>
+                        <option value="2">Fijo</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group m-b-sm">
+                    <label class="col-sm-3 control-label"><b>Número de teléfono: </b></label>
+                    <div class="col-sm-9">
+                      <p class="form-control-static" ng-hide="item.editing"> +(503) {{item.phone_emp}}</p>
+                      <input type="tel" class="form-control rounded" required ng-show="item.editing" ng-model="item.phone_emp" ui-mask="(503) 9999-9999" />
+                    </div>
+                  </div>
+
+                  <!-- Validacion de numero por el caso del dinero -->
+                  <div class="form-group m-b-sm">
+                    <label class="col-sm-3 control-label"><b>Salario: </b></label>
+                    <div class="col-sm-9">
+                      <p class="form-control-static" ng-hide="item.editing">{{item.salary_emp | currency}}</p>
+                      <input type="tel" class="form-control rounded" required ng-show="item.editing" ng-model="item.salary_emp" />
+                    </div>
+                  </div>
+
+                  <!-- Verificacion si el empleado pertenece a una sucursal -->
+                  <div class="form-group m-b-sm">
+                    <label class="col-sm-3 control-label"><b>Puesto asignado: </b></label>
+                    <div class="col-sm-9">
+                      <p class="form-control-static" ng-hide="item.editing">{{item.cargo_emp}}</p>
+                      <input type="tel" class="form-control rounded" required ng-show="item.editing" ng-model="item.cargo_emp" />
+                    </div>
+                  </div>
+
+                  <div class="form-group m-b-sm">
+                    <label class="col-sm-3 control-label"><b>Fecha de Contratación: </b></label>
+                    <div class="col-sm-9">
+                      <p class="form-control-static" ng-hide="item.editing"> {{item.fecha_contratacion_emp | date:'fullDate' }}</p>
+                      <div class="input-group w-md">
+                        <input type="text" class="form-control rounded" uib-datepicker-popup="{{format}}" ng-model="item.fecha_contratacion_emp" is-open="popup1.opened" readonly datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-show="item.editing" />
+                        <span class="input-group-btn" ng-show="item.editing">
+                          <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group m-b-sm">
+                    <label class="col-sm-3 control-label"><b>Dirección: </b></label>
+                    <div class="col-sm-9">
+                      <p class="form-control-static" ng-hide="item.editing"> {{item.address_emp}}</p>
+                      <textarea class="form-control rounded" ng-show="item.editing" ng-model="item.address_emp" required></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>     
+  </div>
+  </div>
+</div>

@@ -1,0 +1,78 @@
+@import "app.min.css";
+@import "angular-toastr.min.css";
+@import "isteven-multi-select.css";
+@import "trix.css";
+
+.modal{
+  background: rgba(0,0,0,0.7);
+}
+
+.modal-noventa{
+  width: 95% !important;
+}
+
+.modal-googleMaps .modal-dialog.modal-lg{
+  height: 90% !important;
+  width: 90% !important;
+}
+
+.modal-googleMaps .modal-dialog.modal-lg .modal-content{
+  height: 100%;
+}
+
+.widthHeight{
+  height: 100%;
+}
+
+.portafolio {
+  width: 0;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  height: 100%;
+  z-index: 10000;
+  visibility: hidden;
+  position: absolute;
+  background-color: #FFFFFF;
+  transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+}
+
+.portafolio.open{
+  width: 100%;
+  visibility: visible;
+}
+
+.app-content-body{
+  overflow-x: hidden !important;
+}
+
+.maxInput{
+  width: 30px;
+}
+
+.center-maps{
+  height: 500px;
+}
+
+.container-maps{
+  position: relative;
+}
+
+.container-maps #panel {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  margin-left: -180px;
+  z-index: 5;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #999;
+}
+
+/*
+.connectedItemsExample .list {
+  min-height: 250px;
+  border: 1px solid #999;
+}*/

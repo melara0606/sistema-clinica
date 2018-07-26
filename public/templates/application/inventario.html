@@ -1,0 +1,54 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" style="background:url(public/img/rayas.jpg) center center; background-size:cover">
+	<div class="col">
+		<div class="bg-light lter b-b wrapper-md" style="background-color:#008080">
+			<div class="row">
+				<div class="col-sm-6 col-xs-12">
+          <h1 class="m-n font-bold h3"><b style="color: #ffffff">Inventario</b></h1>
+        </div>
+      </div>
+		</div>
+
+    <div class="wrapper-md" style="font-size:16px">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-heading" style="background-color: #008080; color:white;overflow:auto;">
+							<b>{{ sucursal.nombre_sucursal }}</b>
+							<a href="inventario/reporte" target="black" class="btn btn-info pull-right" tooltip-placement="top" uib-tooltip="Reporte"><i class="fa fa-file-pdf-o"></i></a>
+						</div>
+						<div class="panel-body" ng-if="inventario.length == 0">
+							<h2 class="text-center">No hay materiales registrados.</h2>
+							<h4 class="text-center">Por favor, contacta con tu administrador</h4>
+						</div>
+						<table id='dataTables'
+							ui-jq='dataTable' ui-options='{{options}}' class="table table-striped m-b-none" ng-if="inventario.length > 0">
+							<thead style="background-color: #e1f5fe">
+								<tr>
+									<th class="text-center col s1">No.</th>
+									<th class="text-center col s1">Nombre del material</th>
+									<th class="text-center col s1">Existencias</th>
+                  <th class="text-center col s2">Tipo de producto</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in inventario">
+                  <td class="text-center">{{ $index + 1 }}</td>
+                  <td class="text-center">{{ item.nombre_material }}</td>
+									<td class="text-center">{{ item.existencia }} {{ item.presentancion == 1 ? 'unid.' : 'ml.' }}</td>
+									<td class="text-center">{{ item.nombre_catalogo }}</td>
+									<td class="text-center col s2" width="120px">
+										<a ui-sref="app.reajustar({ id: item.id })" class="btn btn-primary">
+                      <i class="fa fa-edit"></i>
+                      <span>Reajustar</span>
+                    </a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

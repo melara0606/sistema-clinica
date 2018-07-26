@@ -1,0 +1,87 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" style="background:url(public/img/rayas.jpg) center center; background-size:cover">
+	<div class="col">
+		<div class="bg-light lter b-b wrapper-md" style="background-color: #008080">
+			<div class="row">
+				<div class="col-sm-6 col-xs-12">
+          <h1 class="m-n font-bold h3 text-black"><span style="color: #ffffff">Permisos</span></h1>
+        </div>
+        <div class="col-sm-6 text-right hidden-xs">
+          <button ng-click="open();" class="btn btn-info " type="button">Generar Permisos</button>
+        </div>
+      </div>
+		</div>
+
+		<div class="wrapper-md" >
+			<div class="panel panel-default" >
+				<div class="panel-heading" style="background-color: #6490dd;overflow: auto">
+          <span style="color: #ffffff">Empleados</span>
+          <button type="button" ng-click='openModalDateBeginAndEnd()' class="btn btn-primary pull-right">Reporte</button>
+        </div>
+        <div class="panel-body" >
+          <table class="table table-striped b-t b-light" style="background-color: #e1f5fe">
+						<thead>
+							<tr>
+								<th class="text-center" style="width:30px;">N°</th>
+                <th class="text-center" style="width:30px;">Código</th>
+								<th class="text-center">Nombre del empleado</th>
+                <th class="text-center">Tipo</th>
+								<th class="text-center" style="width:200px;">Fecha inicial</th>
+                <th class="text-center" style="width:200px;">Fecha final</th>
+								<th class="text-center"></th>
+							</tr>
+        		</thead>
+            <tbody>
+							<tr ng-if='listEmployeers.length == 0'>
+								<td colspan="7">
+									<h3 class="text-center">No hay datos por el momento </h3>
+								</td>
+							</tr>
+              <tr ng-repeat="employee in listEmployeers">
+                <td class="text-center">{{ $index + 1 }}</td>
+                <td class="text-center">{{ employee.code_emp }}</td>
+                <td class="text-center">{{ employee.name_emp }} {{ employee.lastname_emp }} </td>
+                <td class="text-center">
+                  <p ng-show="!employee.editing">{{employee.tipo || employee.type | fromPermiso}}</p>
+                  <select ng-show="employee.editing" class="form-control " name="type{{employee.id}}" id="type{{employee.id}}" ng-model="employee.type">
+                    <option value="1">Permiso</option>
+                    <option value="2">Incapacidad</option>
+                    <option value="3">Casos Especiales</option>
+                  </select>
+                </td>
+                <td class="text-center">
+                  <p ng-show="!employee.editing">{{employee.fecha_inicio || employee.begin | fromMoment}}</p>
+                  <p class="input-group" ng-show="employee.editing">
+                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" readonly ng-model="employee.begin" is-open="employee.popupOne" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-info" ng-click="popupOneEvent(employee)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                  </p>
+                </td>
+                <td class="text-center">
+                  <p ng-show="!employee.editing && (employee.tipo == 2 || employee.tipo == 3)">{{ employee.fecha_fin || employee.end | fromMoment }}</p>
+									<p ng-show="!employee.editing && (employee.type == 2 || employee.type == 3)">{{ employee.fecha_fin || employee.end | fromMoment }}</p>
+
+									<p ng-show="!employee.editing && (employee.tipo == 1 )">{{ employee.fecha_inicio || employee.begin | fromMoment }}</p>
+
+                  <p ng-show=" (employee.type == 2 || employee.type == 3) && employee.editing" class="input-group" ng-show="employee.editing">
+                    <input type="text" class="form-control " uib-datepicker-popup="{{format}}" readonly ng-model="employee.end" is-open="employee.popupTwo" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-info" ng-click="popupTwoEvent(employee)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                  </p>
+                </td>
+                <td class="text-center">
+                  <div class="btn-group pull-right">
+                    <button ng-show="employee.editing" ng-click="PermisoSave(employee, $index);" class="btn btn-icon btn-info"><i class="glyphicon glyphicon-floppy-saved"></i></button>
+                    <button ng-show="employee.editing" ng-click="deleteEmployeer($index);" class="btn btn-icon btn-danger"><i class="icon-close"></i></button>
+                    <button ng-if="!employee.editing" ng-click="openComment(employee);" class="btn btn-icon btn-info"><i class="fa fa-comments-o"></i></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+			</div>
+		</div>
+	</div>
+</div>

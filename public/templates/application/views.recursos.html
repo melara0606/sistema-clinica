@@ -1,0 +1,88 @@
+<div class="col">
+  <div class="bg-light lter b-b wrapper-md" style="background-color:#008080">
+    <div class="row">
+      <div class="col-sm-6 col-xs-12" style="color: #ffffff">
+        <h1 class="m-n font-bold h3 text-black" style="color: #ffffff">Elementos</h1>
+        <small class="font-bold">Módulos del sistema</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrapper-md ng-scope">
+    <div class="panel panel-default" style="background-color: #e1f5fe" ng-show="!isEditing">
+      <div class="panel-heading" style="background-color: #6490dd"><strong style="color: #ffffff">Listado de Elementos</strong></div>
+      <div class="clearfix panel-footer">
+        <div class="input-group">
+          <input ng-model='query' type="text" class="form-control input-sm" placeholder="Buscar recurso">
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-info btn-sm"><i class="fa fa-search"></i></button>
+          </span>
+        </div>
+      </div>
+
+
+
+      
+      <div class="table-responsive">
+        <table class="table table-striped b-t b-light">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Nombre</th>
+              <th>Icono</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="recurso in recursos | filter:query">
+              <td class="text-center">{{ $index + 1 }}</td>
+              <td> {{ recurso.nombre }} </td>
+              <td>
+                  <i class="{{ recurso.icons }}"></i>
+              </td>
+              <td>
+                <div class="btn-group pull-right">
+                  <button ng-click="onEditSelect(recurso);"
+                    class="btn btn-info" tooltip-placement="top" uib-tooltip="Editar"><i class="icon-pencil"></i></button>
+                  <button ng-click="onActiveSelect(recurso);"
+                    class="btn btn-danger" tooltip-placement="top" uib-tooltip="Activar / Desactivar">
+                    <i class="fa fa-thumbs-o-up" ng-class="{ 'fa-thumbs-o-down' : recurso.isActive == 0 }"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel panel-default" ng-show="isEditing">
+      <div class="panel-heading font-bold" style="background-color: #6490dd"><strong style="color: #ffffff">Editar recurso</strong></div>
+      <div class="panel-body">
+        <form class="form-horizontal" ng-submit="onChangeRecurso(item);">
+          <div class="form-group">
+            <label class="col-lg-2 control-label">Nombre del Elemento</label>
+            <div class="col-lg-10">
+              <input type="text" ng-model="item.nombre"
+                class="form-control" placeholder="Nombre del recurso">
+              <span class="help-block m-b-none">Éste nombre será para la presentación de la opción del menú</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">Icono del elemento</label>
+            <div class="col-lg-10">
+              <button type="button" class="btn btn-default"><span class="{{ item.icons }}"></span> </button>
+              <button ng-click="openIcons();" type="button" class="btn btn-info">Cambiar ícono</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+              <button type="submit" class="btn btn-info">Editar</button>
+              <button ng-click="isEditing=false" type="button" class="btn btn-danger">Cancelar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,112 @@
+<div class="panel" style="margin-bottom: 0px; background-color: #fafafa">
+    <div class="panel-heading b-b b-light" style="overflow: auto; background-color: #008080">
+        <strong style="color: #ffffff"> ASIGNACIÓN DE EXAMEN POR ENTIDAD </strong>
+        <div class="pull-right">
+            <button class="btn btn-danger" ng-click="cerrar();">Cerrar</button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row" >
+            <div class="col-xs-7">
+                <div class="panel panel-default" style="background-color: #e1f5fe">
+                    <div class="panel-heading" style="background-color: dodgerblue">
+                        <strong style="color: #ffffff"> Exámenes por Entidad</strong>
+                    </div>
+                        <h4 ng-show='objectData.examenes.length == 0'
+                        class="text-center">Por el momento no hay exámenes asignados a la entidad</h4>                        
+                        <table st-table="objectData.examenes" ng-show='objectData.examenes.length > 0'
+                            class="table table-striped b-t b-light">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nombre material</th>
+                                    <th>Categoria </th>
+                                    <th style="width:30px;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in objectData.examenes">
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ item.nombre_examen }}</td>
+                                    <td>{{ item.nombre_categoria }}</td>
+                                    <td>
+                                        <button type="button" ng-if="permisos.eliminar"
+                                            ng-click="onDelete($index, item);"
+                                            class="btn btn-danger btn-sm fa fa-trash" tooltip-placement="top" uib-tooltip="Eliminar"></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            <div class="col-xs-5" ng-show="!itemElement">
+                <form name="form" class="form-validation" ng-submit="onSearchExamenes();">
+                    <div class="input-group">
+                        <input type="text" required
+                            class="form-control " ng-model="searchEmployeer">
+                        <span class="input-group-btn">
+                            <button ng-disabled="form.$invalid"
+                                class="btn btn-info " type="submit">Buscar</button>
+                        </span>
+                    </div>
+                </form>
+                <ul class="list-group list-group-lg no-bg auto" style="margin-top: 20px;">
+                    <li ng-repeat="item in list" class="list-group-item clearfix">
+                        <span class="clear">
+                            <button type="button" ng-click="onSelectExamen(item);" 
+                                class="btn btn-info pull-right fa fa-check" tooltip-placement="top" uib-tooltip="Seleccionar"></button>
+                            <span>
+                                {{item.nombre_examen}} - {{item.nombre_categoria}}
+                            </span>
+                        </span>
+                    </li>
+                    <li class="list-group-item clearfix" ng-show="!server">
+                        <span class="clear text-center">Debes agregar un criterio de busqueda</span>
+                    </li>
+                    <li class="list-group-item clearfix" ng-show="server && list.length == 0">
+                        <span class="clear text-center">Exámen no encontrado</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-xs-5" ng-show="itemElement">
+                <div class="panel panel-default">
+                    <div class="panel-heading font-bold">Agregar exámen a la entidad</div>
+                        <div class="panel-body">
+                            <form ng-submit="onCreateExamen();"
+                                class="form-horizontal form-validation" name="frmExamen">
+                                <div class="form-group">
+                                    <label class="col-lg-5 control-label">Nombre del exámen: </label>
+                                    <div class="col-lg-7">
+                                        <span class="help-block m-b-none">{{ itemElement.nombre_examen }}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-5 control-label">Nombre de la categoría: </label>
+                                    <div class="col-lg-7">
+                                        <span class="help-block m-b-none">{{ itemElement.nombre_categoria }}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-5 control-label">Precio: </label>
+                                    <div class="col-lg-7">
+                                        <input type="text" required
+                                            ng-model="itemElement.precio" ng-pattern="/^[0-9]+.[0-9]{2}$/"
+                                            class="form-control" placeholder="Precio de el examen" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <button ng-disabled="frmExamen.$invalid"
+                                        type="submit" class="btn btn-sm btn-info">Agregar</button>
+                                    
+                                    <button ng-click="cancelar();"
+                                        type="button" class="btn btn-sm btn-default">Cancelar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  

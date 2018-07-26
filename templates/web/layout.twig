@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+  <!--[if lt IE 7 ]> <html class="ie6"> <![endif]-->
+  <!--[if IE 7 ]>    <html class="ie7"> <![endif]-->
+  <!--[if IE 8 ]>    <html class="ie8"> <![endif]-->
+  <!--[if IE 9 ]>    <html class="ie9"> <![endif]-->
+  <!--[if (gt IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <title>MM FISHER´ST</title>
+    <!-- Standard Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ base }}public/web/images/favicon.ico" />    
+
+    <!-- Library - Google Font Familys -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i|Montserrat+Alternates:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i|Playfair+Display:400,400i,700,700i,900,900i|Poppins:300,400,500,600,700|Quattrocento:400,700|Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+    
+    <link rel="stylesheet" type="text/css" href="{{ base }}public/web/revolution/css/settings.css" />
+    <link rel="stylesheet" type="text/css" href="{{ base }}public/web/revolution/fonts/font-awesome/css/font-awesome.min.css" />
+    
+    <!-- RS5.0 Layers and Navigation Styles -->
+    <link rel="stylesheet" type="text/css" href="{{ base }}public/web/revolution/css/layers.css">
+    <link rel="stylesheet" type="text/css" href="{{ base }}public/web/revolution/css/navigation.css">
+    
+    <!-- Library - Bootstrap v3.3.5 -->
+    <link type="text/css" href="{{ base }}public/web/css/lib.css" rel="stylesheet">    
+    <link type="text/css" href="{{ base }}public/web/js/slick/slick.css" rel="stylesheet">  
+    <link type="text/css" href="{{ base }}public/web/js/slick/slick-theme.css" rel="stylesheet">
+    
+    <!-- Custom - Common CSS -->
+    <link type="text/css" href="{{ base }}public/web/css/plugins.css" rel="stylesheet">
+    <link type="text/css" href="{{ base }}public/web/css/elements.css" rel="stylesheet">
+    <link type="text/css" href="{{ base }}public/web/css/rtl.css" rel="stylesheet">
+    <link type="text/css" id="color" href="{{ base }}public/web/css/color-schemes/default.css" rel="stylesheet"/>
+    
+    <!-- Custom - Theme CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ base }}public/web/css/style.css">
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5/respond.min.js"></script>
+    <![endif]-->    
+  </head>
+  <body data-offset="200" data-spy="scroll" data-target=".ow-navigation">
+    {% block menu %}menu{% endblock %}
+    {% block content %}{% endblock %}
+
+    {% include 'web/block/footer.twig' %}    
+    <!-- JQuery v1.12.4 -->
+    <script type="text/javascript" src="{{ base }}public/web/js/jquery.min.js"></script>
+    <!-- Library - Js -->
+    <script type="text/javascript" src="{{ base }}public/web/js/lib.js"></script>
+    <!-- RS5.0 Core JS Files -->
+    <script type="text/javascript" src="{{ base }}public/web/revolution/js/jquery.themepunch.tools.min.js?rev=5.0"></script>
+    <script type="text/javascript" src="{{ base }}public/web/revolution/js/jquery.themepunch.revolution.min.js?rev=5.0"></script>
+    <script type="text/javascript" src="{{ base }}public/web/revolution/js/extensions/revolution.extension.video.min.js"></script>
+    <script type="text/javascript" src="{{ base }}public/web/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+    <script type="text/javascript" src="{{ base }}public/web/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+    <script type="text/javascript" src="{{ base }}public/web/revolution/js/extensions/revolution.extension.navigation.min.js"></script>    
+    <script type="text/javascript" src="{{ base }}public/web/js/slick/slick.min.js"></script>
+    <script type="text/javascript" src="{{ base }}public/web/js/functions.js"></script>
+    <script type="text/javascript" src="{{ base }}public/web/js/salvattore.min.js"></script>
+    <script type="text/javascript" src="{{ base }}public/web/js/app.js"></script>
+  </body>
+</html>

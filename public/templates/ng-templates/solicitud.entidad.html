@@ -1,0 +1,78 @@
+<div class="col-xs-5">
+  <div class="panel panel-default">
+    <div class="panel-heading font-bold" style="background-color: #6490dd"><strong style="color: #ffffff">Agregar examen</strong></div>
+    <div class="panel-body">
+      <form ng-submit="addExamen(frm.$valid, this);"
+        class="bs-example form-horizontal ng-pristine ng-valid" name="frm">
+        <div class="form-group" ng-show='entidad.examenes.length > 0'>
+          <label class="col-lg-2 control-label">Examenes: </label>
+          <div class="col-lg-10">
+            <select required class="form-control" ng-model='examen'>
+              <option></option>
+              <option ng-repeat='examen in entidad.examenes' value="{{examen}}">
+                {{examen.nombre_examen}} - {{examen.nombre_categoria}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-lg-offset-2 col-lg-10">
+            <button type="submit" ng-disabled='frm.$invalid'
+              class="btn btn-info">Agregar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="col-xs-7">
+  <div class="panel b-a panel-default" style="background-color: #e1f5fe">
+    <div class="panel-heading" style="overflow:auto; background-color: #6490dd">
+      <strong style="color: #ffffff">EXAMENES</strong>
+      
+       <button type="button" ng-click="onClose();" class="btn btn-danger pull-right" tooltip-placement="top" uib-tooltip="Cancelar Exámenes"><i class="icon-close"></i></button>
+      
+      <button type="button" ng-click='create_solicitud(this);'
+        ng-show='listExamen.length > 0'
+        class="btn btn-success pull-right">Aceptar Solicitud</button>
+    </div>
+    <div class="panel-body" ng-show='listExamen.length == 0'>
+      <h1 class="text-center">No hay examenes para esta solicitud</h1>
+    </div>
+    <table class="table table-striped m-b-none" ng-show='listExamen.length > 0'>
+      <thead>
+        <tr>
+          <th style="width:60px;" class="text-right">No</th>
+          <th class="text-right">Examen</th>
+          <th class="text-right">Categoria</th>
+          <th class="text-right">Precio</th>
+          <th style="width: 80px;"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat='item in listExamen'>
+          <td class="text-right">{{ $index + 1 }}</td>
+          <td class="text-right">{{ item.nombre_examen }}</td>
+          <td class="text-right">{{ item.nombre_categoria }}</td>
+          <td class="text-right">{{ item.precio | currency }}</td>
+          <td>
+            <button ng-click="onDeleteItem($index);"
+              class="btn btn-danger fa fa-trash-o" tooltip-placement="top" uib-tooltip="Eliminar"></button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4">
+            <h4 class="text-right font-bold">Total: </h4>
+          </td>
+          <td>
+            <h4 class="text-right font-bold">{{ sumExamTotal |  currency }}</h4>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

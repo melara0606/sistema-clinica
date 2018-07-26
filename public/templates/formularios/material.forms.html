@@ -1,0 +1,40 @@
+<div class="wrapper bg-light lt b-b" style="overflow:auto; background: transparent">
+  <div class="col-lg-8">
+    <div class="panel panel-default" style="font-size: 16px; background-color: #fafafa">
+      <div class="panel-heading font-bold" style="background-color: #008080; color: #ffffff">Material</div>
+      <div class="panel-body">
+        <form ng-submit="onValidateForm(materialForm.$valid)" class="form-horizontal form-validation" name="materialForm">
+          <div class="form-group">
+            <label for='nombre' class="col-lg-2 control-label">Nombre del material: </label>
+            <div class="col-lg-8">
+              <input ng-model='item.nombre_material' required name="nombre" id="nombre" type="text" class="form-control" placeholder="Nombre del material" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for='presentacion' class="col-lg-2 control-label">Presentación: </label>
+            <div class="col-lg-8">
+              <select ng-model="item.presentancion" required name="presentacion" id="presentacion" class="form-control m-b">
+                <option value="1">Caja</option>
+                <option value="2">Frasco</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for='unidades' class="col-lg-2 control-label">Unidades: </label>
+            <div class="col-lg-8">
+              <input ng-model="item.unidades" required name="unidades" id="unidades" type="text" class="form-control" placeholder="Cantidad de la presentacion (en ml.)" />
+             </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+              <button ng-disabled="materialForm.$invalid" type="submit" class="btn btn-info">Guardar</button>
+              <button type="button" ng-click="onCancelar();" class="btn btn-danger">Cancelar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

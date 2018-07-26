@@ -1,0 +1,31 @@
+<div class="panel panel-default" style="margin:0px; background-color: #fafafa">
+  <div class="panel-heading font-bold" style="overflow:auto; background-color: #008080">
+    <strong style="color: #ffffff">NUEVA CITA</strong>
+    <button ng-click='cerrar();' type="button" class="btn btn-danger pull-right" tooltip-placement="top" uib-tooltip="Cerrar"><i class="fa fa-times"></i></button>
+  </div>
+  <div class="panel-body">
+    <form ng-submit='crearSolicitud()'
+      class="form-horizontal form-validation" name="frm">
+      <div class="row">
+        <div class="form-group col-xs-12">
+          <label class="col-lg-4 control-label">Tipo de cita: </label>
+          <div class="col-lg-8">
+            <select class="form-control" required ng-model='type_solicitud'>
+              <option value></option>
+              <option value="1" ng-show='isShowEntidad'>Institucional</option>
+              <option value="2">Particular</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-xs-12">
+            <button ng-disabled='frm.$invalid' type="submit" 
+              class="btn btn-primary btn-addon btn-md">
+              <i class="fa fa-plus"></i>Agregar
+            </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Inicio de sesión.</title>
+    <link rel="stylesheet" href="{{ base }}public/css/index.css" type="text/css">
+  </head>
+  <body>
+    <div class="app app-header-fixed" style="background:url({{ base }}public/img/minimal.jpg)">
+      <center>
+        <img src="{{ base }}public/img/logoprincipal.png" alt="imagen for users" />
+      </center>
+      <hr>
+      <div class="container w-xxl w-auto-xs">
+        <a href="" class="navbar-brand block m-t">Bienvenido LabSis-Fisher'st</a>
+        <div class="m-b-lg">
+          <form name="form" class="form-validation" action='login' method='POST'>
+          {% if flash %}
+            <div class="alert alert-danger alert-dismissable">
+              <div>{{flash['message']}}</div>
+            </div>
+          {% endif %}
+          <div class="list-group list-group-sm">
+            <div class="list-group-item">
+              <input type="text" value="{{flash['usuario']}}"
+                placeholder="Usuario" class="form-control no-border" required="" name='email' />
+            </div>
+            <div class="list-group-item">
+              <input type="password" placeholder="Contraseña" class="form-control no-border" required="" name='password' />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-lg btn-info btn-block"><b>Entrar</b></button>
+          <div class="text-center m-t m-b">
+            <a href='forgotpwd' style='font-size:1.8em;'>Recuperar contraseña</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  </body>
+</html>

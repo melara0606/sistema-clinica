@@ -1,0 +1,27 @@
+<?php
+return [
+    'settings' => [
+        'displayErrorDetails' => true, // set to false in production
+        'addContentLengthHeader' => false, 
+        'determineRouteBeforeAppMiddleware' => false,
+        // Renderer settings
+        'renderer' => [
+            'template_path' => __DIR__ . '/../templates/',
+            'cache' => __DIR__ . '/../templates/cache',
+        ],
+        'view' => [
+          'template_path' => __DIR__ . '/templates',
+          'twig' => [
+            'cache' => __DIR__ . '/../cache/twig',
+            'debug' => true,
+            'auto_reload' => true,
+          ],
+        ],
+        // Monolog settings
+        'logger' => [
+            'name' => 'slim-app',
+            'path' => __DIR__ . '/../logs/app.log',
+            'level' => \Monolog\Logger::DEBUG,
+        ],
+    ],
+];

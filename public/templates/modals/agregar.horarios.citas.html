@@ -1,0 +1,33 @@
+<form class="form-horizontal form-validation" name="frm" ng-submit='onSubmitForm();'>
+  <div class="panel" style="margin-bottom: 0px; background-color: #fafafa; font-size: 16px">
+  	<div class="panel-heading b-b b-light" style="overflow: auto; background-color: #008080">
+      <STRONG ng-if='!isEdit'><b style="color: #ffffff"> {{ editing ? 'Editar' : 'Agregar' }} horario</b></STRONG>
+      <div class="btn-group pull-right">
+        <button type="submit" class="btn btn-sm btn-info">
+          <span>{{ editing ? 'Editar' : 'Guardar' }}</span>
+        </button>        
+        <button type="button" ng-click="close();" class="btn btn-sm btn-danger">Cerrar</button>
+      </div>
+    </div>
+  	<div class="panel-body">    
+      <div class="form-group">
+        <label class="col-lg-6">
+          <h3 style="padding-top:20px;text-align: center;">Horario Inicial</h3>          
+        </label>
+        <div class="col-lg-4">
+          <div uib-timepicker ng-model="horarInicial.day" show-meridian='false'
+            ng-change="changedHoursInitial()" hour-step="1" minute-step="05"></div>          
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-6">
+          <h3 style="padding-top:20px;text-align: center;">Horario Final</h3>
+        </label>
+        <div class="col-lg-4">
+          <div uib-timepicker ng-model="horarFinal.day" show-meridian='false'
+            ng-change="changedHoursEnd()" hour-step="1" minute-step="05"></div>          
+        </div>
+      </div>
+  	</div>
+  </div>
+</form>

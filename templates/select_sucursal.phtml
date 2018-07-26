@@ -1,0 +1,31 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Selección de Surcursal.</title>
+    <link rel="stylesheet" href="{{base_url()}}/public/css/index.css" type="text/css">
+  </head>
+  <body>
+    <div class="app app-header-fixed" style="background:url(public/img/minimal.jpg)">
+    <center>
+      <img src="public/img/logoprincipal.png" >
+      </center>
+    
+          <hr>
+      <div class="container w-xxl w-auto-xs">
+        <div class="m-b-lg">
+          <form name="form" class="form-validation" action='select' method='POST'>
+            <div class="list-group list-group-sm">
+                <h3>Seleccione la sucursal a trabajar: </h3>
+                <select class='form-control' name='sucursal'>
+                    {% for sucursal in sucursales %}
+                        <option value='{{sucursal.id}}'>{{sucursal.nombre_sucursal}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-lg btn-info btn-block">Entrar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  </body>
+</html>

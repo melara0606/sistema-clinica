@@ -1,0 +1,65 @@
+<div class="col-xs-5">
+  <div class="panel panel-default">
+    <div class="panel-heading font-bold" style="background-color: #6490dd"><strong style="color: #ffffff">Asignar promoción</strong></div>
+    <div class="panel-body">
+      <form class="bs-example form-horizontal ng-pristine ng-valid">
+        <div class="form-group">
+          <label class="col-lg-2 control-label">Promoción: </label>
+          <div class="col-lg-10">
+            <select ng-change='onChange();' required class="form-control" ng-model='promocion'>
+              <option></option>
+              <option ng-repeat='item in type.data' value="{{item.id}}">
+                {{item.nombre_promocion}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="col-xs-7" ng-show='promocion && promocionObject.examenes.length > 0'>
+  <div class="panel b-a panel-default" style="background-color: #e1f5fe">
+    <div class="panel-heading" style="overflow:auto; background-color: #6490dd">
+      <strong style="color: #ffffff">EXAMENES</strong>
+     
+     <button type="button" ng-click="onClose()"
+        class="btn btn-danger pull-right"><i class="icon-close"></i></button>
+
+      <button type="button" ng-click='createPromocion(this);'
+        ng-show='promocionObject.examenes.length > 0'
+        class="btn btn-success pull-right">Aceptar Solicitud</button>
+
+        </div>
+    <div class="panel-body" ng-show='promocionObject.examenes.length == 0'>
+      <h1 class="text-center">No hay examenes para esta promoción.</h1>
+    </div>
+    <table class="table table-striped m-b-none" ng-show='promocionObject.examenes.length > 0'>
+      <thead>
+        <tr>
+          <th style="width:60px;" class="text-right">No</th>
+          <th class="text-right">Examen</th>
+          <th class="text-right">Categoria</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat='examen in promocionObject.examenes'>
+          <td class="text-right">{{ $index + 1 }}</td>
+          <td class="text-right">{{ examen.nombre_examen }}</td>
+          <td class="text-right">{{ examen.nombre_categoria }}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2">
+            <h4 class="text-right font-bold">Total: </h4>
+          </td>
+          <td>
+            <h4 class="text-right font-bold">{{ promocionObject.precio |  currency }}</h4>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

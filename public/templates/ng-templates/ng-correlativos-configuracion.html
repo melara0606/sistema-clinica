@@ -1,0 +1,58 @@
+<div class="hbox">
+    <div class="wrapper-md">
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="background-color: #008080; overflow:auto;">
+                      <h1 style="color: #ffffff">  ISSS </h1> <button class="pull-right btn btn-info" tooltip-placement="top" uib-tooltip="Editar" ng-hide="isISSS" ng-click="showISSS();">
+                            <i class="glyphicon glyphicon-edit"></i>
+                        </button>
+                    </div>
+                    <div class="panel-body">
+                        <form name="frmISSSPorcentaje" ng-submit="onEditISSS(this);"
+                            class="col-xs-12 form-inline form-validation">
+                            <div class="row">
+                                <h2 class="pull-left">
+                                    Porcentaje: <span ng-show="!isISSS"> {{ porcentajeISSS | fromPorcentaje }} </span>
+                                    <input style="width:150px; font-size: 16px" 
+                                        type="number" ng-model="porcentajeISSS" ng-show="isISSS"
+                                        max="1" step="0.0001" min="0" class="form-control" />
+                                    <div class="btn-group" ng-show="isISSS">
+                                        <button ng-disabled="frmISSSPorcentaje.$invalid" class="btn btn-info">Editar</button>
+                                        <button type="button" class="btn btn-danger" ng-click="cancelISSS();">Cancelar</button>
+                                    </div>                                    
+                                </h2>                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="background-color: #008080; overflow:auto"><h1 style="color: #ffffff"> AFP </h1>
+											<button class="pull-right btn btn-info" tooltip-placement="top" uib-tooltip="Editar" ng-hide="isAFP" ng-click="showAFP();">
+												<i class="glyphicon glyphicon-edit"></i>
+											</button>
+                    </div>
+                    <div class="panel-body">
+											<form name="frmISSSPorcentaje" ng-submit="onEditAFP(this);"
+												class="col-xs-12 form-inline form-validation">
+													<div class="row">
+														<h2 class="pull-left">
+															Porcentaje: <span ng-show="!isAFP"> {{ porcentajeAFP | fromPorcentaje }} </span>
+															<input style="width:150px; font-size: 16px" 
+																	type="number" ng-model="porcentajeAFP" ng-show="isAFP"
+																	max="1" step="0.0001" min="0" class="form-control" />
+															<div class="btn-group" ng-show="isAFP">
+																	<button ng-disabled="frmISSSPorcentaje.$invalid" class="btn btn-info">Editar</button>
+																	<button type="button" class="btn btn-danger" ng-click="cancelAFP();">Cancelar</button>
+															</div>                                    
+														</h2>                                
+													</div>
+											</form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

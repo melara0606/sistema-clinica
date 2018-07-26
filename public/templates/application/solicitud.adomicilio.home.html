@@ -1,0 +1,61 @@
+<div class="wrapper-md">
+  <div class="panel panel-default hbox hbox-auto-xs">
+    <div class="panel-heading" style="overflow: auto">
+        <h4 class="pull-left">Listado de Citas</h4>
+        <p class="pull-right">
+          <a ui-sref="app.perfil.domicilio"
+            class="btn m-b-xs btn-primary btn-addon"><i class="fa fa-plus"></i>Agregar</a>
+        </p>
+    </div>
+    <div class="row wrapper">
+      <div class="col-sm-5 m-b-xs"></div>
+      <div class="col-sm-4">
+      </div>
+      <div class="col-sm-3">
+          
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped b-t b-light">
+        <thead>
+          <tr>
+            <td width="10%" class="text-center">Id</td>
+            <td class="text-center">Codigo</td>
+            <td class="text-center">Nombre de la sucrusal</td>
+            <td class="text-center">Pagar</td>
+            <td class="text-center">Estado</td>
+            <td class="text-center" width="275px"></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-if='arrayOfList.length > 0' ng-repeat="c in arrayOfList">
+            <td class="text-center">{{ $index + 1 }}</td>
+            <td class="text-center">{{ c.codigo }}</td>
+            <td class="text-center">{{ c.nombre_sucursal }}</td>
+            <td class="text-center">{{ c.pagar | currency: "$" }}</td>
+            <td class="text-center">
+              <span class="label" ng-class="{ 'bg-info' : c.estado == 0, 'bg-success' : c.estado == 1, 'bg-danger' : c.estado == 2 }" >
+                {{ c.estado == 0 ? "Atendida" : ( c.estado == 1 ? "En proceso..." : "Cancelada" ) }}
+              </span>
+            </td>
+            <td>
+              <div class="btn-group">
+                <a target="__blank" href="reportes/comprobante/solicitud?id={{ c.id }}" ng-if='c.estado == 1'class="btn m-b-xs btn-sm btn-info btn-addon">
+                  <i class="fa fa-file-pdf-o pull-left"></i> Comprobante
+                </a>
+                <button ng-if='c.estado == 1' ng-click='cancelar(c)' class="btn m-b-xs btn-sm btn-danger btn-addon">
+                  <i class="icon-close pull-right"></i> Cancelar
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr ng-if='arrayOfList.length === 0'>
+            <td colspan="6">
+              <h2 class="text-center">Por el momento no hay solicitudes</h2>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

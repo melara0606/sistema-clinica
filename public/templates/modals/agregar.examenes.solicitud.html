@@ -1,0 +1,73 @@
+<div class="panel" style="margin-bottom: 0px; background-color: #fafafa; font-size: 16px">
+	<div class="panel-heading b-b b-light" style="overflow: auto; background-color: #008080">    
+    <STRONG style="color: #ffffff" ng-if='!isEdit'>Crear una Cita</STRONG>
+  </div>
+	<div class="panel-body">
+    <form class="form-horizontal form-validation" name="frm" ng-submit='onCreateCode()'>
+      <div class="row">
+        <div class="col-xs-4">
+          <div class="form-group">
+            <label class="col-lg-2 control-label">Categoria: </label>
+            <div class="col-lg-10">
+              <select ng-model='categoriaId' name="categoria_examenes" class="form-control" ng-change='changeCategoria();'>
+                <option value="{{ c.id }}" ng-repeat='c in categorias'>{{ c.nombre_categoria }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" ng-show='itemsListExamen.length > 0'>
+            <div class="checkbox pull-left col-xs-6" ng-repeat='(key, i) in itemsListExamen'>
+              <label class="i-checks">
+                <input type="checkbox" ng-checked='i.value'
+                  ng-model='i.value' ng-change='onValueData(i)' ng-true-value='true' ng-false-value ='false' />
+                <i></i>
+                {{ i.nombre_examen }}
+              </label>
+            </div>
+          </div>
+          <div class="form-group" ng-show='itemsListExamen.length == 0'>
+            <h4 class="text-center">Por el momento no hay examenes para esta categoría</h4>
+          </div>
+        </div>
+        <div class="col-xs-8">
+          <div class="panel panel-default">
+            <div class="panel-heading" style="background-color: #008080">
+              <b style="color: #ffffff"> Examenes</b>
+              <strong style="color: #ffffff" class="pull-right">{{ itemExamens.pagar | currency: '$' }}</strong>
+            </div>
+            <table class="table table-striped m-b-none">
+              <thead>
+                <tr>
+                  <th style="width:60px;" class="text-center">No</th>
+                  <th class="text-center">Nombre del exámen</th>
+                  <th class="text-center">Precio</th>
+                  <th class="text-center" style="width:70px;"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat='row in itemExamens.item'>
+                  <td class="text-center">{{ $index + 1 }}</td>
+                  <td class="text-center">{{ row.nombre_examen }}</td>
+                  <td class="text-center">{{ row.precio | currency : '$' }}</td>
+                  <td class="text-center">
+                    <button type="button" ng-click='itemDelete(row, $index)' class="btn btn-danger fa fa-trash" tooltip-placement="top" uib-tooltip="Eliminar"></button>
+                  </td>
+                </tr>
+                <tr ng-show='itemExamens.item.length == 0'>
+                  <td colspan="4">
+                    <h4 class="text-center">Por el momento no hay examenes</h4>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </form>
+	</div>
+  <div class="panel-footer" style="overflow: auto">
+    <div class="pull-right">
+      <button type="button" ng-click="cerrar();" class="btn btn-md btn-danger">Cerrar</button>
+      <button type="button" ng-click="agregar();" class="btn btn-md btn-info">Agregar</button>
+    </div>
+  </div>
+</div>

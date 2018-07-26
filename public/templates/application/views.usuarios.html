@@ -1,0 +1,26 @@
+<div class="hbox hbox-auto-xs bg-light">
+  <div class="col w lt b-r">
+    <div class="vbox">
+      <div class="row-row">
+        <div class="cell scrollable hover">
+          <div class="cell-inner">
+            <div class="list-group no-radius no-border no-bg m-b-none">
+              <a class="list-group-item b-b focus">Opciones</a>
+              <a ng-repeat="item in menus"
+                ui-sref-active="active" ui-sref="app.usuarios.{{item.url}}"
+                class="list-group-item hover-anchor b-a no-select ng-scope">
+                  <span style="padding-left:10px;" class="block m-l-n">{{ item.nombre }}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  
+  <div class="col" style="background:url(public/img/rayas.jpg) center center; background-size:cover">
+    <div class="vbox" ui-view="item"></div>
+    <div class="text-center m-b">
+      
+      </div>
+  </div>
+</div>

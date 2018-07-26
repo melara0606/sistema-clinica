@@ -1,0 +1,16 @@
+<div class="panel panel-default" style="margin: 0px; border: 0px; background-color: #fafafa">
+  <div class="panel-heading font-bold" style="overflow: auto; background-color: #008080">
+    <span class="pull-left" style="color: #ffffff; font-size: 16px">Agregar observación</span>    
+    <button ng-click="onClose();" class="btn btn-sm btn-icon btn-danger pull-right" tooltip-placement="top" uib-tooltip="Cerrar"><i class="icon-close"></i></button>
+  </div>
+  <div class="panel-body">
+      <form ng-show="isComments.count == 0" class="form-validation" name="frmComments" ng-submit="onComments()">
+        <div class="form-group">
+           <!-- <label>Observacion: </label> -->
+            <textarea name="comments" ng-minlength="5" ng-model="comments" required class="form-control" rows="3" placeholder="Agregar observación ..."></textarea>
+        </div>
+        <button ng-disabled="!frmComments.$valid" type="submit" class="btn btn-info">Guardar</button>
+      </form>
+      <h4 class="text-right-xs" ng-show="isComments.count">{{ isComments.object.comentario }}</h4>
+  </div>
+</div>

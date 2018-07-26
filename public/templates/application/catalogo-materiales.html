@@ -1,0 +1,25 @@
+<div class="hbox hbox-auto-xs bg-light">
+  <div class="col w lt b-r">
+    <div class="vbox">
+      <div class="wrapper b-b m-t-xxs" >
+        <div class="h4 font-bold"> Materiales</div>
+      </div> 
+      <div class="row-row">
+        <div class="cell scrollable hover">
+          <div class="cell-inner">
+            <div class="wrapper">
+              <div class="list-group">
+                <a ui-sref-active="active" ui-sref="app.insumos_reactivos.item({ id: material.id })" class="list-group-item b-l-success b-l-3x hover-anchor" ng-repeat="material in materiales">
+                  <span class="block text-ellipsis ng-binding">{{material.nombre_catalogo}}</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col" style="background:url(public/img/rayas.jpg) center center; background-size:cover">
+    <div class="vbox" ui-view="item"></div>
+  </div>
+</div>

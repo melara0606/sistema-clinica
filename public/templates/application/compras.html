@@ -1,0 +1,69 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" style="background:url(public/img/rayas.jpg) center center; background-size:cover">
+	<div class="col">
+		<div class="bg-light lter b-b wrapper-md" style="background-color:#008080 ">
+			<div class="row">
+				<div class="col-sm-6 col-xs-12">
+          <h1 class="m-n font-bold h3"><b style="color: #ffffff">Registro de Compras</b></h1>
+        </div>
+        <div class="col-sm-6 text-right hidden-xs">
+          <button ng-if='permisos.agregar' ng-click="open();" class="btn btn-info btn-addon" type="button"><i class="fa fa-shopping-cart fa-fw m-r-xs"></i>Generar Compras</button>
+        </div>
+      </div>
+		</div>
+
+    <div class="wrapper-md" style="font-size:16px">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-heading" 
+              style="background-color: #6490DD; color:white;overflow: auto">
+              <b>Compras realizadas</b>
+               <button  ng-if="comprasList.length > 0" type="button" ng-click='openModalDateBeginAndEnd()' 
+                  class="btn btn-info btn-addon pull-right" tooltip-placement="top" uib-tooltip="Reporte General"><i class="fa fa-file-pdf-o"></i>Reporte</button>
+            </div>
+						<div class="panel-body" ng-if="comprasList.length == 0">
+							<h2 class="text-center">No hay compras por el momento</h2>
+						</div>
+						<table id='dataTables' ui-jq='dataTable' ui-options='{{options}}' class="table table-striped m-b-none" ng-if="comprasList.length > 0">
+							<thead style="background-color: #e1f5fe">
+								<tr>
+									<th class="text-left col s1">No.</th>
+									<th class="text-left col s1">Fecha</th>
+                  <th class="text-left col s3">Proveedor</th>
+                  <th class="text-left col s2">Total</th>
+                  <th class="text-left col s2">Estado</th>
+									<th class="text-left col s1 text-center" style="width:150px;">Opciones</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in comprasList | orderBy:'-fecha_compra' ">
+                  <td class="text-left">{{ $index + 1 }}</td>
+                  <td class="text-left">{{ item.fecha_compra | fromMoment }}</td>
+                  <td class="text-left">{{ item.nombre_proveedor }}</td>
+                  <td class="text-left">{{ item.total_compra | currency:"$" }}</td>
+                  <td class="text-left">
+										<span ng-if="item.estado == 1" class="label bg-danger"  style="color:white; font-size:12px" >Pendiente</span>
+										<span ng-if="item.estado == 0" class="label bg-success" style="color:white; font-size:12px" >Entregado</span>
+									</td>
+                  <td class="text-left">
+                    <div class="btn-group">
+                      <a ui-sref="app.comprasdetalles({ compra_id: item.id })"
+												class="btn btn-info" tooltip-placement="top" uib-tooltip="Visualizar"><i class="icon-eye"></i></a>
+                       
+											<a href='compras/{{ item.id }}/reportes' target="black"
+												class="btn btn-info" tooltip-placement="top" uib-tooltip="Reporte"><i class="fa fa-file-pdf-o"></i></a>
+
+											<a href="send_email/{{ item.id }}" target="__blank" class="btn btn-info" tooltip-placement="top" uib-tooltip="Enviar al Proveedor" ng-if='item.estado == 1' >
+												<i class="fa fa-send"></i>
+											</a>
+                    </div>
+                  </td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,75 @@
+<div class="panel panel-primary" style="margin-bottom:0px">
+	<div class="panel-heading b-b b-light" style="background-color: #008080; overflow: auto;">
+    <h4 style="float:left"><b style="color: #ffffff"> DETALLE DE LA SOLICITUD</b></h4>
+    <button type="button" ng-click="cerrar();" class="btn btn-danger pull-right">Cerrar</button>
+  </div>
+	<div class="panel-body">
+    <div class="col-sm-5">
+      <div class="panel panel-default">
+        <div class="panel-heading">Detalles</div>
+        <table class="table table-striped m-b-none">
+          <tbody>
+            <tr>
+              <td style="vertical-align: middle;"><strong>Codigo:</strong></td>
+              <td style="vertical-align: middle;">{{ solicitudItem.id }}</td>
+            </tr>
+            <tr>
+              <td style="vertical-align: middle;"><strong>Tipo de solicitud: </strong></td>
+              <td style="vertical-align: middle;">{{ solicitudItem.tipo_solicitud | fromSolicitudType }}</td>
+            </tr>
+
+            <tr>
+              <td style="vertical-align: middle;"><strong>Abono:</strong></td>
+              <td style="vertical-align: middle;">{{ solicitudItem.Abono | currency }}</td>
+            </tr>
+            <tr>
+              <td style="vertical-align: middle;"><strong>Total a pagar: </strong></td>
+              <td style="vertical-align: middle;">{{ solicitudItem.debe | currency: "$" }}</td>
+            </tr>
+            <tr>
+              <td colspan="2">
+								<form action="paypal" method="post" class="pull-left" style="margin-right:10px" ng-if="solicitudItem.estado == 0">
+                  <input type="hidden" name="codigo" value="{{ solicitudItem.id }}" />
+                  <input type="hidden" name="pagoTotal" value="{{ solicitudItem.debe }}" />
+                  <button class="btn m-b-xs btn-sm btn-primary btn-addon">
+                    <i class="glyphicon glyphicon-credit-card"></i> Pagar
+                  </button>
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-sm-7">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Examenes
+        </div>
+        <table class="table table-striped m-b-none">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nombre del examen</th>
+              <th>Categoria</th>
+              <th>Precio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat='item in dataOption.examenes'>
+              <td style="vertical-align: middle;">{{ $index + 1 }}</td>
+              <td style="vertical-align: middle;">{{ item.nombre_examen }}</td>
+              <td style="vertical-align: middle;">{{ item.nombre_categoria }}</td>
+              <td style="vertical-align: middle;">{{ item.precio | currency }}</td>
+            </tr>
+            <tr>
+              <td colspan="3" style="vertical-align: middle;"> <h5 class="pull-right">Total: </h5> </td>
+              <td style="vertical-align: middle;"><h5>{{ solicitudItem.monto | currency: "$" }}</h5></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+	</div>
+</div>

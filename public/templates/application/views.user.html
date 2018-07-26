@@ -1,0 +1,99 @@
+<div class="col">
+  <div class="bg-light lter b-b wrapper-md" style="background-color:#008080">
+    <div class="row">
+      <div class="col-sm-6 col-xs-12">
+        <h1 class="m-n font-bold h3 text-black" style="color: #ffffff">Usuarios</h1>
+        <small class="font-bold" style="color: #ffffff">Mantenimiento de Usuarios</small>
+      </div>
+      <div class="col-sm-6 text-right hidden-xs">
+        <button ng-click="editing=true; userNew={};" class="btn btn-info btn-addon" type="button"><i class="fa fa-plus"></i>Nuevo Usuario</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrapper-md ng-scope">
+    <div class="panel panel-default" style="background-color: #e1f5fe" ng-show='!editing'>
+      <div class="panel-heading" style="background-color: #6490dd"><strong style="color: #ffffff">Listados de Usuarios</strong></div>
+      <div class="clearfix panel-footer">
+        <div class="input-group">
+          <input ng-model='query' type="text" class="form-control input-sm btn-rounded" placeholder="Buscar usuarios">
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-info btn-sm btn-rounded"><i class="fa fa-search"></i></button>
+          </span>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped b-t b-light">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nombre del empleado</th>
+              <th>Usuario</th>
+              <th>Sucursal</th>
+              <th>Perfil</th>
+              <th>Estado</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat='item in lists | orderBy:-lastname_emp | filter:query'>
+              <td class="text-center">{{ $index + 1 }}</td>
+              <td>{{ item.name_emp }} {{ item.lastname_emp }} </td>
+              <td>{{ item.email }}</td>
+              <td>{{ item.nombre_sucursal }}</td>
+              <td>{{ item.nombre }}</td>
+              <td class="text-center">
+                <span ng-class="{ 'bg-danger' : !item.estado  }" class="pull-right label bg-primary inline m-t-sm">{{ item.estado | fromEstado }}</span>
+              </td>
+              <td>
+                <div class="btn-group pull-right">
+                  <button ng-click="open(item);" class="btn btn-info" tooltip-placement="top" uib-tooltip="Cambio de Contraseña"><i class="icon-key"></i></button>
+                  <button ng-click="openPerfil(item);" class="btn btn-info" tooltip-placement="top" uib-tooltip="Editar Perfil"><i class="icon-pencil"></i></button>
+                  <button ng-click="onChangeStatus(item);"  class="btn btn-danger" tooltip-placement="top" uib-tooltip="Deshabilitar"><i class="icon-close"></i></button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel panel-default"  style="background-color: #e1f5fe" ng-show='editing'>
+      <div class="panel-heading font-bold"><strong style="color: #ffffff">Crear Usuario</strong></div>
+      <div class="panel-body">
+        <form name="form" role="form" class="form-validation" ng-submit='onCreateUser(form.$valid);'>
+          <div class="form-group">
+            <label>Sucursal:</label>
+            <select ng-change='changeEmployeers();' ng-model='userNew.sucursal' required id="getSucursal" name="getSucursal" class="form-control">
+              <option value="{{ s.id }}" ng-repeat='s in sucursales'>{{ s.nombre_sucursal }}</option>
+            </select>
+          </div>
+          <div ng-if='listEmployeer.length > 0'>
+            <div class="form-group">
+              <label>Empleado</label>
+              <select ng-model='userNew.empleado' required id="getEmpleado" name="getEmpleado" class="form-control">
+                <option ng-repeat='l in listEmployeer' value="{{ l.id }}"> {{ l.name_emp }} {{ l.lastname_emp }} </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Perfil</label>
+              <select ng-model='userNew.perfil' required id="getEmpleado" name="getEmpleado" class="form-control">
+                <option value="{{ p.id }}" ng-repeat='p in perfiles'>{{ p.nombre }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Nombre de usuario <em class="text-muted">(solo correo electrónicos validos)</em> </label>
+              <input ng-model='userNew.user' required type="email" class="form-control" placeholder="Digite el nombre del usuario" />
+            </div>
+            <div class="form-group">
+              <label>Contraseña <em class="text-muted">(minimo 8 caracteres)</em></label>
+              <input ng-minlength='8' ng-model='userNew.password' required type="password" class="form-control" placeholder="Digite la contraseña" />
+            </div>
+          </div>
+          <button ng-disabled="form.$invalid || listEmployeer.length == 0" type="submit" class="btn btn-sm btn-info">Registrar</button>
+          <button ng-click='editing=false' type="button" class="btn btn-sm btn-danger">Cerrar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

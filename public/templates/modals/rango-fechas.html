@@ -1,0 +1,45 @@
+<div class="panel" 
+  style="margin-bottom: 0px; background-color: #fafafa; font-size: 16px">
+  <div class="panel-heading b-b b-light" 
+    style="overflow: auto; background-color: #008080">
+    <STRONG style="color: #ffffff">RANGO DE FECHAS</STRONG>
+    <button type="button" ng-click="cerrar();" class="pull-right btn btn-danger">Cerrar</button>
+  </div>
+  <div class="panel-body">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <form role="form" ng-submit='onValidateRango()'>
+          <div class="form-group">
+            <label>Fecha Inicio: </label>
+            <p class="input-group">
+              <input type="text" readonly class="form-control" 
+                uib-datepicker-popup="{{format}}" ng-model="datebegin" 
+                is-open="popup1.opened" datepicker-options="dateOptions" 
+                ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-info" ng-click="open1()">
+                  <i class="glyphicon glyphicon-calendar"></i>
+                </button>
+              </span>
+            </p>
+          </div>
+          <div class="form-group">
+            <label>Fecha Final: </label>
+            <p class="input-group">
+              <input type="text" readonly class="form-control" 
+                uib-datepicker-popup="{{format}}" ng-model="dateend" 
+                is-open="popup2.opened" datepicker-options="dateOptions" 
+                ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-info" ng-click="open2()">
+                  <i class="glyphicon glyphicon-calendar"></i>
+                </button>
+              </span>
+            </p>
+          </div>
+          <button type="submit" class="btn btn-sm btn-info">Generar Reporte</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

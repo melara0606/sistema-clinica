@@ -1,0 +1,63 @@
+<div class="vbox"> 
+  <div class="bg-light lter b-b wrapper-md" style="background-color:#008080">
+    <div class="row">
+      <div class="col-sm-6 col-xs-12">
+        <h1 class="m-n font-bold h3" ui-sref="app.insumos_reactivos.item({ id: material.id })" style="color: #ffffff">
+          {{list.nombre_promocion}}
+        </h1>
+        <small class="font-bold h5" style="color: #ffffff">Precio: {{ list.precio | currency }}</small>
+      </div>
+
+      <div class="col-sm-6 text-right hidden-xs">
+        <button ng-if='permisos.editar' type="button"
+          ng-click="onUpdateStatus();"
+          class="btn btn-addon" ng-class="{ 'btn-danger' : list.estado, 'btn-info' : !list.estado }">
+          <span ng-show='!list.estado'><i class="fa fa-thumbs-o-up"></i>Activar</span>
+          <span ng-show='list.estado'><i class="fa fa-thumbs-o-down"></i>Desactivar</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row-row" style="background:url(public/img/rayas.jpg) center center; background-size:cover">
+    <div class="cell">
+      <div class="cell-inner">
+        <div class="col-xs-12 m-t">
+          <div class="panel b-a">
+            <div  class="panel-heading b-b b-light" style="overflow:auto; background-color: #6490DD; font-size: 16px"><strong style="color: #ffffff"> Examenes </strong>
+              <button ng-if='permisos.agregar'
+                ng-click="onAddExamen();" class="btn btn-info pull-right fa fa-plus" tooltip-placement="top" uib-tooltip="Añadir"></button>
+            </div>
+            <div class="panel-body" ng-show="listExamenes.length == 0">
+              <h3 class="text-center">No hay exámenes registrados por el momento</h3>
+            </div>
+
+            <table class="table table-striped b-t b-b" ng-show="listExamenes.length > 0">
+              <thead style="background-color: #e1f5fe">
+                <tr>
+                  <th>No.</th>
+                  <th class="text-center" style="width:25%">Nombre del examen</th>
+                  <th class="text-center">Categoria del examen</th>
+                  <th style="width:15%" class="text-center">Operaciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in listExamenes">
+                  <td>{{ $index + 1 }}</td>
+                  <td class="text-center">{{ item.nombre_examen }}</td>
+                  <td class="text-center">{{ item.nombre_categoria}}</td>
+                  <td class="text-center">
+                    <button ng-if='permisos.eliminar'
+                      ng-click='deleteItem(item, $index);'
+                      data-key='{{ $index }}' type='button' class='btn btn-danger btn-sm' tooltip-placement="top" uib-tooltip="Eliminar"><i class="fa fa-trash"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div ng-show="isEditing" ng-include="'public/templates/formularios/material.forms.html'"></div>
+      </div>
+    </div>
+  </div>
+</div>

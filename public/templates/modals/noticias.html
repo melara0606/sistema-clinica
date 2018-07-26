@@ -1,0 +1,29 @@
+<div class="panel panel-default" style="margin: 0px">
+  <div class="panel-heading font-bold" style="background-color: #008080"><b style="color: #ffffff"> NOTICIAS </b></div>
+  <div class="panel-body">
+    <form class="form-horizontal form-validation" name="frm" ng-submit='guardarDocumento(this);'>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Título: </label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control"  ng-model='titulo' required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label"></label>
+        <div class="col-sm-10">
+          <trix-editor angular-trix ng-model='html' class="trix-content" input='input-html'></trix-editor>
+          <input type="hidden" id="input-html" name="input-html" />
+        </div>
+      </div>
+      <div class="line line-dashed b-b line-lg pull-in"></div>
+      <div class="form-group">
+        <div class="col-sm-4 col-sm-offset-2">
+          <button type="submit" ng-disabled='frm.$invalid' class="btn btn-info">
+            {{ isNuevo ? 'Guardar' : 'Editar' }}
+          </button>
+          <button type="button" ng-click='close();' class="btn btn-danger">Cancelar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

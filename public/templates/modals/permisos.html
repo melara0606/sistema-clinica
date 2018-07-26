@@ -1,0 +1,38 @@
+<div class="panel panel-default" style="margin: 0px; border: 0px; background-color: #fafafa">
+  <div class="panel-heading font-bold" style="overflow: auto; background-color: #008080">
+    <span class="pull-left" style="color: #ffffff">Buscar Empleado</span>    
+    <button ng-click="onClose();" class="btn btn-sm btn-danger btn-icon pull-right" tooltip-placement="top" uib-tooltip="Cerrar"><i class="icon-close"></i></button>
+  </div>
+  <div class="panel-body">
+    <form role="form" class="form-validation" ng-submit="onSearchEmployeers()">
+      <div class="input-group">
+        <input type="text" required class="form-control" ng-model="searchEmployeer" />
+        <span class="input-group-btn">
+          <button class="btn btn-info" type="submit">Buscar</button>
+        </span>
+      </div>
+    </form>
+
+    <ul class="list-group list-group-lg no-bg auto" style="margin-top: 20px;">
+      <li ng-repeat="employeer in employeers" class="list-group-item clearfix">
+        <span class="pull-left thumb-sm avatar m-r">
+          <img src="public/img/user.png" alt="...">
+          <i class="on b-white bottom"></i>
+        </span>
+        <span class="clear">
+          <button type="button" ng-click="onSelectEmployer(employeer);" class="btn btn-info pull-right fa fa-check" tooltip-placement="top" uib-tooltip="Seleccionar"></button>
+          <span>{{employeer.name_emp}} {{employeer.lastname_emp}}</span>
+          <small class="text-muted clear text-ellipsis">
+            {{employeer.code_emp}} - <strong>{{employeer.tipo_contratacion | fromContracto}}</strong>
+          </small>            
+        </span>
+      </li>
+      <li class="list-group-item clearfix" ng-show="!server">
+        <span class="clear text-center">Debes agregar un criterio de busqueda</span>
+      </li>
+      <li class="list-group-item clearfix" ng-show="server && employeers.length == 0">
+        <span class="clear text-center">Empleado no encontrado</span>
+      </li>
+    </ul>
+  </div>
+</div>

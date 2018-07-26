@@ -1,0 +1,93 @@
+{% extends 'web/layout.twig' %}
+
+{% block menu %}  
+  {% include 'web/block/menu.twig' with { 'option': 'contactos' } %}
+{% endblock %}
+
+{% block content %}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhvC3rIiMvEM4JUPAl4fG1xNPRKoRnoTg"></script>
+  <div class="main-container">
+    <main>
+      <div class="page-banner container-fluid no-left-padding no-right-padding">
+        <div class="container">
+          <div class="page-banner-content">
+            <h3 style="color: black">CONTACTENOS</h3>
+          </div>
+        </div>
+      </div>
+      <div class="contact-us container-fluid no-left-padding no-right-padding">
+        <!-- Container -->
+        <div class="container">
+          <div class="contact-header">
+            <h5>póngase en contacto con nosotros</h5>
+            <p>Por que queremos conocer tu opinión, deja un comentario en el siguiente formulario</p>
+          </div>
+          <div class="contact-form">
+            <h5>Envíanos un mensaje</h5>
+            <form class="row">
+              <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                <input type="text" class="form-control" placeholder="Tu Nombre" name="contact-name" id="input_name" required="">
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                <input type="text" class="form-control" placeholder="Tu teléfono" name="contact-phone" id="input_phone" required="">
+              </div>
+              <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                <textarea class="form-control" placeholder="Mensaje" rows="6" name="textarea-message" id="textarea_message"></textarea>
+              </div>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <button title="Submit" type="submit" id="btn_submit" name="post">Enviar</button>
+              </div>
+              <div id="alert-msg" class="alert-msg"></div>
+            </form>
+          </div>
+          <div class="row">
+            <form class="form-inline">
+              <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group">
+                  <div class="contact-call-box">
+                    <p><i class="fa fa-search-plus"></i></p>
+                    <select name="select_sucursal" id="select_sucursal" class="form-control">
+                      <option value>[Seleccion una sucursal]</option>
+                      {% for item in sucursales %}
+                        <option value="{{ item.id }}">{{ item.nombre_sucursal }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+                <div id="visualizarDatos">
+                  <div class="form-group">
+                    <div class="contact-call-box">
+                      <p>
+                        <i class="fa fa-phone"></i>
+                        <a id="phone"></a>
+                      </p>
+                    </div>
+                  </div><br>
+                  <div class="form-group">
+                    <div class="contact-call-box">
+                      <p>
+                        <i class="fa fa-envelope"></i>
+                        <a id="email"></a>
+                      </p>
+                    </div>
+                  </div><br>
+                  <div class="form-group">
+                    <div class="contact-call-box">
+                      <p>
+                        <i class="fa fa-map-marker"></i>
+                        <a id="adress"></a>
+                      </p>
+                    </div>
+                  </div><br>
+                </div>
+              </div>
+              <div class="col-md-8 col-sm-6 col-xs-12">
+                <div id="map" style='height: 250px;' class="map"></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>    
+  </div>
+{% endblock %}

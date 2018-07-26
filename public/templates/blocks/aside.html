@@ -1,0 +1,45 @@
+<div class="aside-wrap">
+  <div class="navi-wrap">
+    <div class="clearfix hidden-xs text-center hide" id="aside-user" ng-class="{ 'show' : showUser }"  >
+      <div class="dropdown wrapper" uib-dropdown is-open="status.isopen">
+        <a class="dropdown-toggle clear" uib-dropdown-toggle ng-disabled="disabled">
+          <span class="thumb-lg w-auto-folded avatar m-t-sm">
+            <img src="public/img/user.png" class="img-full" alt="...">
+          </span>
+        </a>
+        <a class="dropdown-toggle hidden-folded"
+          dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+          <span class="clear">
+            <span class="block m-t-sm">
+              <strong class="font-bold text-lt" ng-if='userRegister.is_paciente'>
+                {{userRegister.codigo_paciente}}
+              </strong>
+              <strong class="font-bold text-lt" ng-if='!userRegister.is_paciente'>
+                {{userRegister.email}}
+              </strong>
+              <b class="caret"></b>
+            </span>
+            <span class="text-muted text-xs block" ng-if='userRegister.is_paciente'>
+              {{ userRegister.name_pac }} {{ userRegister.lastname_pac }}
+            </span>
+            <span class="text-muted text-xs block" ng-if='!userRegister.is_paciente'>
+              {{ userRegister.data.name_emp }} {{ userRegister.data.lastname_emp }}
+            </span>
+            <strong class="text-muted h4 block">{{userRegister.perfil.nombre}}</strong>
+          </span>
+        </a>
+        <ul uib-dropdown-menu role="menu" aria-labelledby="single-button"
+          class="dropdown-menu animated fadeInRight w hidden-folded">
+          <li class="wrapper b-b m-b-sm bg-info m-t-n-xs">
+            <span class="arrow top hidden-folded arrow-info"></span>
+          </li>
+          <li>
+            <a href="logout">Cerrar Sesión.</a>
+          </li>
+        </ul>
+      </div>
+      <div class="line dk hidden-folded"></div>
+    </div>
+    <nav ui-nav class="navi clearfix" ng-include="'public/templates/blocks/nav.html'"></nav>
+  </div>
+</div>

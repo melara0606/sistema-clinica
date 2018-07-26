@@ -1,0 +1,79 @@
+<div class="panel panel-default" style="margin:0px; background-color: #fafafa">
+    <div class="panel-heading font-bold" style="overflow:auto;  background-color: #008080">
+    <strong style="color: #ffffff">  MENÚ DE SOLICITUD</strong>
+      <button ng-click='close();'
+        type="button"class="btn btn-danger pull-right">Cerrar</button>
+    </div>
+    <div class="panel-body">
+      <div class="row" ng-show='!isMonto'>
+				<div class="col-xs-4 text-center" ng-show='!server' ng-if="isMontoView">
+          <a href="" ng-click='addMonto();' class="block panel padder-v bg-info item">
+            <span class="text-white font-thin h1 block">
+							<i class="fa fa-money m-r-sm"></i>
+						</span>
+            <span class="text-xs">Pago o Abono</span>
+          </a>
+        </div>
+				<div class="col-xs-4 text-center">
+					<a target="__blank" href="reportes/comprobante/examen?id={{ response.id_solicitud }}" class="block panel padder-v bg-success item">
+            <span class="text-white font-thin h1 block">
+							<i class="icon-printer m-r-sm"></i>
+						</span>
+            <span class="text-xs">Imprimir comprobante</span>
+          </a>
+        </div>
+      </div>
+
+			<form name="form" class="form-validation" ng-submit='addMontoSolicitud();'>
+				<div class="row" ng-show='isMonto'>
+					<div class="col-xs-6">
+						<div class="panel panel-default">
+			        <div class="panel-heading font-bold" style="background-color: #6490dd"><strong style="color: #ffffff">Cantidad a Abonar</strong></div>
+			        <div class="panel-body">
+		            <div class="form-group">
+		              <label>Abono</label>
+		              <input type='text' ng-model="monto" name="monto"
+											id="monto" class="form-control" ng-pattern="/^[0-9]+.[0-9]{2}$/"
+											placeholder="* Asignar monto" />
+								</div>
+							<button type="submit" ng-disabled='form.$invalid'
+												class="btn btn-info btn-lg pull-right">Procesar abono</button>
+
+			        </div>
+			      </div>
+					</div>
+					<div class="col-xs-6">
+						<div class="panel panel-default">
+			        <div class="panel-heading" style="background-color: #6490dd"><strong style="color: #ffffff">Totales</strong></div>
+			        <table class="table table-striped m-b-none">
+			          <tbody>
+			            <tr>
+			              <td>Total a pagar</td>
+										<td>{{ promocion.precio | currency }}</td>
+			            </tr>
+									<tr>
+										<td>Abono</td>
+										<td>{{ monto | currency }}</td>
+									</tr>
+									<tr>
+										<td>Debe</td>
+										<td> <b> {{ (promocion.precio - monto ) | currency }} </b> </td>
+									</tr>
+			          </tbody>
+								<tfoot>
+									<tr>
+										<td colspan="2">
+
+												<button type="button" ng-click="pagarTotal();"
+													class="btn btn-success btn-lg pull-right">Pago total</button>
+											
+										</td>
+									</tr>
+								</tfoot>
+			        </table>
+			      </div>
+					</div>
+				</div>
+			</form>
+    </div>
+</div>

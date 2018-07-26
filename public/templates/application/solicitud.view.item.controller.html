@@ -1,0 +1,112 @@
+<div class="col">
+    <div class="bg-light lter b-b wrapper-md" style="background-color: #008080">
+      <div class="row">
+        <div class="col-sm-8 col-xs-12">
+            <h1 class="m-n font-thin h3 text-black" style="color: #ffffff">Paciente:
+                {{object.name_pac}} {{object.lastname_pac}}
+            </h1>
+            <h4 class="m-n font-thin h3 text-black" style="color: #ffffff">Codigo: {{ object.id }} </h4>
+        </div>
+        <div class="col-sm-4 text-right hidden-xs">
+            <button ng-click="changeStatusSolicitud(object);" ng-if="object.estado != 0 && object.estado != 4"
+              class="btn btn-success">Cerrar solicitud</button>
+
+            <button ng-click="factuarSolicitud(object);" ng-if="object.estado == 0"
+              class="btn btn-info">Facturar</button>
+            <h4 style="color: #ffffff">Precio: {{ object.monto | currency }}</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrapper-md ng-scope">
+      <div class="panel panel-default" ng-show='!editing'>
+        <div class="panel-heading" style="background-color: #6490dd; color: #ffffff">Listados de examenes</div>
+        <div class="table-responsive">
+          <div ng-repeat="(key, items) in examenes">
+            <div class="wrapper-lg" style="overflow:auto">
+              <span class="pull-left h3" style="color: navy">{{ key }}</span>
+              <a target="__blank" href="reportes/examenes/categoria/1?solicitud={{ object.id }}&categoria={{ items[0]['categoria_id'] }}" class="btn btn-info pull-right">
+                <i class="fa fa-file-pdf-o"></i>
+              </a>
+            </div>
+
+            <table class="table table-striped b-t b-light">
+              <thead>
+                <tr>
+                  <th class="text-center">#</th>
+                  <th class="text-center">Nombre del Exámen</th>
+                  <th class="text-center">Estado</th>
+                  <th class="text-center"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat='item in items'>
+                  <td class="text-center">{{ $index + 1 }}</td>
+                  <td class="text-center">{{ item.nombre_examen }}</td>
+                  <td class="text-center">
+                      <span ng-show="item.estado == 1" class="label bg-primary inline m-t">Iniciada</span>
+                      <span ng-show="item.estado == 2" class="label bg-danger inline m-t">Pendiente</span>
+                      <span ng-show="item.estado == 3" class="label bg-info inline m-t">Cerrada</span>
+                      <span ng-show="item.is_cortesias == 1" 
+                        class="label bg-info inline m-t-sm"> Examen de Cortesia </span>
+                  </td>
+                  <td class="text-center">
+                    <div class="btn-group pull-right">
+                      <a  ng-if='item.estado != 3' ng-click='onObservaciones(item);' class="btn btn-info"><i class="fa fa-comments-o"></i></a>
+
+                      <button ng-if='item.estado != 3' type='button' ng-click="onChangeStatus(item);" tooltip-placement="top" uib-tooltip="Cambiar de estado" class="btn btn-warning"><i class="icon-logout"></i></button>
+
+                      <button ng-if='object.estado != 4' type='button' 
+                        ng-click="onItemExamenCortesia(item);" tooltip-placement="top" 
+                        uib-tooltip="Examen de cortesías" class="btn btn-success" ng-class="{'btn-danger' : item.is_cortesias == 1 }">
+                          <i class="fa fa-dollar"></i>
+                      </button>
+
+                      <button type='button' ng-click='createCampos(item);'
+                      class="btn btn-info">
+                        <i class="icon-pencil" ng-if='item.estado != 3'></i>
+                        <i class="icon-eye" ng-if='item.estado == 3'></i>
+                      </button>
+
+                      <button ng-if='item.tipo_reporte == 5' tooltip-placement="top" 
+                      uib-tooltip="Campos de multiple seleccion" class="btn btn-warning" ng-click="createMultiplesCampos(item);">
+                        <i class="icon-arrow-right" ></i>
+                      </button>
+
+                      <a target="__blank" href="reportes/examenes/options{{ item.tipo_reporte }}?solicitud={{ object.id }}&categoria={{ items[0]['categoria_id'] }}" class="btn btn-primary" ng-if='item.estado == 3 && item.tipo_reporte != 1'>
+                        <i class="fa fa-file-pdf-o"></i>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default" ng-show='editing'>
+        <div class="panel-heading font-bold">Crear examen</div>
+        <div class="panel-body">
+          <form name="form" role="form" class="form-validation" ng-submit='onCreateUser(form.$valid);'>
+            <div class="form-group">
+              <label>Nombre del Exámen: </label>
+              <input ng-model='userNew.nombre_examen'
+                required type="text" class="form-control" placeholder="Digite el nombre del examen" />
+            </div>
+            <div class="form-group">
+              <label>Precio: </label>
+              <input ng-model='userNew.precio' ng-pattern="/^[0-9]+.[0-9]{2}$/"
+                required type="text" class="form-control" placeholder="Digite el precio del examen" />
+            </div>
+            <button ng-disabled="form.$invalid"
+              type="submit" class="btn btn-sm btn-primary">
+              <span ng-if='!userNew.id'>Registrar</span>
+              <span ng-if='userNew.id'>Actualizar</span>
+            </button>
+            <button ng-click='editing=false' type="button" class="btn btn-sm btn-default">Cerrar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

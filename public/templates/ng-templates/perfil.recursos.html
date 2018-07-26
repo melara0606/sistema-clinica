@@ -1,0 +1,102 @@
+<div class="bg-light lter b-b wrapper-md ng-scope" style="background-color: transparent">
+  <div style="overflow:auto; height:36px;">
+    <h1 class="m-n font-bold h3 pull-left">Elementos</h1>
+    <button type="button" ng-hide='editingRecurso'
+      ng-click='onAddRecurso();' class="btn btn-info pull-right">Agregar Elemento</button>
+  </div>
+  
+  <div class="panel panel-default" style="background-color: #e1f5fe" ng-if='!editingRecurso' style="margin-top:25px;">
+    <div class="panel-heading" style="background-color: #6490dd"><strong style="color: #ffffff">Listados de modulos para el perfil</strong></div>
+    <div class="clearfix panel-footer">
+      <div class="input-group">
+        <input ng-model="query" type="text"
+          class="form-control input-sm ng-pristine ng-untouched ng-valid ng-empty"
+          placeholder="Buscar modulo">
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-info btn-sm"><i class="fa fa-search"></i></button>
+        </span>
+      </div>
+    </div>
+    <div class="table-responsive" style="font-size: 14px">
+      <table class="table table-striped b-t b-light">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre del modulo</th>
+            <th class="text-center">Consultar</th>
+            <th class="text-center">Agregar</th>
+            <th class="text-center">Editar</th>
+            <th class="text-center">Eliminar</th>
+            <th width='120px'></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat='rc in recursos | filter:query'>
+            <td>{{ $index + 1 }}</td>
+            <td>{{ rc.nombre }}</td>
+            <td class="text-center" >{{ rc.consultar | fromRecurso }}</td>
+            <td class="text-center">{{ rc.agregar | fromRecurso }}</td>
+            <td class="text-center">{{ rc.editar | fromRecurso }}</td>
+            <td class="text-center">{{ rc.eliminar | fromRecurso }}</td>
+            <td class="text-center">
+              <div class="btn-group m-b-sm">
+                <button ng-click='EditRecurso(rc, $index)'
+                  type="button" class="btn btn-info" tooltip-placement="top" uib-tooltip="Editar"> <i class="icon-pencil"></i></button>
+                <button type="button" ng-click='onDeleteRecurso(rc, $index);'
+                  class="btn btn-danger" tooltip-placement="top" uib-tooltip="Eliminar"> <i class="icon-trash"></i></button>
+              </div>
+            </td>
+          </tr>
+          <tr ng-if='recursos.length == 0'>
+            <td colspan="7">
+              <h3 class="text-center">Por el momento no tienes modulos asignados para este perfil.</h3>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="panel panel-default" ng-show='editingRecurso' style="margin-top:25px;">
+  <div class="panel-heading font-bold" style="background-color: #6490dd"><strong style="color: #ffffff">Agregar recurso</strong></div>
+  <div class="panel-body">
+    <form name="form" role="form" class="form-validation" ng-submit='onCreateRecurso(form.$valid);'>
+      <div class="form-group">
+        <label>Recursos:</label>
+        <select ng-model='item.recurso' required class="form-control">
+          <option value="{{ r.id }}" ng-repeat='r in listRecursos'>{{ r.nombre }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+          <table class="table table-striped m-b-none">
+            <tbody style="background-color: #e1f5fe">
+              <tr>
+                <td>
+                  <label class="checkbox-inline i-checks">
+                    <input required type="checkbox" ng-model='item.consultar'><i></i> Consultar
+                  </label>
+                </td>
+                <td>
+                  <label class="checkbox-inline i-checks">
+                    <input type="checkbox" ng-model='item.agregar'><i></i> Agregar
+                  </label>
+                </td>
+                <td>
+                  <label class="checkbox-inline i-checks">
+                    <input type="checkbox" ng-model='item.editar'><i></i> Editar
+                  </label>
+                </td>
+                <td>
+                  <label class="checkbox-inline i-checks">
+                    <input type="checkbox" ng-model='item.eliminar'><i></i> Eliminar
+                  </label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+      <button ng-disabled="form.$invalid" type="submit" class="btn btn-info">Registrar</button>
+      <button ng-click='onCloseEditingRecurso()' type="button" class="btn btn-danger">Cerrar</button>
+    </form>
+  </div>
+</div>

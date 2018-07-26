@@ -1,0 +1,106 @@
+<div class="panel" style="margin-bottom: 0px; background-color: #fafafa; font-size: 16px">
+	<div class="panel-heading b-b b-light" style="overflow: auto; background-color: #008080">
+    <button type="button" ng-click="cerrar();" class="pull-right btn btn-danger" tooltip-placement="top" uib-tooltip="Cerrar"><i class="fa fa-times"></i></button>
+    <STRONG ng-if='!isEdit' style="font-size: 12px; color: #ffffff">Reservar Cita</STRONG>
+  </div>
+	<div class="panel-body">
+    <form class="form-horizontal form-validation" name="frm" ng-submit='onCreateCode()'>
+      <div class="row" ng-show='dineroEntidad'>
+        <div class="col-xs-4">
+          <div class="form-group" ng-show='isViewFalseAndTrue'>
+            <label class="col-lg-2 control-label">Categoría: </label>
+            <div class="col-lg-10">
+              <select ng-model='categoriaId' name="categoria_examenes" class="form-control" ng-change='changeCategoria();'>
+                <option value="{{ c.id }}" ng-repeat='c in categorias'>{{ c.nombre_categoria }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" ng-show='itemsListExamen.length > 0'>
+            <div class="checkbox pull-left col-xs-6" ng-repeat='(key, i) in itemsListExamen'>
+              <label class="i-checks">
+                <input type="checkbox" ng-checked='i.value'
+                  ng-model='i.value' ng-change='onValueData(i)' ng-true-value='true' ng-false-value ='false' />
+                <i></i>
+                {{ i.nombre_examen }}
+              </label>
+            </div>
+          </div>
+          <div class="form-group" ng-show='itemsListExamen.length == 0'>
+            <h4 class="text-center">Por el momento no hay exámenes para esta categoria</h4>
+          </div>
+        </div>
+        <div class="col-xs-5">
+          <div class="panel panel-default">
+            <div class="panel-heading" style="background-color: dodgerblue">
+             <strong style="color: #ffffff"> Exámenes</strong>
+            </div>
+            <table class="table table-striped m-b-none">
+              <thead>
+                <tr>
+                  <th style="width:60px;" class="text-center">No</th>
+                  <th class="text-center">Nombre del examen</th>
+                  <th class="text-center">Precio</th>
+                  <th class="text-center" style="width:70px;"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat='row in itemExamens.item'>
+                  <td class="text-center">{{ $index + 1 }}</td>
+                  <td class="text-center">{{ row.nombre_examen }}</td>
+                  <td class="text-center">{{ row.precio | currency : '$' }}</td>
+                  <td class="text-center">
+                    <button type="button" ng-click='itemDelete(row, $index)' class="btn btn-danger" tooltip-placement="top" uib-tooltip="Eliminar"><i class="fa fa-trash"></i> </button>
+                  </td>
+                </tr>
+                <tr ng-show='itemExamens.item.length == 0'>
+                  <td colspan="4">
+                    <h4 class="text-center">Por el momento no hay exámenes</h4>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-xs-3" ng-show='itemExamens.show'>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">Fecha: </label>
+            <div class="col-lg-10">
+              <strong>{{ parentScope.dt | date:'mediumDate' }}</strong>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-lg-2 control-label">Horario: </label>
+            <div class="col-lg-10">
+              <strong>
+                {{ parentScope.myBegid | date:'shortTime' }} {{ parentScope.myBegid | date:'a' }}
+                - 
+                {{ parentScope.myEnd | date:'shortTime' }} {{ parentScope.myEnd | date:'a' }}
+              </strong>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-lg-2 control-label">Pagar: </label>
+            <div class="col-lg-10">
+              <strong>{{ itemExamens.pagar | currency: '$' }}</strong>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+              <button type="submit" class="btn btn-sm btn-info" ng-disabled="frm.$invalid">
+                  <span ng-show="!isEdit">Agregar</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" ng-show='!dineroEntidad'>
+        <div class="col-xs-12">
+          <h3 class="text-center">Lo sentimos, por el momento no se pueden procesar citas Institucionales</h3>
+        </div>
+      </div>
+    </form>
+	</div>
+</div>

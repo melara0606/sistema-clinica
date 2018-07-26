@@ -1,0 +1,44 @@
+<form class="form-horizontal form-validation" name="frm" ng-submit='onSubmitForm();'>
+  <div class="panel" style="margin-bottom: 0px; background-color: #fafafa; font-size: 16px">
+  	<div class="panel-heading b-b b-light" style="overflow: auto; background-color: #008080">
+      <STRONG ng-if='!isEdit' style="color: #ffffff">Asignar Grupo</STRONG>
+      <div class="btn-group pull-right">
+        <button type="button" ng-click="cerrar();" class="btn btn-sm btn-danger">Cerrar</button>
+        
+      </div>
+    </div>
+  	<div class="panel-body">
+    <div class="row connectedItemsExample">
+     <div class="col-xs-6">
+      <h3>Grupos Existentes</h3>
+      <ul ui-sortable="sortableOptions" ng-model='grupos'
+       class="list-group list gutter list-group-lg list-group-sp b-a b-2x b-dashed wrapper-lg bg-white text-center m-b">
+       <li class="list-group-item bg-success" ng-repeat="g in grupos">
+        <span class="pull-left"><i class="fa fa-sort text-muted fa m-r-sm"></i> </span>
+        <div class="clear">
+          Grupo {{ g.nombre_grupo }}
+        </div>
+       </li>
+      </ul>
+     </div>
+     <div class="col-xs-6">
+      <h3>Grupos Asignados</h3>
+       <ul ui-sortable="sortableOptions" ng-model='gruposCategoria'
+        class="list-group list gutter list-group-lg list-group-sp b-a b-2x b-dashed wrapper-lg bg-white text-center m-b">
+        <li class="list-group-item bg-info" ng-repeat="g in gruposCategoria">
+         <span class="pull-left"><i class="fa fa-sort text-muted fa m-r-sm"></i> </span>
+         <div class="clear">
+           Grupo {{ g.nombre_grupo }}
+         </div>
+        </li>
+       </ul>
+     </div>
+     <div class="col-xs-12">
+      <p>Arastre un elemento del grupo de existentes al grupos de asignados, para poder agregar a la categoria. <br>
+      <em>(Solamente se tomaran en cuenta los primero dos grupos)</p></em> 
+      <button class="btn btn-info  pull-right" ng-click="guardar($event);" type="button">Guardar</button>
+     </div>
+    </div>
+   </div>
+  </div>
+</form>

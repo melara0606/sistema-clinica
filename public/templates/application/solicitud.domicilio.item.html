@@ -1,0 +1,75 @@
+<div class="col">
+    <div class="bg-light lter b-b wrapper-md" style="background-color: #008080">
+      <div class="row">
+        <div class="col-sm-8 col-xs-12">
+            <h1 class="m-n font-thin h3 text-black" style="color: #ffffff">Paciente:
+                {{object.name_pac}} {{object.lastname_pac}}
+            </h1>
+            <h4 class="m-n font-thin h3 text-black" style="color: #ffffff">Codigo: {{ object.codigo }} </h4>
+        </div>
+        <div class="col-sm-4 text-right hidden-xs">
+            <button ng-click="convertirSolicitud(object);" ng-if="object.estado != 0"
+              class="btn btn-info">Convertir solicitud</button>
+            <h4 style="color: #ffffff">Precio: {{ object.pagar | currency }}</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrapper-md ng-scope">
+      <div class="panel panel-default" ng-show='!editing'>
+        <div class="panel-heading" 
+          style="background-color: #6490dd; color: #ffffff">Información</div>
+        
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-7">
+              <div class="container-maps">
+                <div map-lazy-load="https://maps.google.com/maps/api/js" 
+                  map-lazy-load-params="{{googleMapsUrl}}">
+                  <ng-map class="center-maps" zoom="17">
+                    <marker ng-repeat="position in vm.positions" 
+                      position="{{position.lat}}, {{position.lng}}" animation="Animation.BOUNCE"></marker>
+                  </ng-map>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-5">
+              <table class="table table-striped table-bordered">
+                <tr>
+                  <th colspan="2">
+                    <h4 class="text-center">Información</h4>
+                  </th>
+                </tr>
+                <tr>
+                  <td>Teléfono: </td>
+                  <td>{{ object.telefono }}</td>
+                </tr>
+                <tr>
+                  <td>Dirección: </td>
+                  <td>{{ object.address_pac }}</td>
+                </tr>
+              </table>
+              <hr />
+              <table class="table table-striped table-bordered">
+                <tr>
+                  <th colspan="3">
+                    <h4 class="text-center">Exámenes</h4>
+                  </th>
+                </tr>
+                <tr>
+                  <td class="text-center" style="width: 40px">No.</td>
+                  <td class="text-center">Nombre del examen</td>
+                  <td class="text-center" style="width: 80px">Precio</td>
+                </tr>
+                <tr ng-repeat='i in object.examenesList'>
+                  <td class="text-center">{{ $index + 1 }}</td>
+                  <td>{{ i.nombre_examen }}</td>
+                  <td class="text-center">{{ i.precio | currency: '$' }}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

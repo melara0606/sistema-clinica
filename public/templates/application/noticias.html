@@ -1,0 +1,42 @@
+<div class="hbox" style="background:url(public/img/rayas.jpg) center center; background-size:cover">
+  <div class="bg-light lter b-b wrapper-md ng-scope" style="background-color: #008080">
+    <h1 class="m-n font-thin h3" style="display: inline;"><b style="color: #ffffff">Noticias</b></h1>
+    <button type="button" ng-click='onpenModal(true)' class="btn btn-info btn-addon pull-right"><i class="fa fa-plus"></i> Nueva Noticia</button>
+  </div>
+  <div class="wrapper-md">
+    <div class="row" ng-if='noticias.length == 0'>
+      <div class="col-xs-12">
+        <h2 class="text-center">Por el momento no hay noticias registradas</h2>
+      </div>
+    </div>
+    <div class="row" ng-if='noticias.length > 0'>
+      <div class="col-xs-3" ng-repeat='n in noticias'>
+        <div class="panel" ng-class='{ "panel-danger" : !n.publisher }'>
+          <div class="panel-heading" style="overflow: auto">
+            <div class="btn-group pull-right">
+              <button class="btn btn-info" ng-click='onpenModal(false, n, $index)' tooltip-placement="top" uib-tooltip="Editar"><i class="icon-pencil"></i></button>
+              <button class="btn btn-danger" ng-click='darBajaNoticia(n);' tooltip-placement="top" uib-tooltip="Activar / Desactivar"><i 
+                  ng-class='{ "icon-dislike" : n.publisher, "icon-like" : !n.publisher }'></i></button>
+            </div>
+          </div>
+          <div class="panel-body">
+            <article class="media">
+              <div class="pull-left">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-bold fa-stack-1x text-white"></i>
+                </span>
+              </div>
+              <div class="media-body">
+                <a href="" class="h4">{{ n.titulo }}</a>
+                <div class="block m-t-xs" ng-bind-html='generadorHTML(n.body)'></div>
+                <em class="text-xs">Creado hace <span class="text-danger">{{ n.fecha | fromMoment }}</span></em>
+                <span class="label bg-dark pull-right">{{ n.user_created }}</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

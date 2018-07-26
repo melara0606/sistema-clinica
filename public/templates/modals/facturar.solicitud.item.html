@@ -1,0 +1,91 @@
+<div class="panel" style="margin-bottom: 0px; background-color: #fafafa; font-size: 16px">
+	<div class="panel-heading b-b b-light" style="overflow: auto; background-color: #008080">
+    <STRONG style="color: #ffffff">FACTURAR</STRONG>
+    <button type="button" ng-click="cerrar();" class="pull-right btn btn-danger" tooltip-placement="top" uib-tooltip="Cerrar"><i class="fa fa-times"></i></button>
+  </div>
+	<div class="panel-body">
+		<div class="panel panel-default">
+    	<div class="panel-body">
+				<table class="table">
+					<tr>
+						<td><h3>Codigo: </h3></td>
+						<td><h3>{{ solicitud.id }}</h3></td>
+						<td><h3 class="text-right">Monto: </h3></td>
+						<td><h3>{{ solicitud.monto | currency: "$" }}</h3></td>
+					</tr>
+					<tr>
+						<td>Cliente: </td>
+						<td>{{ solicitud.name_pac }} {{ solicitud.lastname_pac }}</td>
+						<td class="text-right">Tipo solicitud</td>
+						<td>{{ solicitud.tipo_solicitud | fromSolicitudType }}</td>
+					</tr>
+				</table>
+				<form ng-submit='onPagarSolicitud()' name="frm" class="form-inline form-validation" role="form">
+					<div class="panel panel-default">
+		        <div class="panel-heading">
+		          <span class="label bg-danger pull-right m-t-xs">{{ solicitud.item.length }}</span> Examenes
+		        </div>
+		        <table class="table table-striped m-b-none">
+		          <thead>
+		            <tr>
+		              <th class="text-center">ID</th>
+		              <th class="text-center">Nombre del examen</th>
+									<th class="text-center">Precio</th>
+		            </tr>
+		          </thead>
+		          <tbody>
+								<tr ng-repeat='item in solicitud.items'>
+									<td class="text-center">{{ $index + 1 }}</td>
+									<td class="text-center">{{ item.nombre_examen }}</td>
+									<td class="text-center">
+                    <span ng-if='item.is_cortesias == 1'>$ 0.00</span>
+                    <span ng-if='item.is_cortesias == 0'>{{ item.precio | currency }}</span>
+                  </td>
+								</tr>
+								<tr>
+									<td colspan="2" class="text-right dker">Abono:</td>
+									<td class="dker text-center"><strong>{{ solicitud.abono.monto || 0 | currency: "$"  }}</strong></td>
+								</tr>
+								<tr>
+									<td colspan="2" class="text-right dker">
+										<strong style="margin-right:15px">Descuento:</strong> 
+										<div class="checkbox">
+											<label class="i-checks">
+												<input type="checkbox" checked ng-model="solicitud.descuento" ><i></i>
+											</label>
+										</div>
+									</td>
+									<td class="dker text-center">
+										<input ng-if="solicitud.descuento" style="width: 130px" type="number" step='1' ng-pattern="/^(\+|-)?\d+$/" class="form-control text-center" value="0.00" ng-min='0' required ng-max='100' ng-model="solicitud.montoPorcentajeDescuento" placeholder="* Descuento %" /> <span style="display: inline-block;margin-left: 15px;">%</span>
+									</td>
+								</tr>								
+								<tr ng-show="solicitud.descuento">
+									<td colspan="2" class="text-right dker">SubTotal: </td>
+									<td class="dker text-center">
+										<strong>{{ ( solicitud.monto - solicitud.abono.monto  ) | currency: "$" }}</strong>
+									</td>
+								</tr>
+                <tr ng-show="solicitud.descuento">
+                  <td colspan="2" class="text-right dker">Descuento: </td>
+                  <td class="dker text-center"><strong>{{ solicitud.montoDescuento | currency: "$" }}</strong></td>
+                </tr>
+								<tr>
+									<td colspan="2" class="text-right dker">Total a pagar:</td>
+									<td class="dker text-center">
+										<strong>
+                      {{ subTotal | currency: "$" }}
+                    </strong>
+									</td>
+								</tr>
+		          </tbody>
+			      </table>
+						<div class="clearfix panel-footer">
+							<button type="submit" style="margin-right:60px" ng-disabled="frm.$invalid"
+								class="btn btn-success pull-right btn-lg">Pagar</button>
+						</div>
+			     </div>
+				</form>
+    	</div>
+  	</div>
+	</div>
+</div>

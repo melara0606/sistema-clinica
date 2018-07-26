@@ -1,0 +1,21 @@
+<div class="panel" style="margin-bottom: 0px; background-color: #fafafa; font-size: 16px">
+	<div class="panel-heading b-b b-light" style="overflow: auto; background-color: #008080">
+    <STRONG style="color: #ffffff">SELECCIONA EL PROVEEDOR</STRONG>
+    <button type="button" ng-click="cerrar();" class="pull-right btn btn-danger">Cerrar</button>
+  </div>
+	<div class="panel-body">
+		<div class="panel panel-default">
+    	<div class="panel-body">
+			<form class="form-inline" name="frmProveedor" role="form" ng-submit="onCreateCompra();">
+				<div class="form-group">
+					<label for="proveedores">Proveedor: </label>
+					<select required class="form-control " id="proveedores" ng-model="proveedor" name="proveedores" ng-options="proveedor.id as proveedor.nombre_proveedor for proveedor in proveedores">
+						<option value="">-- selecciona un proveedor --</option>
+					</select>
+				</div>
+				<button ng-disabled="frmProveedor.$invalid" type="submit" class="pull-right btn btn-info">Processar</button>
+			</form>
+    	</div>
+  	</div>
+	</div>
+</div>

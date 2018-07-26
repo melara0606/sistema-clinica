@@ -1,0 +1,69 @@
+<div class="col">
+  <div class="bg-light lter b-b wrapper-md" style="background-color:#008080">
+    <div class="row">
+      <div class="col-sm-6 col-xs-12">
+        <h1 class="m-n font-bold h3 text-black" style="color: #ffffff">Perfiles</h1>
+        <small class="font-bold h5 text-black" style="color: #ffffff">Mantenimiento de pefiles</small>
+      </div>
+      <div class="col-sm-6 col-xs-12">
+        <button ng-hide='isEditing' ng-click='isShow();'
+          type="button" class="btn btn-info pull-right">Agregar perfil</button>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="wrapper-md ng-scope">
+    <div class="panel panel-default" style="background-color: #e1f5fe" ng-show='!isEditing'>
+      <div class="panel-heading" style="background-color: #6490dd"><strong style="color: #ffffff">Listado de perfiles</strong></div>
+      <div class="clearfix panel-footer">
+        <div class="input-group">
+          <input ng-model='query' type="text" class="form-control input-sm btn-rounded" placeholder="Buscar perfil">
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default btn-sm btn-rounded"><i class="fa fa-search"></i></button>
+          </span>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped b-t b-light">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Nombre del perfil</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat='item in perfiles | filter:query'>
+              <td class="text-center">{{ $index + 1 }}</td>
+              <td>{{ item.nombre }} </td>
+              <td>
+                <div class="btn-group pull-right">
+                  <a ui-sref="app.usuarios.perfil({ id: item.id })" class="btn btn-sm btn-info" tooltip-placement="top" uib-tooltip="Detalles"><i class="icon-eye"></i></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel panel-default" ng-show='isEditing'>
+      <div class="panel-heading" style="background-color: #008080"><b style="color: #ffffff"> Crear nuevo perfil</b></div>
+      <div class="panel-body">
+        <form class="form-validation" name="frm"
+          ng-submit='onCreatePerfil()'>
+          <div class="form-group">
+            <label>Nombre del perfil: </label>
+            <input type="text" class="form-control" id='perfilNombre'
+              name="perfilNombre" ng-model="perfilNombre" ng-minlength='5'
+              required placeholder="Nombre del perfil" />
+          </div>
+          <button ng-disabled='frm.$invalid' type="submit"
+            class="btn btn-sm btn-info">Crear</button>
+            <button type="button" ng-click='isEditing=false'
+              class="btn btn-sm btn-danger">Cancelar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

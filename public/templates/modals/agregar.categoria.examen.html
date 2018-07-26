@@ -1,0 +1,42 @@
+<div class="panel" style="margin-bottom: 0px; background-color: #fafafa; font-size: 16px">
+	<div class="panel-heading b-b b-light" style="overflow: auto; background-color: #008080">
+    <STRONG ng-if='isEdit'><b style="color: #ffffff"> Editar la categoría</b></STRONG>
+		<STRONG ng-if='!isEdit'><b style="color: #ffffff"> Crear una categoría</b></STRONG>
+    <button type="button" ng-click="cerrar();" class="pull-right btn btn-danger">Cerrar</button>
+  </div>
+	<div class="panel-body">
+		<div class="panel panel-default">
+    	<div class="panel-body">
+				<form ng-if='!isEdit' class="form-inline form-validation" name="frm" ng-submit='onUpdateCode()'>
+					<div class="form-group" style="width:100%;">
+						<button ng-disabled='frm.$invalid' type="submit"
+							class="btn btn-info pull-right">Crear</button>
+	          <input ng-minlength=4 required
+							ng-model='categoria.nombre_categoria' style="width:50%; margin-right:10px;"
+							type="text" class="form-control pull-right" id="inputFacturaCode"
+							placeholder="Nombre de la categoria" />
+	        </div>
+				</form>
+
+				<form ng-submit='onUpdateCode()' ng-if='isEdit' name="frm"
+					class="form-inline ng-pristine ng-valid" role="form">
+					<div ng-show='!editing' class="form-group" style="width:100%;">
+						<strong>{{ categoria.nombre_categoria || 'No nombre' }}</strong>
+						<button
+							type="button" ng-click='editing = true' class="btn btn-info pull-right" tooltip-placement="top" uib-tooltip="Editar">
+							<i class="icon-pencil"></i>
+						</button>
+					</div>
+	        <div ng-show='editing' class="form-group" style="width:100%;">						
+						<button ng-disabled='frm.$invalid' type="submit"
+							class="btn btn-info pull-right">Actualizar</button>
+	          <input ng-minlength=4 required
+							ng-model='categoria.nombre_categoria'
+							style="width:50%; margin-right:10px;" type="text" class="form-control pull-right"
+							id="nameCategoria" placeholder="Nombre de la categoria" />
+	        </div>
+	      </form>
+    	</div>
+  	</div>
+	</div>
+</div>

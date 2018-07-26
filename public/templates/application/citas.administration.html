@@ -1,0 +1,109 @@
+<div class="hbox" style="background:url(public/img/rayas.jpg) center center; background-size:cover">
+  <div class="col">
+    <div class="bg-light lter b-b wrapper-md" style="background-color: #008080">
+      <div class="row">
+        <div class="col-sm-8 col-xs-12">
+          <h1 class="m-n font-bold h3 text-black" style="color: #ffffff">Registro de Citas </h1>
+        </div>
+      </div>
+    </div> 
+
+    <div class="wrapper-md ng-scope">
+    	<div class="col-xs-10 col-xs-offset-1">
+        <div class="panel panel-default" ng-show='!editing'>
+          <div class="panel-heading" style="background-color: #6490dd; color: #ffffff;height: 57px;">
+            <h3 class="pull-left m-n">Citas Pendientes</h3>
+            <div class="pull-right">
+              <form name="frm" id="frm" class="form-validation pull-right" style="padding: 0 10px">
+                <div class="row">
+                  <div>
+                    <p class="input-group pull-right">
+                      <input type="text" readonly class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-info" ng-click="open1()">
+                          <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-striped b-t b-light">
+              <thead>
+                <tr>
+                  <th class="text-center" style="width: 50px">#</th>
+                  <th class="text-center" style="width: 200px">Paciente</th>
+                  <th class="text-center" style="width: 200px">Teléfono</th>
+                  <th class="text-center" style="width: 300px">Fecha</th>
+                  <th class="text-center" style="width: 150px">Horario</th>
+                  <th class="text-center" style="width: 150px">Estado</th>
+                  <th class="text-center" style="width: 200px"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat='item in object' ng-if='object.length > 0'>
+                  <td class="text-center">{{ $index + 1 }}</td>
+                  <td class="text-center">{{ item.name_pac }} {{ item.lastname_pac }} </td>
+                  <td class="text-center">{{ item.telefono }}</td>
+                  <td class="text-center">{{ item.fecha }}</td>
+                  <td class="text-center">{{ item.horario }}</td>
+                  <td class="text-center">
+                    <span class="label" ng-class=' item.estado == 1 ? "bg-danger" : "bg-info" '>
+                      {{ item.estado == 1 ? 'No atendido' : 'Atendido' }}
+                    </span>
+                  </td>
+                  <td class="text-center">
+                    <div class="btn-group">
+                      <button ng-if='item.estado == 1'
+                        ng-click="onActiveSelect(item);" class="btn btn-danger btn-sm" tooltip-placement="top" uib-tooltip="Activar / Desactivar">
+                        <i class="fa fa-thumbs-o-up fa-thumbs-o-up"></i>
+                      </button>
+                      <button ng-click='viewDetalle(item)'
+                        class="btn m-b-xs btn-sm btn-info" tooltip-placement="top" uib-tooltip="Visualizar">
+                        <i class="icon-eye"></i> 
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr ng-if='object.length == 0'>
+              	  <td colspan="7">
+              		  <h2 class="text-center">No hay reservas para éste dia</h2>
+              	  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>    		
+    	</div>
+    	<div class="col-xs-5 col-xs-offset-3">
+        <div class="panel panel-default" ng-show='editing'>
+          <div class="panel-heading font-bold">Reajustar</div>
+          <div class="panel-body">
+            <form name="form" role="form" class="form-validation" ng-submit='onCreateReajuste();'>
+              <div class="form-group">
+                <label>Cantidad: </label>
+                <input ng-model='object.cantidad'
+                  required type="number" max="{{ data.existencia }}" ng-min="0.01"
+                    step="0.001" class="form-control" placeholder="Cantidad a reajustar" />
+              </div>
+              <div class="form-group">
+                <label>Motivo: </label>
+                <textarea ng-model='object.motivo' cols="3" rows="4" ng-minlength='8'
+                  required class="form-control" placeholder="Motivo de la descarga"></textarea>
+              </div>
+              <button ng-disabled="form.$invalid"
+                type="submit" class="btn btn-sm btn-primary">
+                <span>Registrar</span>
+              </button>
+              <button ng-click='editing=false' type="button" class="btn btn-sm btn-default">Cerrar</button>
+            </form>
+          </div>
+        </div>    		
+    	</div>
+    </div>
+  </div>	
+</div>

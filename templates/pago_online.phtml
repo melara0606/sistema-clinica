@@ -1,0 +1,40 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Selección de Surcursal.</title>
+    <link rel="stylesheet" href="{{base_url()}}/public/css/index.css" type="text/css">
+  </head>
+  <body>
+    <div class="app app-header-fixed" style="background:url({{base_url()}}/public/img/minimal.jpg)">
+    <center>
+      <img src="{{base_url()}}/public/img/logoprincipal.png" >
+      </center>
+
+          <hr>
+      <div class="container w-xxl w-auto-xs">
+        <div class="m-b-lg">
+          {% if isResponse == 'true' %}
+            <div class="list-group list-group-sm">
+              <h2 class="text-center" style="font-size:200px"><i class="fa fa-heart"></i></h2>
+              <h3 class="text-center">Gracias por tu confianza en nosotros</h3>
+              <p class="text-center">En 5 segundos sera direccionado a la pagina de inicio</p>
+            </div>
+          {% else %}
+            <div class="list-group list-group-sm">
+              <h2 class="text-center" style="font-size:200px"><i class="fa fa-heart-o"></i></h2>
+              <h3 class="text-center">Bueno para la proxima vez podremos ayudarte mejor</h3>
+              <p class="text-center">En 5 segundos sera direccionado a la pagina de inicio</p>
+            </div>
+          {% endif %}
+      </div>
+    </div>
+    <script type="text/javascript">
+        window.onload = function() {
+          setTimeout(function(){
+            window.location.href = '/clinica/#!/app/perfil';
+          }, 5000);
+        }
+    </script>
+  </div>
+  </body>
+</html>

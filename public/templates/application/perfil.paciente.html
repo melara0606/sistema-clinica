@@ -1,0 +1,54 @@
+<div class="streamline b-l b-info m-l-lg m-b padder-v col-xs-3">
+  <div ng-repeat='solicitud in perfil' ng-if='perfil.length > 0'>
+    <a class="pull-left thumb-sm avatar m-l-n-md">
+      <img src="public/img/Microscope-icon.png" class="img-circle" alt='imagen for solicitud creada'>
+    </a>
+    <div class="m-l-lg">
+      <div class="m-b-xs">
+        <a ng-click='openClickDetalle(solicitud);' class="h4">{{ solicitud.id }}</a>
+        
+      </div>
+      <div class="m-b">
+        <div><span > <!-- class="text-muted m-l-sm pull-right" -->
+          {{ solicitud.fecha_creacion | fromMoment }}
+        </span></div>
+        <div class="m-t-sm">
+          <div class="btn-group">
+            <button ng-click='openClickDetalle(solicitud);' class="btn m-b-xs btn-sm btn-success" type="button" 
+            tooltip-placement="top" uib-tooltip="Detalle de Solicitud">
+              <i class="icon-eye"></i>
+            </button>
+            <a target="__blank" 
+                class="btn m-b-xs btn-sm btn-info btn-addon" 
+                href="reportes/comprobante/examen?id={{ solicitud.id }}">
+              <i class="fa fa-file-pdf-o"></i> Comprobante
+            </a>
+          </div>
+          <form action="paypal" method="post" class="pull-left" style="margin-right:10px" ng-if='solicitud.estado == 0'>
+            <input type="hidden" name="codigo" value="{{ solicitud.id }}" />
+            <input type="hidden" name="pagoTotal" value="{{ solicitud.monto - solicitud.Abono }}" />
+            <button class="btn m-b-xs btn-sm btn-primary" 
+            tooltip-placement="top" uib-tooltip="Realizar Pago">
+              <i class="glyphicon glyphicon-credit-card"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ng-if='perfil.length == 0'>
+    <a class="pull-left thumb-sm avatar m-l-n-md">
+      <img src="public/img/Microscope-icon.png" class="img-circle" alt='imagen for solicitud creada'>
+    </a>
+    <div class="m-l-lg">
+      <div class="m-b">
+        <div>
+          <h2 class="text-center">Por el momento no hay solicitudes registradas</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-xs-8" style="margin-top:20px" ng-if='include'>
+  <div ng-include='"public/templates/modals/detalle.examen.perfil.html"'></div>
+</div>

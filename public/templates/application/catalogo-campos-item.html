@@ -1,0 +1,211 @@
+<div class="vbox" >
+  <div class="bg-light lter b-b wrapper-md" style="background-color:#008080">
+    <div class="row">
+      <div class="col-sm-6 col-xs-12">
+        <h1 class="m-n font-bold h3" ui-sref="app.insumos_reactivos.item({ id: material.id })" style="color: #ffffff">
+            Listado de campos de tipo {{ object.nombre_tipo_campo }}
+        </h1>
+      </div>
+
+      <div class="col-sm-6 text-right hidden-xs" ng-show="!isGroup && !isGrupoCategoria">
+        <button ng-click="onCreate();" ng-hide="isEditing" class="btn btn-info btn-addon" type="button"><i class="fa fa-plus"></i>Agregar nuevo</button>
+        <button 
+          ng-click="onCreateGrupo();" ng-if='object.id == 1'
+          ng-hide="isEditing" class="btn btn-info btn-addon" type="button"><i class="fa fa-group"></i>Grupos</button>
+        <button 
+          ng-click="onCreateCategoriaGrupo();" ng-if='object.id == 4'
+          ng-hide="isEditing" class="btn btn-info btn-addon" type="button"><i class="fa fa-gears"></i>Categoría de Grupo</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row-row" style="background:url(public/img/rayas.jpg) center center; background-size:cover">
+    <div class="cell">
+      <div class="cell-inner">
+        <div ng-show="!isGroup && !isGrupoCategoria">
+          <div class="col-xs-12 m-t" ng-show="!isEditing">
+            <div class="panel b-a">
+              <div  class="panel-heading b-b b-light" style="overflow:auto; background-color: #6490DD; font-size: 16px"><strong style="color: #ffffff"> Campos </strong>
+              </div>
+              <div class="panel-body" ng-show="items.length == 0">
+                <h3 class="text-center">No hay campos registrados por el momento</h3>
+              </div>
+              <table id='dataTables' ui-jq='dataTable' ui-options='{{options}}' class="table table-striped b-t b-b">
+                <thead style="background-color: #e1f5fe">
+                  <tr>
+                      <th>No.</th>
+                      <th class="text-center" style="width:25%">Nombre del campo</th>
+                      <th class="text-center">
+                          <span ng-show="object.id == 1">Grupo de Selección</span>
+                          <span ng-show="object.id == 2">Rango</span>
+                          <span ng-show="object.id == 4">Grupo categoría</span>
+                      </th>
+                      <th class="text-center">Unidades</th>
+                      <th style="width:15%" class="text-center"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-if='object.campos.length == 0'>
+                      <td colspan="5">
+                          <h2 class="text-center">No hay campos por el momento para ésta categoría.</h2>
+                      </td>
+                  </tr>
+                  <tr ng-repeat="item in object.campos">
+                      <td class="text-center">{{ $index + 1 }}</td>
+                      <td class="text-center">{{item.nombre_campo}}</td>
+                      <td class="text-center">
+                          <span style="margin-right:9px;" ng-if='object.id == 1'
+                              ng-repeat="obj in objectGroup[item.grupo_seleccion]"
+                              class="label bg-primary inline m-t-sm h4">
+                              {{ obj.nombre_seleccion }}
+                          </span>
+                          <span ng-show="object.id == 2">{{item.rango_valor}}</span>
+                          <span ng-show="object.id == 4">{{item.nombre_categoria_grupo}}</span>
+                      </td>
+                      <td class="text-center">{{item.unidades}}</td>
+                      <td class="text-center">
+                          <button ng-click="doneEdinting(item, $index);"
+                              class="btn btn-info"
+                              type="button" tooltip-placement="top" uib-tooltip="Editar"><i class="fa fa-pencil"></i></button>
+                      </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div ng-show="isEditing" ng-include="'public/templates/formularios/campos.forms.html'"></div>
+        </div>
+        <div ng-show="isGroup">
+          <div class="col-xs-12 m-t">
+            <div class="panel b-a">
+              <div class="panel-heading b-b b-light" style="overflow: auto;">
+                Grupos de Selección <button 
+                  type="button" ng-click='onCerrarCreateGroup()' class="btn btn-danger pull-right" tooltip-placement="top" uib-tooltip="Cerrar"><i class="fa fa-times"></i></button>
+              </div>
+              <div class="panel-body">
+                <form class="form-horizontal">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Selección: </label>
+                    <div class="col-sm-7">
+                      <select name="account" ng-change="onChangeGrupoModel()"
+                        class="form-control m-b" ng-model="queryGrupoModel" required>
+                        <option value>[Selecciona]</option>
+                        <option value="{{ g.grupo_seleccion }}" ng-repeat="g in grupos">{{ g.nombre_grupo }}</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="btn-group pull-right">
+                        <button ng-click="editGrup(queryGrupoModel);" ng-show="queryGrupoModel" type="button" class="btn btn-info" tooltip-placement="top" uib-tooltip="Editar"><i class="fa fa-pencil"></i></button>
+                        <button ng-click='addGrupoSeleccion();' type="button" class="btn btn-primary">Crear Grupo</button>
+                      </div>
+                    </div>
+                  </div>                  
+                </form>
+              </div>
+              <div class="clearfix panel-footer" ng-show='queryGrupoModel'>
+                <div class="input-group">
+                  <input type="text" class="form-control input-sm btn-rounded" ng-model="nameGroup"
+                    placeholder="Agregar un nuevo item">
+                  <span class="input-group-btn">
+                    <button type="button" ng-click="addItemGroup(queryGrupoModel)"
+                      class="btn btn-default btn-sm btn-rounded" ><i class="fa fa-plus"></i></button>
+                  </span>
+                </div>
+              </div>
+              <table class="table table-striped m-b-none" ng-hide="objectGroupIndex.length === 0">
+                <thead>
+                  <tr>
+                    <th style="width:60px;" class="text-center">No</th>
+                    <th>Nombre del grupo</th>
+                    <th style="width:200px;"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="o in objectGroupIndex" ng-dblclick="editGrupo(o);" >
+                    <td class="text-center">{{ $index + 1 }}</td>
+                    <td class="text-left">
+                      <span ng-hide="o.editing">{{ o.nombre_seleccion }}</span>
+                      <input class="form-control" ng-show="o.editing"
+                        ng-model="o.nuevoNombre" name="nuevoNombre" id="nuevoNombre" />                      
+                    </td>
+                    <td class="text-center">
+                      <button ng-click="deleteSelectionGroup(o)" ng-hide="o.editing"
+                        class="btn m-b-xs w-xs btn-danger" tooltip-placement="top" uib-tooltip="eliminar"><i class="fa fa-trash"></i></button>
+
+                      <div ng-show="o.editing" class="btn-group">
+                        <button type="button" ng-click="doneElement(o)"
+                          class="btn btn-info">Editar</button>
+                        <button type="button" ng-click="btnDeleteElement(o);"
+                          class="btn btn-danger">Eliminar</button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div ng-show="isGrupoCategoria">
+          <div class="col-xs-12 m-t">
+            <div class="panel b-a">
+              <div class="panel-heading b-b b-light" style="overflow: auto;">
+                <div class="btn-group pull-right">
+                  <button type="button" ng-click='onCerrarCreateGroup()' class="btn btn-danger" tooltip-placement="top" uib-tooltip="Cerrar"><i class="fa fa-times"></i></button>
+                </div>
+                <span style="margin-top: 6px;display: inline-block;font-size: 1.4em;">Categoría de selección</span>
+              </div>
+              <form name="frmNuevaCategoria" ng-submit="addCategoriaGrupo()">
+                <div class="clearfix panel-footer">
+                  <div class="input-group">
+                    <input type="text" class="form-control input-sm" ng-model="nameCategoriaGroup"
+                      placeholder="Agregar un nueva categoria" required />
+                    <span class="input-group-btn">
+                      <button type="submit" ng-disabled="frmNuevaCategoria.$invalid"
+                        class="btn btn-info btn-sm btn-rounded" ><i class="fa fa-plus"></i></button>
+                    </span>
+                  </div>
+                </div>
+              </form>
+              <div class="panel-body" ng-if='objectCategoria.length == 0'>
+                <h2 class="text-center">No hay categoría por el momento.</h2>
+              </div>
+              <table class="table table-striped m-b-none" ng-if='objectCategoria.length > 0'>
+                <thead>
+                  <tr>
+                    <th style="width:60px;" class="text-center">No</th>
+                    <th>Nombre del grupo</th>
+                    <th style="width:300px;"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="o in objectCategoria" ng-dblclick="editCategoriaGrupo(o);">
+                    <td class="text-center"><span class="h3">{{ $index + 1 }}</span></td>
+                    <td>
+                      <span class="h3" ng-hide="o.editing">{{ o.nombre_categoria_grupo }}</span>
+                      <input class="form-control" ng-show="o.editing"
+                        ng-model="o.nuevoCategoriaNombre" name="nuevoCategoriaNombre" id="nuevoCategoriaNombre" />
+                    </td>
+                    <td class="text-center">
+                      <div class="btn-group" ng-hide="o.editing">
+                        <button ng-click="deleteCategoriaGroup(o, $index)" 
+                          class="btn  btn-danger" tooltip-placement="top" uib-tooltip="Eliminar"><i class="fa fa-trash"></i></button>
+                        <button ng-click="ViewCategoriaGroup(o)"
+                          class="btn btn-info" tooltip-placement="top" uib-tooltip="Visualizar Grupos"><i class="fa fa-eye"></i></button>
+                      </div>
+                      <div ng-show="o.editing" class="btn-group">
+                        <button type="button" ng-click="doneElementC(o, $index)"
+                          class="btn btn-info">Editar</button>
+                        <button type="button" ng-click="btnDeleteElement(o);"
+                          class="btn btn-danger">Cancelar</button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

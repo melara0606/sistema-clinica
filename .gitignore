@@ -1,0 +1,11 @@
+/vendor
+/node_modules
+/public/app.js
+/public/dist/js/main.build.js
+/public/templates/app_dashboard_v1.html
+yarn.lock
+key.google.maps
+gulfile.js
+composer.lock
+clinica-db.sql
+/logs

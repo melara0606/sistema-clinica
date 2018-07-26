@@ -1,0 +1,34 @@
+<div class="panel" style="margin-bottom: 0px; background-color: #fafafa; font-size: 16px">
+	<div class="panel-heading b-b b-light" style="overflow: auto; background-color: #008080">
+    <STRONG style="color: #ffffff">Verificación</STRONG>
+  </div>
+	<div class="panel-body">
+		<div class="panel panel-default">
+    	<div class="panel-body">
+        <p>
+          Está seguro que desea cerrar el item de esta compra, una vez cerrada no se le podra hacer modificaciones.
+          <table class="table">
+            <tr>
+              <td>Nombre producto</td>
+              <td>Tipo producto</td>
+              <td>Cantidad</td>
+              <td>Precio</td>
+              <td>Total</td>
+            </tr>
+            <tr>
+              <td>{{ item.nombre_material }}</td>
+              <td>{{ item.nombre_catalogo }}</td>
+              <td class="text-center">{{ item.cantidad | number: 2}}</td>
+              <td class="text-center">{{ item.precio  | currency: "$"}}</td>
+              <td class="text-center">{{ (item.cantidad * item.precio) | currency: "$" }}</td>
+            </tr>
+          </table>
+        </p>
+      </div>
+  	</div>
+	</div>
+  <div class="modal-footer ng-scope">
+    <button type="button" ng-click="cerrar();" class="pull-right btn btn-danger">Cancelar</button>
+    <button type="button" ng-click="ok();" class="pull-right btn btn-info">Continuar</button>
+  </div>
+</div>

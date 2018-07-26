@@ -1,0 +1,26 @@
+<div class="panel" style="margin-bottom: 0px; background-color: #fafafa; font-size: 16px">
+	<div class="panel-heading b-b b-light" style="overflow: auto; background-color: #008080">
+    <STRONG style="color: #ffffff">FECHA DE VENCIMIENTO</STRONG>
+    <button type="button" ng-click="cerrar();" class="pull-right btn btn-danger">Cerrar</button>
+  </div>
+	<div class="panel-body">
+		<div class="panel panel-default">
+    	<div class="panel-body">
+				<form class="form-inline" name="frmProveedor" role="form" ng-submit="onCreate();">
+					<div class="form-group">
+						<label for="proveedores">FECHA DE VENCIMIENTO: </label>
+						<p class="input-group">
+              <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="fechaVencimiento" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" readonly close-text="Close" alt-input-formats="altInputFormats" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-info" ng-click="open1()">
+                  <i class="glyphicon glyphicon-calendar"></i>
+                </button>
+              </span>
+            </p>
+					</div>          
+					<button ng-disabled="frmProveedor.$invalid" type="submit" class="pull-right btn btn-info">Processar</button>
+				</form>
+    	</div>
+  	</div>
+	</div>
+</div>

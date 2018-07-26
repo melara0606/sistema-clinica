@@ -1,0 +1,114 @@
+<style>
+  .horizontal-collapse { height: 70px; }
+  .navbar-collapse.in { overflow-y: hidden; }
+</style>
+<div class="hbox hbox-auto-xs hbox-auto-sm" style="background:url(public/img/rayas.jpg) center center; background-size:cover">
+	<div class="col">
+		<div class="bg-light lter b-b wrapper-md"  style="background-color: #008080">
+			<div class="row" >
+        <div class="col-xs-12">
+          <div class=" pull-right">
+            <a ng-if="listProducts.length == 0" ui-sref="app.compras" class="btn btn-info ">Regresar </a>
+          <!--  <button style="overflow: auto;" type="button" class="btn btn-success" 
+              ng-click="isCollapsed = !isCollapsed" tooltip-placement="top" uib-tooltip="Agregar">
+              <i class="fa fa-plus"></i> 
+            </button> -->
+            <button ng-if="listProducts.length > 0" type="button" class="btn btn-info" 
+              ng-click="generarCompra();">Generar Compra</button>
+          </div>
+          <div class="pull-left">
+            <h3 class="m-n" style="color:white">
+              <span>{{ proveedor.nombre_proveedor }}</span>
+            </h3>
+          </div>
+          <br>
+          <div uib-collapse="isCollapsed" class="collapse">
+            <hr />           
+          </div>
+        </div>
+      </div>
+		</div>
+
+    <div class="wrapper-md">
+			<div class="row">
+				<div class="col-sm-12">
+
+             <div class="panel b-a">
+              <div class="panel-heading b-b b-light" style="background-color: #6490dd"><span class="text-bold" style="color: #ffffff">Agregar Item a la compra</span></div>
+              <div class="panel-body">
+                <form ng-submit="onAdd(formItem.$valid);" class="form-inline form-validation pull-right" name="formItem" role="form">
+                  <div class="form-group">
+                    <select ng-change='onChangeFilter()' required ng-model="frm.type" name="typeMaterial" class="form-control" id="typeMaterial">
+                      <option value="1aac964e-994f-4415-ab4e-439d3f9495d4">Reactivos</option>
+                      <option value="c946e5fe-dcdc-4e13-a685-58f9ad8c4030">Insumos</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <select required ng-model="frm.material" name="materiales" class="form-control" id="materiales" ng-options=" select.material_id as select.nombre_material for select in listSelect"></select>
+                  </div>
+                  <div class="form-group">
+                    <input required type="text" ng-model="frm.nameCantidad" name="nameCantidad" id="nameCantidad" placeholder="* Cantidad" ng-pattern="/^[0-9]+$/" style="width: 120px" class="form-control" />
+                  </div>
+                  <div class="form-group">
+                    <input required
+                      type="text" ng-model="frm.precio"
+                      name="precio" id="precio" class="form-control"
+                      ng-pattern="/^[0-9]+.[0-9]{2}$/"
+                      placeholder="* Precio" style="width: 120px" />
+                  </div>
+                  <button type="submit" ng-disabled="formItem.$invalid" class="btn btn-info">Agregar</button>
+                </form>
+              </div>
+            </div>
+
+
+
+
+					<div class="panel panel-default" style="background-color: #e1f5fe">
+						<div class="panel-heading" style="background-color: #6490dd"><span class="text-bold" style="color: #ffffff">Items de la compra</span></div>
+            <table class="table table-striped m-b-none ng-scope">
+							<thead>
+								<tr>
+									<th class="text-center" width="120px">#</th>
+									<th class="text-center">Nombre del producto</th>
+                  <th class="text-center">Tipo</th>
+									<th class="text-center" width="150px">Cantidad</th>
+                  <th class="text-center" width="150px">Precio</th>
+                  <th class="text-center" width="150px">Total</th>
+                  <th style="width: 80px;"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-if="listProducts.length > 0" ng-repeat="item in listProducts">
+                  <td class="text-center">{{ $index + 1 }}</td>
+                  <td class="text-center">{{ item.nombre_material }}</td>
+                  <td class="text-center">{{ item.nombre_catalogo }}</td>
+                  <td class="text-center">{{ item.compra.nameCantidad }}</td>
+                  <td class="text-center">{{ item.compra.precio | currency:"USD$" }}</td>
+                  <td class="text-center">{{ item.compra.nameCantidad * item.compra.precio | currency:"USD$" }} </td>
+                  <td>
+                    <button ng-click="onDeleteItem($index);" class="btn btn-danger btn-rounded fa fa-trash-o"></button>
+                  </td>
+								</tr>
+                <tr ng-if="listProducts.length > 0">
+                  <td colspan="5" class="text-right">
+                    <strong>Total</strong>
+                  </td>
+                  <td class="text-center">
+                    <strong>{{ subTotal | currency:"USD$" }}</strong>
+                  </td>
+                  <td></td>
+                </tr>
+                <tr ng-if="listProducts.length == 0">
+                  <td colspan="7">
+                    <h4 class="text-center">No tenemos materiales asignados por el momento</h3>
+                  </td>
+                </tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

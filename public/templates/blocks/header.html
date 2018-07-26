@@ -1,0 +1,98 @@
+<div class="navbar-header {{app.settings.navbarHeaderColor}}">
+  <button class="pull-right visible-xs dk" ui-toggle-class="show" data-target=".navbar-collapse">
+    <i class="glyphicon glyphicon-cog"></i>
+  </button>
+  <button class="pull-right visible-xs" ui-toggle-class="off-screen" data-target=".app-aside" ui-scroll-to="app">
+    <i class="glyphicon glyphicon-align-justify"></i>
+  </button>
+  <a href="#/" class="navbar-brand text-lt">
+    <i class="fa fa-plus-circle"></i>
+    <img src="public/img/Microscope-icon.png" alt="." class="hide">
+    <span class="hidden-folded m-l-xs" style="color:white">MM Fisher'st</span>
+  </a>
+</div>
+<!-- <div class="collapse pos-rlt navbar-collapse box-shadow {{app.settings.navbarCollapseColor}}"> -->
+  <div class="collapse pos-rlt navbar-collapse box-shadow bg-info dker">
+  <div class="nav navbar-nav hidden-xs">
+    <a href class="btn no-shadow navbar-btn" ng-click="app.settings.asideFolded = !app.settings.asideFolded">
+      <i class="fa {{app.settings.asideFolded ? 'fa fa-reorder' : 'fa fa-times'}} fa-fw"></i>
+    </a>
+    <a href class="btn no-shadow navbar-btn active" ng-click="onShowUser()">
+      <i class="icon-user fa-fw"></i>
+    </a>
+  </div>
+  <ul class="nav navbar-nav navbar-right">
+    <li uib-dropdown is-open='notifications.isopen' ng-show="productsVecimiento.length > 0"
+      ng-if='isShowNotification.length > 0'>
+      <a href class="dropdown-toggle clear" uib-dropdown-toggle ng-disabled="disabled">
+        <i class="icon-bell fa-fw"></i>
+        <span class="badge badge-sm up bg-danger pull-right-xs">1</span>
+      </a>
+      <ul class="dropdown-menu animated fadeInRight w-lg no-padder" 
+        uib-dropdown-menu role="menu" aria-labelledby="single-button">
+        <li>
+          <div class="panel bg-white m-n">
+            <div class="panel-heading b-light bg-light">
+              <strong>Tienes <span>1</span> notificacion</strong>
+            </div>
+            <div class="list-group">
+              <a ng-click='modalVecimiento()' href="" class="media list-group-item">
+                <span class="media-body block m-b-none">
+                  Hay {{ productsVecimiento.length }} producto(s) que esta pronto a vencer
+                </span>
+              </a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li uib-dropdown is-open="status.isopen">
+      <a href class="dropdown-toggle clear" uib-dropdown-toggle ng-disabled="disabled">
+        <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
+          <img src="public/img/user.png" alt="...">
+          <i class="on md b-white bottom"></i>
+        </span>
+        <span class="hidden-sm hidden-md"
+          ng-if='userRegister.is_paciente'>
+          {{ userRegister.codigo_paciente }}
+        </span>
+        <span class="hidden-sm hidden-md"
+          ng-if='!userRegister.is_paciente'>
+          {{ userRegister.email }}
+        </span>
+        <b class="caret"></b>
+      </a>
+      <ul class="dropdown-menu animated fadeInRight w"
+        uib-dropdown-menu role="menu" aria-labelledby="single-button">
+        <li class="wrapper b-b m-b-sm bg-light m-t-n-xs">
+          <div>
+            <span class="text-muted text-xs block" ng-if='!userRegister.is_paciente'>
+              {{ userRegister.data.name_emp }}
+              {{ userRegister.data.lastname_emp }}
+            </span>
+            <span class="text-muted text-xs block" ng-if='userRegister.is_paciente'>
+              {{ userRegister.name_pac }} {{ userRegister.lastname_pac }}
+            </span>
+          </div>
+        </li>
+        <li>
+          <li>
+           <a ng-if='is_paciente' ui-sref="app.perfil">Perfil</a>
+         </li>
+          <li>
+            <a ui-sref="app.changePassword">
+             <span>Configuracion</span>
+            </a>
+          </li>
+          <li>
+            <a ng-click='modalSucursal();'
+              ng-if='isShowSucursal.length > 0'>Cambio de sucursal</a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a href="logout">Cerrar Sesión</a>
+          </li>
+      </ul>
+    </li>
+  </ul>
+</div>
