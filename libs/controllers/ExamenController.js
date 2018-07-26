@@ -74,6 +74,7 @@ module.exports.item = function($scope, $rootScope, objectData, toastr, Restangul
   }
 
   $scope.editExamen = (item, $index) => {
+    item.tipo_reporte = item.tipo_reporte.toString() 
     $scope.userNew = item;
     $scope.editing = true;
     $scope.$index = $index;
@@ -83,8 +84,10 @@ module.exports.item = function($scope, $rootScope, objectData, toastr, Restangul
     if($valid){
       if($scope.userNew.id){
         Restangular.all('edit_examens/' + $scope.userNew.id).customPOST({
-          nombre_examen: $scope.userNew.nombre_examen,
-          precio      : $scope.userNew.precio
+          nombre_examen : $scope.userNew.nombre_examen,
+          precio        : $scope.userNew.precio,
+          tipo_reporte  : $scope.userNew.tipo_reporte,
+          is_only       : ($scope.userNew.is_only) ? $scope.userNew.is_only : 0
         }).then((response) => {
           $scope.editing = false;
           $scope.examenes[$scope.$index] = response;
@@ -96,7 +99,9 @@ module.exports.item = function($scope, $rootScope, objectData, toastr, Restangul
       Restangular.all('add_examenes').customPOST({
         nombre_examen: $scope.userNew.nombre_examen,
         categoria_id:  $scope.categoria.id,
-        precio      : $scope.userNew.precio
+        precio      : $scope.userNew.precio,
+        tipo_reporte  : $scope.userNew.tipo_reporte,
+        is_only       : ($scope.userNew.is_only) ? $scope.userNew.is_only : 0
       }).then(function(response) {
         $scope.editing = false;
         $scope.examenes.unshift({
