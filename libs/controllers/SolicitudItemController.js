@@ -223,7 +223,7 @@ module.exports.item = function($scope, $rootScope, $uibModal, object, Restangula
 						if(response.isError){
 								let modal = $uibModal.open({
 										templateUrl: "public/templates/modals/confirmar.cierre.examen.html",
-										controller: ($scope, $uibModalInstance, toastr) => {
+										controller: ($scope, c, toastr) => {
 												$scope.cerrar = function() { $uibModalInstance.close({}) }
 												$scope.ok = () => {
 														Restangular.all('changeStatusExamenItem').customPOST({ id: item.id }, '').then((response) => {
@@ -394,5 +394,42 @@ module.exports.item = function($scope, $rootScope, $uibModal, object, Restangula
       }, (error) => {
         toastr.success(json.error.message, 'Error!');
       })
-    }
+		}
+		
+		$scope.onSendEmail = (categoria_id = 0, typeReporte = 1) => {
+			let typeURL = `send/solicitud/email/1?solicitud=${ $scope.object.id }&categoria=${ categoria_id }`
+			if(typeReporte != 1){
+				typeURL = `send/solicitud/email/options${typeReporte}?solicitud=${$scope.object.id}&categoria=${categoria_id}`
+			}
+			
+			let open = $uibModal.open({
+				templateUrl: 'public/templates/modals/send_solicitud_doctors.html',
+				resolve: {
+					doctors: ["Restangular", function(Restangular){
+						return Restangular.all('doctors').customGET()
+					}]
+				},
+				controller: ($scope, doctors, $uibModalInstance) => {
+					$scope.doctors = doctors
+					$scope.cerrar = () => { $uibModalInstance.close({ response: false }) }
+
+					$scope.onSendEmailSubmit = () => {
+						$uibModalInstance.close({ 
+							response: true,
+							object: {
+								doctor: $scope.doctor,
+								comment: $scope.comment
+							}
+						})
+					}
+				}
+			})
+
+			open.result.then( r => {
+				if(r.response){
+					typeURL += `&doctor=${ r.object.doctor }&comment=${r.object.comment}`;
+					window.open(typeURL, '_blank');
+				}
+			})
+		}
 }

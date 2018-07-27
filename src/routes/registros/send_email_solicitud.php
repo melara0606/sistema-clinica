@@ -5,11 +5,14 @@
   use PHPMailer\PHPMailer\PHPMailer;
   use PHPMailer\PHPMailer\Exception;
 
-  function send_email_solicitudType($isResponse, $dir, $nameFile, $baseUrl){
+  function send_email_solicitudType($isResponse, $dir, $nameFile, $baseUrl, $QueryParams, $db){
     if($isResponse->getStatusCode() === 200){
       $routeDir = "{$dir}/send/solicitud/{$nameFile}.pdf";
       $mail = new PHPMailer(false);
       $isTrue = false;
+
+      $doctor = $db->where('id', $QueryParams['doctor'])->getOne('doctores', 'name_doc, lastname_doc, email');
+
       try {
           $mail->SMTPDebug = 2;
           $mail->isSMTP();
@@ -23,13 +26,13 @@
           //Recipients
           $mail->setFrom('mmfisherst@gmail.com', utf8_decode( "Laboratorio Clínico MM FISHER'ST"));
           // $mail->addAddress( $array["compra"]['email_representante'] , $array["compra"]['nombre_proveedor']);
-          $mail->addAddress( "melara0606@gmail.com" , "Edwin Melara Landaverde");
+          $mail->addAddress( $doctor['email'] , $doctor['name_doc']." ".$doctor['lastname_doc']);
 
           $mail->addAttachment($routeDir);
 
           $mail->isHTML(true);
-          $mail->Subject = utf8_decode('Order de compra');
-          $mail->Body    = 'Esta es la orden de compra de productos solicitados.';
+          $mail->Subject = utf8_decode('Solicitud Atendida');
+          $mail->Body    = utf8_decode($QueryParams['comment']);
 
           $mail->SMTPOptions = array(
             'ssl' => array(
@@ -122,7 +125,7 @@
       "isSave"          => true
     ]);
 
-    send_email_solicitudType($isResponse, $this->dir, $nameFile, $this->baseUrl);
+    send_email_solicitudType($isResponse, $this->dir, $nameFile, $this->baseUrl, $QueryParams, $this->db);
   });
 
   $app->get('/send/solicitud/email/options3', function(Request $request, Response $response ) {
@@ -169,7 +172,7 @@
         "isSave"          => true
       ]);
 
-      send_email_solicitudType($isResponse, $this->dir, $nameFile, $this->baseUrl);
+      send_email_solicitudType($isResponse, $this->dir, $nameFile, $this->baseUrl, $QueryParams, $this->db);
   });
 
   $app->get('/send/solicitud/email/options2', function(Request $request, Response $response ) {
@@ -213,7 +216,7 @@
       "isSave"          => true
     ]);
 
-    send_email_solicitudType($isResponse, $this->dir, $nameFile, $this->baseUrl);
+    send_email_solicitudType($isResponse, $this->dir, $nameFile, $this->baseUrl, $QueryParams, $this->db);
   });
 
   $app->get('/send/solicitud/email/{type}', function(Request $request, Response $response ) {
@@ -259,6 +262,6 @@
       "dir"             => $this->dir,
       "arrayOfResponse" => $arrayResponse
     ]);
-    send_email_solicitudType($isResponse, $this->dir, $nameFile, $this->baseUrl);
+    send_email_solicitudType($isResponse, $this->dir, $nameFile, $this->baseUrl, $QueryParams, $this->db);
   });
 

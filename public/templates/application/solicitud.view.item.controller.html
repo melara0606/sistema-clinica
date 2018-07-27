@@ -30,7 +30,7 @@
                   <i class="fa fa-file-pdf-o"></i>
                 </a>
   
-                <a target="__blank" href="send/solicitud/email/1?solicitud={{ object.id }}&categoria={{ items[0]['categoria_id'] }}" class="btn btn-info">
+                <a target="__blank" ng-click="onSendEmail(items[0]['categoria_id'], 1);" class="btn btn-info">
                   <i class="fa fa-send-o"></i>
                 </a>
               </div>
@@ -82,8 +82,8 @@
                       <a target="__blank" href="reportes/examenes/options{{ item.tipo_reporte }}?solicitud={{ object.id }}&categoria={{ items[0]['categoria_id'] }}" class="btn btn-primary" ng-if='item.estado == 3 && item.tipo_reporte != 1'>
                         <i class="fa fa-file-pdf-o"></i>
                       </a>
-                      <a target="__blank" 
-                        href="send/solicitud/email/options{{ item.tipo_reporte }}?solicitud={{ object.id }}&categoria={{ items[0]['categoria_id'] }}" class="btn btn-warning" 
+                      <a target="__blank" ng-click="onSendEmail(items[0]['categoria_id'], item.tipo_reporte);"
+                        data-href="send/solicitud/email/options{{ item.tipo_reporte }}?solicitud={{ object.id }}&categoria={{ items[0]['categoria_id'] }}" class="btn btn-warning" 
                           ng-if='item.estado == 3 && item.tipo_reporte != 1'>
                         <i class="fa fa-send-o"></i>
                       </a>
