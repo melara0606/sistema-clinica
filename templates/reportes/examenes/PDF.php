@@ -53,15 +53,20 @@
       $this->Cell(0,  $this->height + 1, 'CRITERIO', 1, 1, 'C');
     }
 
-    public function footerFirma($fecha = array()){
-      
-      $this->SetY(-18);
-      $this->SetFont('Arial','', 10);
-      $date = date_create($fecha[0]['fecha']);
-      $this->Cell(160, $this->height, 'FECHA DE IMPRESION: '.(date_format($date, 'd-m-Y')), 0, 0, 'L');
-      $this->Cell(0, $this->height, 'F:__________________________________________________________', 0, 1, 'L');
-      $this->Cell(160);
-      $this->Cell(0, $this->height-1, 'Responsable', 0, 1, 'C');
+    public function footerFirma($fecha = array(), $isSave = false){
+      if($isSave){
+        $this->Image('public/img/sello_clinica.png' , 5, 175, 55);
+        $this->Image('public/img/firma_lic.png' , 180, 175, 55);
+        $this->Image('public/img/sello_lic.png' , 230, 175, 55);
+      }else{
+        $this->SetY(-18);
+        $this->SetFont('Arial','', 10);
+        $date = date_create($fecha[0]['fecha']);
+        $this->Cell(160, $this->height, 'FECHA DE IMPRESION: '.(date_format($date, 'd-m-Y')), 0, 0, 'L');
+        $this->Cell(0, $this->height, 'F:__________________________________________________________', 0, 1, 'L');
+        $this->Cell(160);
+        $this->Cell(0, $this->height-1, 'Responsable', 0, 1, 'C');
+      }
     }
 
     public function getCategoriaOne($data = array(), $value = array(), $categoria = 1)

@@ -9,3 +9,8 @@ gulpfile.js
 composer.lock
 clinica-db.sql
 /logs
+
+/src/send
+/src/send/*.*
+/src/send/solicitud/
+/src/send/solicitud/*.*

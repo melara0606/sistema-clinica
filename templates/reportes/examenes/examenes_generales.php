@@ -31,10 +31,16 @@
       }
       $isFisrt = false;
     }
-    $pdf->footerFirma($arrayOfResponse['CURRENT_DATE']);
+    $pdf->footerFirma($arrayOfResponse['CURRENT_DATE'], $isSave);
   }else{
     $pdf->SetFont('times','B', 14);
     $pdf->Cell(0, 15, 'LO SENTIMOS PERO NO ES LA FORMA CORRECTA DE MOSTRAR LOS RESULTADOS EN ESTA CATEGORIA', 1, 1, 'C');
   }  
-  $pdf->output();
+
+  if($isSave) {
+    $fileDir = $dir."/send/solicitud/{$fileName}.pdf";
+    $pdf->Output($fileDir, 'F');
+  }else{
+    $pdf->Output();
+  }
 ?>

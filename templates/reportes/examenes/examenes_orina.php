@@ -16,6 +16,11 @@
     $pdf->Cell(25, $pdf->height, utf8_decode($value['unidades']), 0, 1, 'C');
   }
 
-  $pdf->footerFirma($arrayOfResponse['CURRENT_DATE']);
-  $pdf->output();
+  $pdf->footerFirma($arrayOfResponse['CURRENT_DATE'], isset($isSave));
   
+  if(isset($isSave)) {
+    $fileDir = $dir."/send/solicitud/{$fileName}.pdf";
+    $pdf->Output($fileDir, 'F');
+  }else{
+    $pdf->Output();
+  }  

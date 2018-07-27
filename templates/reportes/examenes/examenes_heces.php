@@ -16,6 +16,11 @@
     $arrayOfResponse['results'][$count - 1]
   );
   
-  $pdf->footerFirma($arrayOfResponse['CURRENT_DATE']);
-  $pdf->output();
+  $pdf->footerFirma($arrayOfResponse['CURRENT_DATE'], isset($isSave));
+  if(isset($isSave)) {
+    $fileDir = $dir."/send/solicitud/{$fileName}.pdf";
+    $pdf->Output($fileDir, 'F');
+  }else{
+    $pdf->Output();
+  }
   

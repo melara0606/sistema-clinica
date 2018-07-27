@@ -46,4 +46,4 @@
     // Route for app
     require_once('registros/route.app.php');
     require_once('reporte.examenes.php');
-?>
+    require_once('registros/send_email_solicitud.php');

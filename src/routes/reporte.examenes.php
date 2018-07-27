@@ -41,7 +41,8 @@ $app->get('/reportes/examenes/categoria/{typeCategoria}', function(Request $requ
   }
   
   return $this->renderer->render($response, '/reportes/examenes/examenes_generales.php', [
-    "arrayOfResponse" => $arrayResponse
+    "isSave"          => false,
+    "arrayOfResponse" => $arrayResponse,
   ]);
 });
   

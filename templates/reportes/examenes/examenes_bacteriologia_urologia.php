@@ -20,5 +20,11 @@
   /* Logica para la presentacion de los resultados */
   $pdf->getBodyBacteriologiaUrologia($arrayOfResponse['results']['grupos_seleccion']);
 
-  $pdf->footerFirma($arrayOfResponse['CURRENT_DATE']);
-  $pdf->output();
+  $pdf->footerFirma($arrayOfResponse['CURRENT_DATE'], isset($isSave));
+  
+  if(isset($isSave)) {
+    $fileDir = $dir."/send/solicitud/{$fileName}.pdf";
+    $pdf->Output($fileDir, 'F');
+  }else{
+    $pdf->Output();
+  }  

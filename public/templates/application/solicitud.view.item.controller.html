@@ -25,9 +25,15 @@
           <div ng-repeat="(key, items) in examenes">
             <div class="wrapper-lg" style="overflow:auto">
               <span class="pull-left h3" style="color: navy">{{ key }}</span>
-              <a target="__blank" href="reportes/examenes/categoria/1?solicitud={{ object.id }}&categoria={{ items[0]['categoria_id'] }}" class="btn btn-info pull-right">
-                <i class="fa fa-file-pdf-o"></i>
-              </a>
+              <div class="btn-group pull-right">
+                <a target="__blank" href="reportes/examenes/categoria/1?solicitud={{ object.id }}&categoria={{ items[0]['categoria_id'] }}" class="btn btn-info">
+                  <i class="fa fa-file-pdf-o"></i>
+                </a>
+  
+                <a target="__blank" href="send/solicitud/email/1?solicitud={{ object.id }}&categoria={{ items[0]['categoria_id'] }}" class="btn btn-info">
+                  <i class="fa fa-send-o"></i>
+                </a>
+              </div>
             </div>
 
             <table class="table table-striped b-t b-light">
@@ -75,6 +81,11 @@
 
                       <a target="__blank" href="reportes/examenes/options{{ item.tipo_reporte }}?solicitud={{ object.id }}&categoria={{ items[0]['categoria_id'] }}" class="btn btn-primary" ng-if='item.estado == 3 && item.tipo_reporte != 1'>
                         <i class="fa fa-file-pdf-o"></i>
+                      </a>
+                      <a target="__blank" 
+                        href="send/solicitud/email/options{{ item.tipo_reporte }}?solicitud={{ object.id }}&categoria={{ items[0]['categoria_id'] }}" class="btn btn-warning" 
+                          ng-if='item.estado == 3 && item.tipo_reporte != 1'>
+                        <i class="fa fa-send-o"></i>
                       </a>
                     </div>
                   </td>
